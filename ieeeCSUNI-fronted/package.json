@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "IEEE Computer Society — UNI Student Chapter website",
   "private": true,
+  "homepage": "https://ieeecsuni-droid/",
+
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint src --ext .js,.jsx"
+    "lint": "eslint src --ext .js,.jsx",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist" 
   },
   "dependencies": {
     "lucide-react": "^0.383.0",
@@ -27,4 +31,6 @@
     "tailwindcss": "^3.4.1",
     "vite": "^5.1.0"
   }
+
 }
+
