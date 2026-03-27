@@ -8,5 +8,5 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  base: '/ieeecsuni.github.io/ieeeCSUNI-fronted/',
+  base: '/ieeecsuni.github.io/',
 })
