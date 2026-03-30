@@ -23,7 +23,10 @@ export function Navbar() {
     logout()
     navigate('/')
   }
-
+  if (location.pathname === '/login') {
+    return null;
+  }
+  
   return (
     <>
       <nav
