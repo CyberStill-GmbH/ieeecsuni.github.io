@@ -23,10 +23,12 @@ export function Navbar() {
     logout()
     navigate('/')
   }
+  //-----Eliminar navbar al entrar al login-form------
+  
   if (location.pathname === '/login') {
     return null;
   }
-  
+
   return (
     <>
       <nav
