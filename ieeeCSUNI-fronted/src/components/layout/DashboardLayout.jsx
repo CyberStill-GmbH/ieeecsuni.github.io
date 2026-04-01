@@ -14,22 +14,28 @@
 // ============================================================
 
 import Sidebar from './Sidebar'
-import { useState } from 'react'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+
 
 export default function DashboardLayout({ role, user, activePath, onNavigate, onLogout, children }) {
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+
+
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-page)' }}>
       <Sidebar
         role={role}
         user={user}
-        activePath={activePath}
-        onNavigate={onNavigate}
+        activePath={pathname}
+        onNavigate={(path) => navigate(path)}
         onLogout={onLogout}
+
       />
       {/* Contenido principal — margen izquierdo deja espacio al sidebar */}
       {/* NOTA: ajusta ml-60 a ml-16 cuando el sidebar esté colapsado (maneja estado aquí si lo necesitas) */}
       <main className="ml-60 min-h-screen p-6 relative z-10 transition-all duration-300">
-        {children}
+        <Outlet />
       </main>
     </div>
   )
