@@ -9,6 +9,7 @@
 
 import { useState } from 'react'
 import { IEEECSLogo } from '../../assets/IEEECSLogo'
+
 // Íconos SVG inline (sin dependencia de librería)
 // Reemplaza por lucide-react si lo tienes: import { LayoutDashboard } from 'lucide-react'
 const icons = {
@@ -125,16 +126,16 @@ export default function Sidebar({ role = 'member', activePath = '/', user = {}, 
       {/* ── Logo + colapsar ── */}
       <div className="flex items-center justify-between px-4 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
         {!collapsed && (
-          <div className="flex items-center gap-2">
-            {/* Badge IEEE CS — mismo estilo que tu landing */}
-            <IEEECSLogo size={36} />
-            IEEE C
-            <span className="text-xs font-light tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>UNI</span>
+          <div className="flex items-center gap-2 text-white font-bold tracking-tight">
+            <IEEECSLogo size={32} />
+            <div className="leading-tight">
+              IEEE C<span className="text-[10px] font-light tracking-widest block" style={{ color: 'rgba(255,255,255,0.4)' }}>UNI</span>
+            </div>
           </div>
         )}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="p-1.5 rounded-md transition-colors"
+          className="p-1.5 rounded-md transition-colors hover:bg-white/5"
           style={{ color: 'rgba(255,255,255,0.3)' }}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -150,7 +151,6 @@ export default function Sidebar({ role = 'member', activePath = '/', user = {}, 
       {!collapsed && (
         <div className="px-4 py-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="flex items-center gap-3">
-            {/* Avatar con iniciales — reemplaza con <img> si tienes foto */}
             <div
               className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
               style={{ background: 'rgba(59,130,246,0.2)', color: '#3b82f6', border: '1px solid rgba(59,130,246,0.3)' }}
@@ -170,47 +170,46 @@ export default function Sidebar({ role = 'member', activePath = '/', user = {}, 
       {/* ── Navegación ── */}
       <nav className="flex-1 overflow-y-auto px-2 py-3 space-y-0.5">
         {navItems.map(item => {
-          const isActive = activePath === item.path || activePath.startsWith(item.path + '/')
+          // Lógica de activo: Coincidencia exacta o si la ruta actual empieza por el path del item
+          const isActive = activePath === item.path || (item.path !== '/member' && activePath.startsWith(item.path))
+          
           return (
             <button
               key={item.path}
-              onClick={() => onNavigate?.(item.path)}
+              onClick={() => onNavigate(item.path)}
               className={`
-                w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left
-                transition-all duration-150
-                ${isActive ? 'text-white' : ''}
+                w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group mb-1
+                ${isActive 
+                  ? 'bg-blue-600/10 text-blue-400 font-medium' 
+                  : 'text-gray-400 hover:bg-white/5 hover:text-gray-200'}
               `}
-              style={{
-                background: isActive ? 'rgba(59,130,246,0.15)' : 'transparent',
-                color: isActive ? '#e8edf5' : 'rgba(255,255,255,0.4)',
-                border: isActive ? '1px solid rgba(59,130,246,0.25)' : '1px solid transparent',
-              }}
-              title={collapsed ? item.label : undefined}
             >
-              <span className="flex-shrink-0" style={{ color: isActive ? '#3b82f6' : 'inherit' }}>
+              <div className={`transition-colors ${isActive ? 'text-blue-400' : 'text-gray-500 group-hover:text-gray-300'}`}>
                 {icons[item.icon]}
-              </span>
+              </div>
+              
               {!collapsed && (
-                <span className="text-sm font-medium">{item.label}</span>
+                <span className="text-sm truncate">{item.label}</span>
               )}
-              {/* Indicador activo a la derecha */}
+
               {isActive && !collapsed && (
-                <span className="ml-auto w-1.5 h-1.5 rounded-full" style={{ background: '#3b82f6' }} />
+                <div className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
               )}
             </button>
           )
         })}
       </nav>
 
-      {/* ── Logout ── */}
-      <div className="px-2 pb-4" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '12px' }}>
+      {/* ── Botón Logout ── */}
+      <div className="px-2 py-4 mt-auto" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <button
           onClick={onLogout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-left"
-          style={{ color: 'rgba(255,255,255,0.3)' }}
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-red-400/70 hover:bg-red-500/10 hover:text-red-400 transition-all duration-200 group"
         >
-          {icons.logout}
-          {!collapsed && <span className="text-sm">Cerrar sesión</span>}
+          <div className="group-hover:scale-110 transition-transform">
+            {icons.logout}
+          </div>
+          {!collapsed && <span className="text-sm font-medium">Cerrar Sesión</span>}
         </button>
       </div>
     </aside>
