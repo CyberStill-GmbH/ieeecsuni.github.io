@@ -87,7 +87,6 @@ function CertCard({ cert }) {
 
 export default function MemberCerts({ user = { name: 'Adrián César' }, onNavigate, onLogout }) {
   return (
-    <DashboardLayout role="member" user={user} activePath="/member/certs" onNavigate={onNavigate} onLogout={onLogout}>
       <div className="max-w-4xl mx-auto animate-fade-up">
         <PageHeader
           title="Mis certificados"
@@ -103,6 +102,5 @@ export default function MemberCerts({ user = { name: 'Adrián César' }, onNavig
           )
         }
       </div>
-    </DashboardLayout>
   )
 }

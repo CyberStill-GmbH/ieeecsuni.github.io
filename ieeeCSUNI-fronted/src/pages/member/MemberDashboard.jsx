@@ -10,8 +10,6 @@
 //   - El endpoint sugerido: GET /api/member/dashboard
 // ============================================================
 
-import { useState } from 'react'
-import DashboardLayout from '../../components/layout/DashboardLayout'
 import { GlassCard, StatCard, Badge, PageHeader, PrimaryButton } from '../../components/layout/UI'
 
 // ── Mock data — REEMPLAZAR con fetch a tu API ──
@@ -54,14 +52,9 @@ function ProgressBar({ value, max, color = '#3b82f6' }) {
 }
 
 export default function MemberDashboard({ user = { name: 'Adrián César' }, onNavigate, onLogout }) {
-  // Simula cambiar de path para la demo
-  const [activePath, setActivePath] = useState('/member')
-  const nav = onNavigate || setActivePath
-
   const horasPct = Math.round((mockStats.horasVoluntariado / mockStats.metaAnual) * 100)
 
   return (
-    <DashboardLayout role="member" user={user} activePath={activePath} onNavigate={nav} onLogout={onLogout}>
       <div className="max-w-6xl mx-auto animate-fade-up">
 
         {/* ── Encabezado ── */}
@@ -199,6 +192,5 @@ export default function MemberDashboard({ user = { name: 'Adrián César' }, onN
           </div>
         </div>
       </div>
-    </DashboardLayout>
   )
 }

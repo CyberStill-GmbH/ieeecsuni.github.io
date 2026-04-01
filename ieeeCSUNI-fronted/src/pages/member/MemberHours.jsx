@@ -47,7 +47,7 @@ export default function MemberHours({ user = { name: 'Adrián César' }, onNavig
   const pct = Math.min(100, Math.round((horasAprobadas / META_ANUAL) * 100))
 
   return (
-    <DashboardLayout role="member" user={user} activePath={activePath} onNavigate={onNavigate} onLogout={onLogout}>
+    
       <div className="max-w-5xl mx-auto animate-fade-up">
 
         <PageHeader
@@ -167,6 +167,5 @@ export default function MemberHours({ user = { name: 'Adrián César' }, onNavig
           }
         </GlassCard>
       </div>
-    </DashboardLayout>
   )
 }
