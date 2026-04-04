@@ -16,7 +16,6 @@
 // ============================================================
 
 import { useState } from 'react'
-import DashboardLayout from '../../components/layout/DashboardLayout'
 import { GlassCard, StatCard, PageHeader, PrimaryButton } from '../../components/layout/UI'
 
 const mockEventos = [
@@ -112,7 +111,6 @@ export default function UserDashboard({ user = { name: 'Estudiante' }, onNavigat
   }
 
   return (
-    <DashboardLayout role="user" user={user} activePath={activePath} onNavigate={onNavigate} onLogout={onLogout}>
       <div className="max-w-4xl mx-auto animate-fade-up">
 
         {qrEvento && (
@@ -213,6 +211,5 @@ export default function UserDashboard({ user = { name: 'Estudiante' }, onNavigat
           // QR dinámico con qrcode.react disponible en v2
         </p>
       </div>
-    </DashboardLayout>
   )
 }
