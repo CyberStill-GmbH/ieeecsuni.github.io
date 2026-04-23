@@ -1,32 +1,40 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 
 const AuthContext = createContext()
-const API = "http://localhost:8000"
-
+const API = 'http://localhost:8000'
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
-  //Persistencia de la sesión
+
+  // Persistencia de la sesión
   useEffect(() => {
     const checkUser = async () => {
       try {
         const res = await fetch(`${API}/api/user`, {
-          credentials: "include",
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+          },
+          credentials: 'include',
         })
         if (res.ok) {
           const data = await res.json()
           setUser(data);
         }
-      } catch{}
+      } catch (err) {
+        console.error("Error checking user:", err);
+      }
     }
     checkUser()
   }, [])
-  //Pedir permiso a la API(CSRF)
-  const getCSRF = async() => {
+
+  // Pedir CSRF
+  const getCSRF = async () => {
     await fetch(`${API}/sanctum/csrf-cookie`, {
       credentials: "include"
     })
   }
-  //Manejar cookie X-CSRF
+
+  // Obtener cookie
   const getCookie = (name) => {
     return document.cookie
       .split("; ")
@@ -34,16 +42,16 @@ export function AuthProvider({ children }) {
       ?.split("=")[1]
   }
 
-  // login llamando a la promise de CSRF
-  const login = async({ email, password }) => {
+  // Login
+  const login = async ({ email, password }) => {
     await getCSRF()
 
-    const res = await fetch(`${API}/login`, {
+    const res = await fetch(`${API}/login`, {        
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "X-XSRF-TOKEN": decodeURIComponent(getCookie("XSRF-TOKEN")),
+        "X-XSRF-TOKEN": decodeURIComponent(getCookie("XSRF-TOKEN") || ""),
       },
       credentials: "include",
       body: JSON.stringify({ email, password }),
@@ -52,8 +60,9 @@ export function AuthProvider({ children }) {
     if (!res.ok) {
       throw new Error("Credenciales incorrectas.")
     }
-    //Obtener el usuario real
+
     const userRes = await fetch(`${API}/api/user`, {
+      headers: { 'Accept': 'application/json' },
       credentials: "include",
     })
 
@@ -66,15 +75,16 @@ export function AuthProvider({ children }) {
     return userData
   }
 
-  const register = async({ nombre, email, password, carrera, ciclo, confirm }) => {
+  // Register
+  const register = async ({ nombre, email, password, carrera, ciclo, confirm }) => {
     await getCSRF()
 
-    const res = await fetch(`${API}/register`, {
+    const res = await fetch(`${API}/register`, {     // ← sin http://localhost:8000
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "X-XSRF-TOKEN": decodeURIComponent(getCookie("XSRF-TOKEN")),
+        "X-XSRF-TOKEN": decodeURIComponent(getCookie("XSRF-TOKEN") || ""),
       },
       credentials: "include",
       body: JSON.stringify({
@@ -91,12 +101,12 @@ export function AuthProvider({ children }) {
       throw new Error("Error al registrarse.")
     }
 
-    return await login({ email, password})
-    
+    return await login({ email, password })
   }
 
+  // Logout
   const logout = async () => {
-    await fetch(`${API}/logout`, {
+    await fetch(`${API}/logout`, {                   // ← sin http://localhost:8000
       method: "POST",
       credentials: "include",
     })
