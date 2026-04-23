@@ -15,7 +15,7 @@ export default function NotFoundPage() {
         </div>
         <h1 className="text-2xl font-black mb-3">Página no encontrada</h1>
         <p className="text-base mb-8 max-w-sm" style={{ color: 'var(--fg2)' }}>
-          La página que buscas no existe o fue movida.
+          La página que buscas no existe o fue movida, pero puedes seguir explorando lo que tenemos por ofrecer.
         </p>
         <Link to="/" className="btn-primary mx-auto">Volver al inicio →</Link>
       </div>
