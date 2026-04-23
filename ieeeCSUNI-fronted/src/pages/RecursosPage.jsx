@@ -1,104 +1,159 @@
+import { Link } from 'react-router-dom'
+import { useState, useMemo } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { resources } from '../data'
+import { resources } from '../data' // Asumo que r.title, r.category, r.link existen
 import { HeroTag, Orb } from '../components/ui/HeroElements'
 import { SectionLabel, SectionTitle } from '../components/ui/SectionHeader'
-import { ResourceCard } from '../components/ui/ResourceCard'
+import { 
+  Search, 
+  ExternalLink, 
+  Globe, 
+  Zap,
+  ArrowUpRight,
+  Compass
+} from 'lucide-react'
 
-const categories = ['Todo', 'IEEE Xplore', 'Guía de Carrera', 'Competencias', 'Tutoriales', 'Templates', 'Comunidad']
+const categories = ['Todo', 'IEEE Xplore', 'Guía de Carrera', 'Competencias', 'Tutoriales']
 
 export default function RecursosPage() {
   useScrollReveal()
+  const [activeCat, setActiveCat] = useState('Todo')
+  const [searchQuery, setSearchQuery] = useState('')
+
+  // LÓGICA DE FILTRADO REAL
+  const filteredResources = useMemo(() => {
+    return resources.filter(r => {
+      const matchesCat = activeCat === 'Todo' || r.category === activeCat
+      const matchesSearch = r.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                           r.description?.toLowerCase().includes(searchQuery.toLowerCase())
+      return matchesCat && matchesSearch
+    })
+  }, [activeCat, searchQuery])
 
   return (
-    <main className="pt-16">
-      {/* Hero */}
-      <section
-        className="relative flex flex-col justify-center px-10 md:px-20 overflow-hidden"
-        style={{ minHeight: '50vh', paddingTop: 80, paddingBottom: 60 }}
-      >
-        <Orb className="top-[-200px] right-[-100px] w-[600px] h-[600px]"
-             style={{ background: 'radial-gradient(circle, rgba(0,180,255,0.1), transparent 70%)' }} />
-        <HeroTag>Biblioteca digital</HeroTag>
-        <h1
-          className="font-black leading-[.92] tracking-[-0.03em] mb-7"
-          style={{ fontSize: 'clamp(42px, 6vw, 80px)' }}
-        >
-          <span style={{ color: 'var(--fg)' }}>Recursos</span>
-          <span className="block" style={{ color: 'var(--c1)' }}>& aprendizaje.</span>
-        </h1>
-        <p className="max-w-xl text-lg leading-relaxed" style={{ color: 'var(--fg2)' }}>
-          Materiales curados, guías, tutoriales y acceso a la biblioteca de la IEEE
-          para que nunca pares de crecer.
-        </p>
-      </section>
-
-      {/* Resources grid */}
-      <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, var(--border2), transparent)' }} />
-      <section className="py-24 px-10 md:px-20">
-        <div className="max-w-6xl mx-auto">
-          <SectionLabel>Biblioteca</SectionLabel>
-          <SectionTitle className="reveal mb-8">Todo lo que necesitas<br />en un lugar.</SectionTitle>
-
-          {/* Category chips */}
-          <div className="flex gap-2 flex-wrap mb-10">
-            {categories.map(c => (
-              <span key={c} className="chip cursor-pointer px-4 py-1.5 text-xs hover:border-[var(--border2)] transition-colors duration-200">{c}</span>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {resources.map((r, i) => (
-              <div key={r.title} className={`reveal reveal-delay-${(i % 3) + 1}`}>
-                <ResourceCard resource={r} />
-              </div>
-            ))}
+    <main className="pt-16 bg-[#020617] min-h-screen text-white">
+      {/* ── HERO CON BUSCADOR FUNCIONAL ── */}
+      <section className="relative px-6 md:px-20 pt-24 pb-16 overflow-hidden">
+        <Orb className="top-[-150px] right-[-100px] w-[800px] h-[800px] opacity-15"
+             style={{ background: 'radial-gradient(circle, #0ea5e9, transparent 70%)' }} />
+        
+        <div className="relative z-10 max-w-5xl mx-auto text-center">
+          <HeroTag className="mx-auto">IEEE CS UNI Hub</HeroTag>
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-8 bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent">
+            Recursos <span className="text-sky-500">&</span> Enlaces
+          </h1>
+          
+          <div className="relative max-w-2xl mx-auto mt-12 group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-sky-600 to-blue-900 rounded-2xl blur opacity-20 group-focus-within:opacity-50 transition duration-500" />
+            <div className="relative bg-[#0b1120] border border-white/10 rounded-xl flex items-center px-5 py-4">
+              <Search className="w-5 h-5 text-sky-500 mr-4" />
+              <input 
+                type="text" 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Buscar en la base de datos técnica..."
+                className="bg-transparent border-none outline-none w-full text-sm font-medium placeholder:text-gray-600 text-white"
+              />
+              {searchQuery && (
+                <button onClick={() => setSearchQuery('')} className="text-xs text-gray-500 hover:text-white transition-colors">Limpiar</button>
+              )}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* IEEE Xplore spotlight */}
-      <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, var(--border2), transparent)' }} />
-      <section
-        className="py-24 px-10 md:px-20"
-        style={{ background: 'linear-gradient(180deg, transparent, rgba(0,80,120,0.15), transparent)' }}
-      >
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div>
-            <SectionLabel>IEEE Xplore</SectionLabel>
-            <SectionTitle className="reveal mb-5">Acceso gratuito<br />a la biblioteca.</SectionTitle>
-            <p className="text-base leading-relaxed mb-6" style={{ color: 'var(--fg2)' }}>
-              Como miembro del capítulo obtienes acceso a IEEE Xplore Digital Library,
-              la mayor base de datos de literatura técnica y científica en electricidad,
-              electrónica y computación.
-            </p>
-            <ul className="flex flex-col gap-3 mb-8">
-              {[
-                '5M+ documentos de investigación',
-                'Journals, magazines y conference proceedings',
-                'Standards y patentes técnicas',
-                'Acceso desde cualquier dispositivo',
-              ].map(item => (
-                <li key={item} className="flex items-center gap-3 text-sm" style={{ color: 'var(--fg2)' }}>
-                  <span style={{ color: 'var(--c1)', fontSize: 16 }}>✓</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <a href="https://ieeexplore.ieee.org" target="_blank" rel="noreferrer" className="btn-primary">
-              Ir a IEEE Xplore →
-            </a>
+      {/* ── EXPLORADOR ── */}
+      <section className="py-12 px-6 md:px-20">
+        <div className="max-w-7xl mx-auto">
+          
+          <div className="flex flex-wrap justify-center gap-3 mb-16">
+            {categories.map(c => (
+              <button 
+                key={c}
+                onClick={() => { setActiveCat(c); setSearchQuery(''); }}
+                className={`px-6 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-all border ${
+                  activeCat === c 
+                  ? 'bg-sky-600 text-white border-sky-500 shadow-[0_0_15px_rgba(14,165,233,0.3)]' 
+                  : 'bg-transparent border-white/10 text-gray-500 hover:border-white/30'
+                }`}
+              >
+                {c}
+              </button>
+            ))}
           </div>
-          <div
-            className="rounded-2xl p-8 flex items-center justify-center"
-            style={{ background: 'var(--b2)', border: '1px solid var(--border2)', minHeight: 280 }}
-          >
-            <div className="text-center">
-              <div className="text-7xl mb-4">📚</div>
-              <div className="font-mono text-sm tracking-widest uppercase mb-2" style={{ color: 'var(--c1)' }}>IEEE Xplore</div>
-              <div className="text-2xl font-black mb-1">5,000,000+</div>
-              <div className="text-sm" style={{ color: 'var(--fg2)' }}>documentos técnicos disponibles</div>
-            </div>
+
+          {/* GRID DE CARDS (SITIOS WEB) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredResources.length > 0 ? (
+              filteredResources.map((r, i) => (
+                <a 
+                  key={r.title} 
+                  href={r.url || r.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="reveal group relative block h-full"
+                >
+                  <div className="relative h-full bg-[#030712] border border-white/5 rounded-3xl overflow-hidden transition-all duration-500 hover:border-sky-500/50 hover:-translate-y-2 flex flex-col">
+                    
+                    {/* Visual Header */}
+                    <div className="h-28 relative overflow-hidden bg-[#0a1120]">
+                      <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity" 
+                           style={{ backgroundImage: 'linear-gradient(45deg, #1e293b 25%, transparent 25%, transparent 50%, #1e293b 50%, #1e293b 75%, transparent 75%, transparent)' , backgroundSize: '40px 40px' }} />
+                      
+                      <div className="absolute top-6 left-8 p-3 rounded-2xl bg-sky-500/10 border border-sky-500/20 text-sky-400 group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
+                        <Globe className="w-5 h-5" />
+                      </div>
+                      
+                      <div className="absolute top-8 right-8 flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                        <span className="text-[10px] font-bold text-gray-500 uppercase">Live Site</span>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-8 pt-4 flex-1 flex flex-col">
+                      <div className="mb-2">
+                        <span className="text-[10px] font-black text-sky-500 uppercase tracking-[0.2em]">
+                          {r.category}
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-bold mb-3 text-white group-hover:text-sky-400 transition-colors">
+                        {r.title}
+                      </h3>
+                      <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-1">
+                        {r.description || "Haz clic para explorar este portal de recursos externos seleccionado por el capítulo."}
+                      </p>
+
+                      {/* Footer Info */}
+                      <div className="flex items-center justify-between pt-6 border-t border-white/5 mt-auto">
+                        <div className="flex items-center gap-2 text-gray-600 group-hover:text-gray-400 transition-colors">
+                          <Compass className="w-4 h-4" />
+                          <span className="text-[11px] font-bold tracking-wide">EXPLORAR PORTAL</span>
+                        </div>
+                        <ArrowUpRight className="w-5 h-5 text-gray-700 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              ))
+            ) : (
+              <div className="col-span-full py-20 text-center">
+                <p className="text-gray-500 italic">No se encontraron recursos con esos criterios.</p>
+              </div>
+            )}
           </div>
+        </div>
+      </section>
+
+      {/* ── MENTORÍA CTA ── */}
+      <section className="py-24 px-6 text-center">
+        <div className="max-w-xl mx-auto p-12 rounded-[2.5rem] bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5">
+          <Zap className="w-8 h-8 text-yellow-500 mx-auto mb-4" />
+          <h3 className="text-2xl font-bold mb-4">¿Necesitas ayuda con la biblioteca?</h3>
+          <p className="text-gray-500 text-sm mb-8">Nuestros tutores del IEEE CS pueden guiarte en el uso de herramientas de investigación.</p>
+          <Link to="/contacto" className="btn-primary px-8 py-3 rounded-xl bg-sky-600 hover:bg-sky-500 font-bold transition-all inline-block">
+            Contactar mentor
+          </Link>
         </div>
       </section>
     </main>
