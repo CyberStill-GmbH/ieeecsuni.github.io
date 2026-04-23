@@ -5,6 +5,7 @@ import { events, achievements } from '../data'
 import { HeroTag, StatBar, ScrollHint, Orb } from '../components/ui/HeroElements'
 import { SectionLabel, SectionTitle } from '../components/ui/SectionHeader'
 import { EventCard } from '../components/ui/EventCard'
+import MascotaImg from '../../public/mascotaWhere.png'
 import { 
   Terminal, 
   Code2, 
@@ -96,14 +97,34 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-20 items-center">
           {/* Mascota con efecto continuo (Lado izquierdo ahora) */}
           <div className="relative flex justify-center group order-2 lg:order-1">
-             <div className="absolute w-60 h-60 bg-sky-500/10 blur-[80px] rounded-full" />
-             <div className="relative w-72 h-72 md:w-80 md:h-80">
-                <img src="/mascotaWho.png" alt="Mascota CS" className="relative w-full h-full object-contain z-10" />
-                {/* Glitch layers */}
-                <img src="/mascotaWho.png" alt="" className="absolute inset-0 w-full h-full object-contain opacity-40 animate-glitch-agresivo mix-blend-screen text-cyan-400" style={{'--delay': '0.1s'}} />
-                <img src="/mascotaWho.png" alt="" className="absolute inset-0 w-full h-full object-contain opacity-40 animate-glitch-agresivo mix-blend-screen text-pink-400" style={{'--delay': '0.3s'}} />
-                <div className="absolute inset-0 h-1 bg-sky-400/50 animate-scan-agresivo z-20" />
-             </div>
+            <div className="relative w-72 h-72 md:w-80 md:h-80 flex items-center justify-center">
+              
+              {/* Chispas Naranja/Rojo (Sutiles) */}
+              {[...Array(6)].map((_, i) => (
+                <div
+                  key={i}
+                  className="spark bg-orange-500 shadow-[0_0_8px_#ff4500]"
+                  style={{
+                    left: `${20 + Math.random() * 60}%`, // Posición aleatoria horizontal
+                    bottom: '20%',
+                    animationDelay: `${Math.random() * 2}s`, // Delay para que fluyan
+                    animationDuration: `${1.5 + Math.random()}s`
+                  }}
+                />
+              ))}
+
+              {/* La Mascota con un brillo suave de energía */}
+              <img 
+                src={MascotaImg} 
+                alt="Mascota CS" 
+                className="relative z-10 w-64 h-auto object-contain"
+                style={{ animation: 'soft-glow 3s infinite ease-in-out' }}
+              />
+
+              {/* Resplandor base muy tenue */}
+              <div className="absolute w-40 h-40 bg-orange-600/5 blur-[60px] rounded-full" />
+              
+            </div>
           </div>
 
           {/* Misión y Visión */}
