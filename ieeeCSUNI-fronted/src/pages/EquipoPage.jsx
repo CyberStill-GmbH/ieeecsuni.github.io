@@ -4,40 +4,56 @@ import { team } from '../data'
 import { HeroTag, Orb } from '../components/ui/HeroElements'
 import { SectionLabel, SectionTitle } from '../components/ui/SectionHeader'
 import { MemberCard } from '../components/ui/MemberCard'
+import { 
+  Users, 
+  UserPlus, 
+  Lightbulb, 
+  ShieldCheck, 
+  Award, 
+  Trophy,
+  ChevronRight,
+  Mail
+} from 'lucide-react'
 
 export default function EquipoPage() {
   useScrollReveal()
 
   return (
-    <main className="pt-16">
-      {/* Hero */}
-      <section
-        className="relative flex flex-col justify-center px-10 md:px-20 overflow-hidden"
-        style={{ minHeight: '50vh', paddingTop: 80, paddingBottom: 60 }}
-      >
-        <Orb className="top-[-200px] right-[-100px] w-[600px] h-[600px]"
-             style={{ background: 'radial-gradient(circle, rgba(0,180,255,0.1), transparent 70%)' }} />
-        <HeroTag>Directiva 2025</HeroTag>
-        <h1
-          className="font-black leading-[.92] tracking-[-0.03em] mb-7"
-          style={{ fontSize: 'clamp(42px, 6vw, 80px)' }}
-        >
-          <span style={{ color: 'var(--fg)' }}>El equipo</span>
-          <span className="block" style={{ color: 'var(--c1)' }}>detrás del</span>
-          <span className="block" style={{ color: 'var(--fg3)' }}>capítulo.</span>
-        </h1>
-        <p className="max-w-xl text-lg leading-relaxed" style={{ color: 'var(--fg2)' }}>
-          Estudiantes apasionados que donan su tiempo y talento para hacer crecer esta comunidad.
-        </p>
+    <main className="pt-16 bg-[#020617] text-white min-h-screen">
+      {/* ── HERO: THE CORE ── */}
+      <section className="relative flex flex-col justify-center px-6 md:px-20 overflow-hidden min-h-[60vh] py-20">
+        <Orb className="top-[-100px] left-[-100px] w-[700px] h-[700px] opacity-20"
+             style={{ background: 'radial-gradient(circle, #0ea5e9, transparent 70%)' }} />
+        
+        <div className="relative z-10 max-w-5xl">
+          <HeroTag>Human Capital</HeroTag>
+          <h1 className="font-black leading-[0.85] tracking-tighter mb-8 text-[clamp(50px,8vw,100px)]">
+            <span className="text-white">Las mentes</span><br />
+            <span className="text-sky-500">detrás del bit.</span>
+          </h1>
+          <p className="max-w-2xl text-xl text-gray-400 leading-relaxed">
+            Somos una fuerza colectiva de estudiantes de la UNI dedicados a 
+            democratizar el acceso a la tecnología de vanguardia y la ciberseguridad.
+          </p>
+        </div>
       </section>
 
-      {/* Team grid */}
-      <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, var(--border2), transparent)' }} />
-      <section className="py-24 px-10 md:px-20">
-        <div className="max-w-6xl mx-auto">
-          <SectionLabel>Directiva</SectionLabel>
-          <SectionTitle className="reveal mb-10">Conoce a nuestro equipo.</SectionTitle>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+      {/* ── DIRECTIVA ACTUAL ── */}
+      <section className="py-24 px-6 md:px-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <div className="reveal">
+              <SectionLabel>Leadership</SectionLabel>
+              <SectionTitle>Directiva 2026</SectionTitle>
+            </div>
+            <p className="text-gray-500 max-w-xs text-sm border-l border-sky-500/50 pl-4">
+              Liderando la reactivación y el crecimiento técnico del capítulo IEEE Computer Society.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map((m, i) => (
               <div key={m.name} className={`reveal reveal-delay-${(i % 4) + 1}`}>
                 <MemberCard member={m} />
@@ -47,51 +63,103 @@ export default function EquipoPage() {
         </div>
       </section>
 
-      {/* Join directiva CTA */}
-      <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, var(--border2), transparent)' }} />
-      <section
-        className="py-24 px-10 md:px-20 text-center"
-        style={{ background: 'linear-gradient(180deg, transparent, rgba(0,80,120,0.15), transparent)' }}
-      >
-        <div className="max-w-2xl mx-auto">
-          <SectionLabel><span style={{ margin: '0 auto' }}>¿Te animas?</span></SectionLabel>
-          <SectionTitle className="reveal mb-5">¿Quieres unirte<br />a la directiva?</SectionTitle>
-          <p className="text-base leading-relaxed mb-8" style={{ color: 'var(--fg2)' }}>
-            Las elecciones para la directiva 2026 se realizarán en Diciembre.
-            Postula y lidera el capítulo junto a los mejores.
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Link to="/contacto" className="btn-primary">Saber más →</Link>
-            <Link to="/nosotros" className="btn-outline">Ver requisitos</Link>
+      {/* ── SECCIÓN: BÚSQUEDA DE ASESORES (MEJORADO) ── */}
+      <section className="py-32 px-6 md:px-20 relative overflow-hidden bg-white/[0.01]">
+        <div className="absolute inset-0 bg-sky-500/[0.02] pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="reveal">
+              <SectionLabel>Faculty Advisors</SectionLabel>
+              <SectionTitle className="mb-8">Buscamos mentores <br />que desafíen el status quo.</SectionTitle>
+              <p className="text-gray-400 text-lg mb-10 leading-relaxed">
+                Estamos en proceso de reactivación y buscamos docentes e investigadores de la UNI 
+                apasionados por la computación para guiar nuestras iniciativas académicas e institucionales.
+              </p>
+              
+              <div className="space-y-6">
+                {[
+                  { icon: <Lightbulb />, title: "Asesoría Académica", desc: "Guía proyectos de investigación y workshops técnicos." },
+                  { icon: <ShieldCheck />, title: "Respaldo Institucional", desc: "Conecta al capítulo con la facultad y convenios externos." }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-4 p-4 rounded-2xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
+                    <div className="text-sky-500">{item.icon}</div>
+                    <div>
+                      <h4 className="font-bold text-white">{item.title}</h4>
+                      <p className="text-sm text-gray-500">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-12">
+                <a href="mailto:tu-correo@uni.edu.pe" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-2xl font-bold hover:bg-sky-500 hover:text-white transition-all group">
+                  Postular como asesor <Mail className="w-4 h-4 group-hover:scale-110" />
+                </a>
+              </div>
+            </div>
+
+            {/* Visual para Asesores (Placeholder Pro) */}
+            <div className="relative reveal">
+              <div className="absolute inset-0 bg-sky-500 blur-[100px] opacity-10 animate-pulse" />
+              <div className="relative grid grid-cols-2 gap-4">
+                <div className="space-y-4 pt-12">
+                  <div className="aspect-square rounded-[2.5rem] bg-[#0b1120] border border-white/10 p-8 flex flex-col justify-center items-center text-center">
+                     <Award className="w-10 h-10 text-sky-500 mb-4" />
+                     <span className="text-xs font-bold uppercase tracking-tighter text-gray-400">Networking Internacional</span>
+                  </div>
+                  <div className="aspect-[4/5] rounded-[2.5rem] bg-gradient-to-br from-sky-600/20 to-transparent border border-sky-500/20 p-8 flex flex-col justify-end">
+                     <span className="text-3xl font-black mb-2 italic">Mentor</span>
+                     <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Role available</p>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="aspect-[3/4] rounded-[2.5rem] bg-white/[0.03] border border-white/5 p-8 flex flex-col justify-center items-center text-center">
+                     <Trophy className="w-12 h-12 text-yellow-500/50 mb-4" />
+                     <span className="text-xs font-bold uppercase tracking-tighter text-gray-400">Impacto en la Comunidad UNI</span>
+                  </div>
+                  <div className="aspect-square rounded-[2.5rem] bg-[#0b1120] border border-white/10 p-8 flex flex-col justify-center items-center text-center">
+                     <UserPlus className="w-10 h-10 text-gray-600" />
+                     <span className="text-xs font-bold uppercase tracking-tighter text-gray-600">Join the Board</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Advisors */}
-      <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, var(--border2), transparent)' }} />
-      <section className="py-24 px-10 md:px-20">
-        <div className="max-w-6xl mx-auto">
-          <SectionLabel>Asesores</SectionLabel>
-          <SectionTitle className="reveal mb-10">Guiados por expertos.</SectionTitle>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {[
-              { initials: 'Dr. RC', name: 'Dr. Raúl Castro',   role: 'Asesor Académico',  bio: 'Docente de la Facultad de Ingeniería de Sistemas, Ph.D. en Computer Science por la PUCP. Mentor del capítulo desde 2017.', gradient: 'linear-gradient(135deg,#004466,#001f33)' },
-              { initials: 'Mg. PL', name: 'Mg. Patricia León', role: 'Asesora Institucional', bio: 'Investigadora en Sistemas Inteligentes y coordinadora de convenios institucionales con la IEEE a nivel nacional.', gradient: 'linear-gradient(135deg,#004433,#001f19)' },
-            ].map(a => (
-              <div key={a.name} className="card-base p-6 flex items-center gap-5 reveal">
-                <div
-                  className="w-16 h-16 rounded-xl flex-shrink-0 flex items-center justify-center text-xs font-bold text-white"
-                  style={{ background: a.gradient, minWidth: 64 }}
-                >
-                  {a.initials}
-                </div>
-                <div>
-                  <div className="font-bold text-base mb-0.5">{a.name}</div>
-                  <div className="font-mono text-[10px] tracking-widest uppercase mb-2" style={{ color: 'var(--c1)' }}>{a.role}</div>
-                  <p className="text-[13px] leading-relaxed" style={{ color: 'var(--fg2)' }}>{a.bio}</p>
-                </div>
-              </div>
-            ))}
+      {/* ── CTA: ÚNETE A LA DIRECTIVA ── */}
+      <section className="py-40 px-6 md:px-20 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center reveal">
+          <div className="inline-flex p-4 rounded-full bg-sky-500/10 text-sky-400 mb-8 animate-bounce">
+            <UserPlus className="w-8 h-8" />
+          </div>
+          <SectionTitle className="mb-6">¿Tienes lo que se necesita <br />para liderar?</SectionTitle>
+          <p className="text-gray-400 text-lg mb-12 max-w-2xl mx-auto">
+            Buscamos a los próximos coordinadores de Logística, Marketing y Proyectos Técnicos. 
+            No necesitas ser un experto, solo tener ganas de cambiar la facultad.
+          </p>
+          
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link to="/contacto" className="px-10 py-4 bg-sky-600 rounded-2xl font-bold hover:bg-sky-500 transition-all shadow-xl shadow-sky-900/20">
+              Postular como SuperVoluntario
+            </Link>
+            <Link to="/proyectos" className="px-10 py-4 border border-white/10 rounded-2xl font-bold hover:bg-white/5 transition-all">
+              Ver beneficios
+            </Link>
+          </div>
+
+          <div className="mt-16 flex items-center justify-center gap-8 text-gray-600">
+            <div className="text-center">
+              <div className="text-white font-bold">DIC 2026</div>
+              <div className="text-[10px] uppercase tracking-widest font-black">Próximas Elecciones</div>
+            </div>
+            <div className="w-px h-10 bg-white/10" />
+            <div className="text-center">
+              <div className="text-white font-bold">12+ PLAZAS</div>
+              <div className="text-[10px] uppercase tracking-widest font-black">Cupos Directiva</div>
+            </div>
           </div>
         </div>
       </section>
