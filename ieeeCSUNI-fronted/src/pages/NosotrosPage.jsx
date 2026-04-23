@@ -2,12 +2,25 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { timeline } from '../data'
 import { HeroTag, Orb } from '../components/ui/HeroElements'
 import { SectionLabel, SectionTitle } from '../components/ui/SectionHeader'
+import mascotaImg from '../../public/mascotaWhos.png';
+
+import { 
+  Target, 
+  Cpu, 
+  Globe, 
+  Zap, 
+  Users, 
+  Code2, 
+  Lightbulb, 
+  Image as ImageIcon,
+  Terminal
+} from 'lucide-react'
 
 const pillars = [
-  { icon: '🎯', title: 'Visión 2025',   desc: 'Ser el capítulo estudiantil de CS más activo de Latinoamérica.' },
-  { icon: '🔗', title: 'Afiliación IEEE', desc: 'Miembros de pleno derecho de la mayor organización técnica del mundo.' },
-  { icon: '📊', title: 'Impacto real',   desc: 'Proyectos que trascienden el aula y llegan a la industria.' },
-  { icon: '🚀', title: 'Innovación',     desc: 'Exploración constante de las últimas tendencias en ciencias de la computación.' },
+  { icon: <Target className="w-6 h-6 text-sky-400" />, title: 'Visión 2026', desc: 'Liderar la vanguardia técnica estudiantil en computación a nivel regional.' },
+  { icon: <Globe className="w-6 h-6 text-blue-500" />, title: 'Red Global', desc: 'Conexión directa con los estándares y profesionales de IEEE Computer Society.' },
+  { icon: <Cpu className="w-6 h-6 text-cyan-400" />, title: 'I+D+i UNI', desc: 'Fomentar la investigación y desarrollo desde las aulas de nuestra facultad.' },
+  { icon: <Terminal className="w-6 h-6 text-indigo-400" />, title: 'Full-Stack Mindset', desc: 'Dominio de tecnologías emergentes, desde hardware hasta la nube.' },
 ]
 
 export default function NosotrosPage() {
@@ -15,122 +28,144 @@ export default function NosotrosPage() {
 
   return (
     <main className="pt-16">
-      {/* Hero */}
+      {/* Hero con espacio para Mascota */}
       <section
         className="relative flex flex-col justify-center px-10 md:px-20 overflow-hidden"
-        style={{ minHeight: '60vh', paddingTop: 80, paddingBottom: 60 }}
+        style={{ minHeight: '70vh', paddingTop: 80, paddingBottom: 60 }}
       >
         <Orb className="top-[-200px] right-[-100px] w-[600px] h-[600px]"
-             style={{ background: 'radial-gradient(circle, rgba(0,180,255,0.1), transparent 70%)' }} />
-        <HeroTag>Nuestra historia · Desde 2016</HeroTag>
-        <h1
-          className="font-black leading-[.92] tracking-[-0.03em] mb-7"
-          style={{ fontSize: 'clamp(42px, 6vw, 80px)' }}
-        >
-          <span style={{ color: 'var(--fg)' }}>Quiénes</span>
-          <span className="block" style={{ color: 'var(--c1)' }}>somos.</span>
-        </h1>
-        <p className="max-w-xl text-lg leading-relaxed" style={{ color: 'var(--fg2)' }}>
-          El IEEE CS Student Chapter de la UNI nació en 2016 con una misión clara: conectar
-          a los mejores estudiantes de ingeniería con la tecnología de vanguardia.
-        </p>
+              style={{ background: 'radial-gradient(circle, rgba(0,180,255,0.1), transparent 70%)' }} />
+        
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 items-center gap-10">
+          <div>
+            <HeroTag>IEEE Computer Society · UNI</HeroTag>
+            <h1
+              className="font-black leading-[.92] tracking-[-0.03em] mb-7"
+              style={{ fontSize: 'clamp(42px, 6vw, 80px)' }}
+            >
+              <span style={{ color: 'var(--fg)' }}>Quiénes</span>
+              <span className="block" style={{ color: 'var(--c1)' }}>somos.</span>
+            </h1>
+            <p className="max-w-xl text-lg leading-relaxed" style={{ color: 'var(--fg2)' }}>
+              El capítulo estudiantil de computación más influyente de la UNI. 
+              Transformamos el entusiasmo académico en capacidad técnica profesional.
+            </p>
+          </div>
+
+          {/* ESPACIO PARA LA MASCOTA */}
+          <div className="relative flex justify-center items-center aspect-square w-full max-w-[380px] select-none">
+            {/* 
+            <div className="w-full max-w-[400px] aspect-square rounded-3xl border-2 border-dashed border-sky-500/20 bg-sky-500/5 flex flex-col items-center justify-center group hover:border-sky-500/40 transition-colors">
+              <ImageIcon className="w-12 h-12 text-sky-500/20 group-hover:scale-110 transition-transform" />
+              <span className="mt-4 text-[10px] font-mono tracking-widest text-sky-500/40 uppercase">Mascota del Capítulo</span>
+            </div>
+            */}
+            <img 
+              src={mascotaImg} 
+              alt="Mascota del capítulo codeando para revivirlo jajajaj"
+              className="relative w-full h-full object-contain p-6 z-10 drop-shadow-[0_0_8px_rgba(0,180,255,0.7)]"
+            />
+            <div className="absolute -z-10 w-64 h-64 bg-sky-500/10 blur-[100px] rounded-full" />
+            <img 
+              src={mascotaImg} 
+              alt="" 
+              className="absolute w-full h-full object-contain p-6 text-cyan-500 mix-blend-screen opacity-70 animate-glitch-agresivo z-0"
+              style={{ filter: 'drop-shadow(0 0 5px currentColor)', translate: '-2px 1px', '--delay': '0.2s' }}
+            />
+            <img 
+              src={mascotaImg} 
+              alt="" 
+              className="absolute w-full h-full object-contain p-6 text-magenta-500 mix-blend-screen opacity-70 animate-glitch-agresivo z-0"
+              style={{ filter: 'drop-shadow(0 0 5px currentColor)', translate: '2px -1px', '--delay': '0.4s' }}
+            />
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-sky-400 to-transparent opacity-80 animate-scan-agresivo z-20 pointer-events-none" />
+            <div className="absolute -z-10 w-64 h-64 bg-sky-600/10 blur-[90px] rounded-full" />
+          </div>
+        </div>
       </section>
 
-      {/* Misión */}
+      {/* Misión y Pilares */}
       <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, var(--border2), transparent)' }} />
       <section className="py-24 px-10 md:px-20">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-          {/* Text */}
           <div>
             <SectionLabel>Misión</SectionLabel>
             <SectionTitle className="reveal mb-6">
               Ingeniería,<br />comunidad<br />e innovación.
             </SectionTitle>
             <p className="text-base leading-[1.8] mb-4" style={{ color: 'var(--fg2)' }}>
-              Somos el capítulo estudiantil oficial de la IEEE Computer Society en la
-              Universidad Nacional de Ingeniería. Agrupamos a estudiantes apasionados por
-              la computación, sistemas y tecnología.
+              Somos el núcleo de la **IEEE Computer Society** en la UNI. Nuestra misión es empoderar 
+              a los estudiantes mediante el acceso a conocimiento técnico de élite y proyectos colaborativos.
             </p>
-            <p className="text-base leading-[1.8] mb-4" style={{ color: 'var(--fg2)' }}>
-              Nuestro objetivo es formar profesionales íntegros capaces de liderar proyectos
-              tecnológicos de impacto regional y global.
-            </p>
-            <p className="text-base leading-[1.8]" style={{ color: 'var(--fg2)' }}>
-              Formamos parte de una red de más de 100,000 miembros en todo el mundo, con
-              acceso a publicaciones técnicas, conferencias y recursos únicos del ecosistema IEEE.
-            </p>
+            <div className="flex gap-4 mt-8">
+               <div className="p-3 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-500 font-mono text-xs">#CS_UNI</div>
+               <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-500 font-mono text-xs">#IEEE_Org</div>
+            </div>
           </div>
 
-          {/* Pillars grid */}
           <div className="grid grid-cols-2 gap-4">
             {pillars.map((p, i) => (
-              <div key={p.title} className={`card-base p-6 reveal reveal-delay-${i + 1}`}>
-                <div className="text-3xl mb-3">{p.icon}</div>
+              <div key={p.title} className={`card-base p-6 reveal reveal-delay-${i + 1} hover:border-sky-500/30 transition-all`}>
+                <div className="mb-4">{p.icon}</div>
                 <h4 className="font-bold mb-1.5 text-[15px]">{p.title}</h4>
-                <p className="text-[13px] leading-relaxed" style={{ color: 'var(--fg2)' }}>{p.desc}</p>
+                <p className="text-[13px] leading-relaxed opacity-70" style={{ color: 'var(--fg2)' }}>{p.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Values */}
+      {/* Valores */}
       <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, var(--border2), transparent)' }} />
-      <section className="py-24 px-10 md:px-20" style={{ background: 'linear-gradient(180deg, transparent, rgba(0,80,120,0.15), transparent)' }}>
+      <section className="py-24 px-10 md:px-20" style={{ background: 'linear-gradient(180deg, transparent, rgba(0,80,120,0.1), transparent)' }}>
         <div className="max-w-6xl mx-auto">
           <SectionLabel>Valores</SectionLabel>
-          <SectionTitle className="reveal mb-10">Lo que nos guía.</SectionTitle>
+          <SectionTitle className="reveal mb-10">Código que nos guía.</SectionTitle>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: '⚡', title: 'Excelencia técnica', desc: 'Buscamos siempre el más alto estándar en todo lo que hacemos: código, diseño, organización.' },
-              { icon: '🤲', title: 'Colaboración', desc: 'Creemos que los mejores proyectos nacen de equipos diversos que suman perspectivas.' },
-              { icon: '🌱', title: 'Crecimiento continuo', desc: 'El aprendizaje no para. Fomentamos la curiosidad y la mejora constante en cada miembro.' },
+              { icon: <Zap className="w-8 h-8 text-yellow-400" />, title: 'Excelencia técnica', desc: 'No solo resolvemos problemas, buscamos la solución más eficiente y elegante.' },
+              { icon: <Users className="w-8 h-8 text-sky-400" />, title: 'Colaboración', desc: 'El conocimiento se multiplica cuando se comparte. Somos una comunidad, no una competencia.' },
+              { icon: <Lightbulb className="w-8 h-8 text-green-400" />, title: 'Crecimiento', desc: 'Adaptabilidad ante el cambio tecnológico constante. El aprendizaje es nuestro estado base.' },
             ].map((v, i) => (
               <div key={v.title} className={`card-base p-8 reveal reveal-delay-${i + 1}`}>
-                <div className="text-4xl mb-4">{v.icon}</div>
+                <div className="mb-6">{v.icon}</div>
                 <h4 className="font-bold text-lg mb-3">{v.title}</h4>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--fg2)' }}>{v.desc}</p>
+                <p className="text-sm leading-relaxed opacity-70" style={{ color: 'var(--fg2)' }}>{v.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Timeline */}
+      {/* Historia con espacio para fotos */}
       <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, var(--border2), transparent)' }} />
       <section className="py-24 px-10 md:px-20">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <SectionLabel>Historia</SectionLabel>
           <SectionTitle className="reveal mb-12">Nuestra trayectoria.</SectionTitle>
 
           <div className="relative" style={{ paddingLeft: 32 }}>
-            {/* vertical line */}
-            <div
-              className="absolute left-0 top-0 bottom-0 w-0.5 rounded"
-              style={{ background: 'linear-gradient(180deg, var(--c1), var(--c3), transparent)' }}
-            />
+            <div className="absolute left-0 top-0 bottom-0 w-0.5" style={{ background: 'linear-gradient(180deg, var(--c1), var(--c3), transparent)' }} />
 
             {timeline.map((item, i) => (
-              <div
-                key={item.year}
-                className={`relative pb-10 reveal reveal-delay-${(i % 4) + 1}`}
-              >
-                {/* dot */}
-                <div
-                  className="absolute flex items-center justify-center"
-                  style={{ left: -37, top: 4, width: 20, height: 20, borderRadius: '50%', background: 'var(--b)', border: '2px solid var(--c1)' }}
-                >
+              <div key={item.year} className={`relative pb-20 reveal reveal-delay-${(i % 4) + 1}`}>
+                <div className="absolute flex items-center justify-center" style={{ left: -37, top: 4, width: 20, height: 20, borderRadius: '50%', background: 'var(--b)', border: '2px solid var(--c1)' }}>
                   <div className="w-2 h-2 rounded-full" style={{ background: 'var(--c1)' }} />
                 </div>
 
-                <div
-                  className="font-mono text-[11px] tracking-[.1em] mb-1.5"
-                  style={{ color: 'var(--c1)' }}
-                >
-                  {item.year}
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_200px] gap-8">
+                  <div>
+                    <div className="font-mono text-[11px] tracking-[.1em] mb-1.5 text-sky-400">{item.year}</div>
+                    <div className="text-xl font-bold mb-2">{item.title}</div>
+                    <div className="text-sm leading-relaxed opacity-70 mb-4" style={{ color: 'var(--fg2)' }}>{item.desc}</div>
+                  </div>
+                  
+                  
+                  <div className="h-32 rounded-2xl border border-white/5 bg-white/[0.02] flex items-center justify-center group overflow-hidden">
+                    <img src={item.image} className="w-full h-full object-cover" />
+                    <ImageIcon className="text-white/10 group-hover:text-sky-500/40 transition-colors" />
+                  </div>
                 </div>
-                <div className="text-base font-bold mb-2">{item.title}</div>
-                <div className="text-sm leading-relaxed" style={{ color: 'var(--fg2)' }}>{item.desc}</div>
               </div>
             ))}
           </div>
