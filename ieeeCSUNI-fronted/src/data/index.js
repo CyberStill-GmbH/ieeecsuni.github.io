@@ -14,6 +14,7 @@ export const events = [
     spots: 30,
     spotsLeft: 12,
   },
+/*
   {
     id: 2,
     type: 'Competencia',
@@ -84,7 +85,9 @@ export const events = [
     spots: 200,
     spotsLeft: 120,
   },
+*/
 ]
+
 
 // ── Team ──────────────────────────────────────────────────
 export const team = [
@@ -100,29 +103,37 @@ export const team = [
 ]
 // ── Resources ─────────────────────────────────────────────
 export const resources = [
-  { category: 'IEEE Xplore',    title: 'Digital Library — 5M+ documentos técnicos',   excerpt: 'Accede a papers, revistas y proceedings de los mejores investigadores del mundo.', emoji: '📚', gradient: 'linear-gradient(135deg,#001a3d,#002d66)', date: 'Disponible siempre' },
-  { category: 'Guía de Carrera',title: 'Roadmap: De estudiante a ingeniero senior',    excerpt: 'Guía curada por miembros del capítulo sobre cómo construir tu carrera en tech.',   emoji: '🗺️', gradient: 'linear-gradient(135deg,#002200,#003300)', date: 'Actualizado 2025' },
-  { category: 'Competencias',   title: 'Preparación para IEEE Xtreme 2025',             excerpt: 'Repositorio de problemas resueltos, estrategias y recursos de competitive programming.', emoji: '💡', gradient: 'linear-gradient(135deg,#1a0030,#2d0050)', date: 'Actualizado mensual' },
-  { category: 'Tutoriales',     title: 'Serie: Machine Learning desde cero',            excerpt: '9 módulos en video sobre ML con Python. Desde álgebra lineal hasta deep learning.',  emoji: '🎬', gradient: 'linear-gradient(135deg,#1a0a00,#2d1500)', date: 'Mar 2025' },
-  { category: 'Templates',      title: 'CV y portafolio para ingenieros de software',   excerpt: 'Plantillas revisadas por reclutadores de Google, Meta y startups peruanas.',         emoji: '📄', gradient: 'linear-gradient(135deg,#001a1a,#002d2d)', date: 'Ene 2025' },
-  { category: 'Comunidad',      title: 'Slack y Discord del capítulo',                  excerpt: 'Canales de discusión, trabajo, noticias tech y networking estudiantil activo.',       emoji: '💬', gradient: 'linear-gradient(135deg,#1a001a,#2d002d)', date: 'Activo ahora' },
+  {
+    title: "IEEE Xplore Digital Library",
+    category: "IEEE Xplore",
+    description: "Acceso a millones de documentos técnicos de alta calidad en ingeniería y computación.", // Este se verá ahora
+    url: "https://ieeexplore.ieee.org/", // Este es el que redirecciona
+    date: "2026"
+  },
+  {
+    title: "Guía de Cybersecurity 2026",
+    category: "Guía de Carrera",
+    excerpt: "Roadmap completo para especializarse en seguridad de la información este año.", // También funciona con excerpt
+    link: "https://ejemplo.com/guia", 
+    date: "Abril 2026"
+  }
 ]
-
 // ── Achievements ──────────────────────────────────────────
 export const achievements = [
-  { emoji: '🥇', number: '3°',   label: 'Lugar IEEE Xtreme Perú 2023' },
-  { emoji: '📚', number: '500+', label: 'Recursos en biblioteca digital' },
-  { emoji: '🎓', number: '85%',  label: 'Miembros consiguen empleo tech' },
-  { emoji: '🌍', number: '20+',  label: 'Países con miembros conectados' },
+  { number: '3°',   label: 'Lugar IEEE Xtreme Perú 2023' },
+  { number: '500+', label: 'Recursos en biblioteca digital' },
+  { number: '85%',  label: 'Miembros consiguen empleo tech' },
+  { number: '20+',  label: 'Países con miembros conectados' },
 ]
 
 // ── Timeline ──────────────────────────────────────────────
 export const timeline = [
-  { year: '2016', title: 'Fundación del capítulo',   desc: 'Un grupo de estudiantes de Ing. Sistemas constituye oficialmente el capítulo ante la IEEE.' },
-  { year: '2018', title: 'Primera IEEE Xtreme',       desc: 'Participación en la competencia internacional de programación, logrando el top 500 mundial.' },
+  { year: 'Febrero 2026', title: 'Reactivación del capítulo.',   desc: 'Un grupo de estudiantes de FIEE deciden reestructural el capitulo IEEE CS UNI.' },
+  /*{ year: '2018', title: 'Primera IEEE Xtreme',       desc: 'Participación en la competencia internacional de programación, logrando el top 500 mundial.' },
   { year: '2020', title: 'Adaptación digital',        desc: 'Ante la pandemia, todos los eventos migran al formato online, alcanzando más de 400 asistentes.' },
   { year: '2022', title: '3er lugar nacional',        desc: 'Nuestro equipo obtiene el 3er lugar en IEEE Xtreme Perú, el mejor resultado de la historia del capítulo.' },
   { year: '2024', title: 'Expansión y nuevas alianzas', desc: 'Firmamos convenios con empresas tech y expandimos el programa de mentorías a 40+ estudiantes.' },
+  */
 ]
 
 // ── Nav links ─────────────────────────────────────────────
@@ -130,6 +141,7 @@ export const navLinks = [
   { to: '/nosotros',  label: 'Nosotros' },
   { to: '/eventos',   label: 'Eventos' },
   { to: '/recursos',  label: 'Recursos' },
+  { to: '/proyectos',  label: 'Proyectos' },
   { to: '/equipo',    label: 'Equipo' },
   { to: '/contacto',  label: 'Contacto' },
 ]
@@ -155,3 +167,26 @@ export const footerLinks = {
     { label: 'Comunidad',   to: '/recursos' },
   ],
 }
+// ── Chapter projects ────────────────────────────────────────── 
+export const projects = [
+  {
+    id: 1,
+    title: "IEEE CS Portal",
+    description: "Plataforma oficial para la gestión de recursos y miembros del capítulo utilizando React y Tailwind.",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800",
+    tags: ["React", "Tailwind", "Vite"],
+    github: "https://github.com/ieeecsuni",
+    link: "https://ieeecsuni.org",
+    members: ["César", "Bayron", "Integrantes CS"]
+  },
+  {
+    id: 2,
+    title: "Cyber Mascota",
+    description: "Desarrollo de animaciones interactivas y efectos de partículas para la identidad visual del capítulo.",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
+    tags: ["CSS", "SVG", "Animation"],
+    github: "https://github.com/ieeecsuni",
+    link: "#",
+    members: ["César"]
+  }
+];
