@@ -6,6 +6,7 @@ import { HeroTag, Orb } from '../components/ui/HeroElements'
 import { SectionLabel, SectionTitle } from '../components/ui/SectionHeader'
 import { EventCard } from '../components/ui/EventCard'
 import { Calendar, Sparkles, PlusCircle, Play, Monitor } from 'lucide-react'
+import tuVideo from '../../public/videoplayback.mp4'
 
 const FILTERS = ['Todos', 'Taller', 'Competencia', 'Charla', 'Hackathon', 'Conferencia']
 
@@ -55,7 +56,7 @@ export default function EventosPage() {
             {/* Contenedor de Video/Animación */}
             <div className="relative aspect-video bg-[#0b1120] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl shadow-sky-500/10">
                {/* ESPACIO PARA TU VIDEO/ANIMACIÓN */}
-               {/* Ejemplo: <video src={tuVideo} autoPlay loop muted className="w-full h-full object-cover" /> */}
+               <video src={tuVideo} autoPlay loop muted className="w-full h-full object-cover" />
                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-sky-900/40 to-transparent">
                   <Play className="w-16 h-16 text-white/20 group-hover:text-sky-400 group-hover:scale-110 transition-all duration-500" />
                   <span className="mt-4 text-[10px] font-mono tracking-[0.3em] text-white/30 uppercase group-hover:text-sky-400/50">
