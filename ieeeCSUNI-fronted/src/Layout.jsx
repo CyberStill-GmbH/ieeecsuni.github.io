@@ -30,6 +30,7 @@ import RecursosPage from './pages/RecursosPage'
 import EquipoPage from './pages/EquipoPage'
 import ContactoPage from './pages/ContactoPage'
 import LoginPage from './pages/LoginPage'
+import ProyectosPage from './pages/ProyectosPage'
 import MemberDashboard from './pages/member/MemberDashboard'
 import MemberHours from './pages/member/MemberHours'
 import MemberTasks from './pages/member/MemberTasks'
@@ -71,6 +72,7 @@ function Layout() {
           <Route path="/equipo" element={<EquipoPage />} />
           <Route path="/contacto" element={<ContactoPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path='/proyectos' element={ < ProyectosPage /> } />
           {/* MEMBER */}
           <Route path="/member" element={<DashboardLayout role="member" />}>
             {/* Esta es la página principal del dashboard (/member) */}
