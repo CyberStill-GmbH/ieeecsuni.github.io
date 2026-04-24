@@ -3,89 +3,17 @@ export const events = [
   {
     id: 1,
     type: 'Taller',
-    title: 'Introducción a React y TypeScript',
+    title: 'Introducción a la programación con C',
     date: '15 Abr 2025',
     time: '18:00 – 21:00',
-    location: 'UNI — Sala de Cómputo C',
-    description: 'Aprende React con TypeScript desde cero. Proyectos prácticos y mentoría de miembros senior del capítulo.',
-    tag: 'Desarrollo Web',
-    emoji: '⚛️',
+    location: 'Virtual-GoogleMeet',
+    description: 'Aprende las bases de la programación estructurada con el lenguaje C.',
+    tag: 'Programación',
     gradient: 'linear-gradient(135deg, #004f77, #00263d)',
     spots: 30,
-    spotsLeft: 12,
+    spotsLeft: 30,
   },
-/*
-  {
-    id: 2,
-    type: 'Competencia',
-    title: 'IEEE Xtreme 19.0 Programming',
-    date: 'Oct 2025',
-    time: '24 horas continuas',
-    location: 'Online',
-    description: 'La mayor competencia de programación de 24h. Forma tu equipo y compite contra miles de estudiantes del mundo.',
-    tag: 'Competitive Programming',
-    emoji: '🏆',
-    gradient: 'linear-gradient(135deg, #003050, #001830)',
-    spots: 50,
-    spotsLeft: 28,
-  },
-  {
-    id: 3,
-    type: 'Charla',
-    title: 'Cybersecurity en la industria peruana',
-    date: 'Por confirmar',
-    time: 'Por confirmar',
-    location: 'UNI — Auditorio Central',
-    description: 'Especialistas del sector comparten su experiencia en seguridad informática y cómo evoluciona el mercado local.',
-    tag: 'Ciberseguridad',
-    emoji: '🔐',
-    gradient: 'linear-gradient(135deg, #002840, #000f1a)',
-    spots: 80,
-    spotsLeft: 45,
-  },
-  {
-    id: 4,
-    type: 'Hackathon',
-    title: 'HackUNI 2025',
-    date: 'Jun 2025',
-    time: '48 horas',
-    location: 'UNI — Pabellón H',
-    description: '48 horas para construir soluciones tecnológicas a problemas reales del Perú. Premios en efectivo y mentores de empresas.',
-    tag: 'Hackathon',
-    emoji: '💻',
-    gradient: 'linear-gradient(135deg, #1a0050, #0a0030)',
-    spots: 60,
-    spotsLeft: 8,
-  },
-  {
-    id: 5,
-    type: 'Taller',
-    title: 'Machine Learning con Python',
-    date: 'Mayo 2025',
-    time: '17:00 – 20:00',
-    location: 'UNI — Lab. Inteligencia Artificial',
-    description: 'Desde regresión lineal hasta redes neuronales. Implementación práctica con scikit-learn y PyTorch.',
-    tag: 'IA & ML',
-    emoji: '🤖',
-    gradient: 'linear-gradient(135deg, #003d00, #001500)',
-    spots: 25,
-    spotsLeft: 3,
-  },
-  {
-    id: 6,
-    type: 'Conferencia',
-    title: 'Summit Tech UNI 2025',
-    date: 'Ago 2025',
-    time: '09:00 – 18:00',
-    location: 'UNI — Auditorio Principal',
-    description: 'El evento anual más grande del capítulo. Ponentes internacionales, workshops simultáneos y networking.',
-    tag: 'Conferencia',
-    emoji: '🌟',
-    gradient: 'linear-gradient(135deg, #4a0000, #1a0000)',
-    spots: 200,
-    spotsLeft: 120,
-  },
-*/
+
 ]
 
 
@@ -106,15 +34,15 @@ export const resources = [
   {
     title: "IEEE Xplore Digital Library",
     category: "IEEE Xplore",
-    description: "Acceso a millones de documentos técnicos de alta calidad en ingeniería y computación.", // Este se verá ahora
-    url: "https://ieeexplore.ieee.org/", // Este es el que redirecciona
+    description: "Acceso a millones de documentos técnicos de alta calidad en ingeniería y computación.", 
+    url: "https://ieeexplore.ieee.org/", 
     date: "2026"
   },
   {
-    title: "Guía de Cybersecurity 2026",
-    category: "Guía de Carrera",
-    excerpt: "Roadmap completo para especializarse en seguridad de la información este año.", // También funciona con excerpt
-    link: "https://ejemplo.com/guia", 
+    title: "Recopilación de libros gratuitos de programación",
+    category: "Programación",
+    excerpt: "Una recopilación de más de 100 libros de programación, desde bases hasta frameorks modernos y arquitectura de sistemas.",
+    link: "https://librosgratis.dev/", 
     date: "Abril 2026"
   }
 ]
@@ -128,12 +56,7 @@ export const achievements = [
 
 // ── Timeline ──────────────────────────────────────────────
 export const timeline = [
-  { year: 'Febrero 2026', title: 'Reactivación del capítulo.',   desc: 'Un grupo de estudiantes de FIEE deciden reestructural el capitulo IEEE CS UNI.' },
-  /*{ year: '2018', title: 'Primera IEEE Xtreme',       desc: 'Participación en la competencia internacional de programación, logrando el top 500 mundial.' },
-  { year: '2020', title: 'Adaptación digital',        desc: 'Ante la pandemia, todos los eventos migran al formato online, alcanzando más de 400 asistentes.' },
-  { year: '2022', title: '3er lugar nacional',        desc: 'Nuestro equipo obtiene el 3er lugar en IEEE Xtreme Perú, el mejor resultado de la historia del capítulo.' },
-  { year: '2024', title: 'Expansión y nuevas alianzas', desc: 'Firmamos convenios con empresas tech y expandimos el programa de mentorías a 40+ estudiantes.' },
-  */
+  { year: 'Febrero 2026', title: 'Reactivación del capítulo.',   desc: 'Un grupo de estudiantes de FIEE deciden reestructurar el capitulo IEEE CS UNI.' },
 ]
 
 // ── Nav links ─────────────────────────────────────────────

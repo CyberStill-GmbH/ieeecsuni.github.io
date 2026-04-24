@@ -1,17 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useState, useMemo } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { resources } from '../data' // Asumo que r.title, r.category, r.link existen
+import { resources } from '../data'
 import { HeroTag, Orb } from '../components/ui/HeroElements'
-import { SectionLabel, SectionTitle } from '../components/ui/SectionHeader'
-import { 
-  Search, 
-  ExternalLink, 
-  Globe, 
-  Zap,
-  ArrowUpRight,
-  Compass
-} from 'lucide-react'
+import { Search, Compass, ArrowUpRight, Zap } from 'lucide-react'
 
 const categories = ['Todo', 'IEEE Xplore', 'Guía de Carrera', 'Competencias', 'Tutoriales']
 
@@ -20,7 +12,6 @@ export default function RecursosPage() {
   const [activeCat, setActiveCat] = useState('Todo')
   const [searchQuery, setSearchQuery] = useState('')
 
-  // LÓGICA DE FILTRADO REAL
   const filteredResources = useMemo(() => {
     return resources.filter(r => {
       const matchesCat = activeCat === 'Todo' || r.category === activeCat
@@ -32,7 +23,7 @@ export default function RecursosPage() {
 
   return (
     <main className="pt-16 bg-[#020617] min-h-screen text-white">
-      {/* ── HERO CON BUSCADOR FUNCIONAL ── */}
+      {/* ── HERO ── */}
       <section className="relative px-6 md:px-20 pt-24 pb-16 overflow-hidden">
         <Orb className="top-[-150px] right-[-100px] w-[800px] h-[800px] opacity-15"
              style={{ background: 'radial-gradient(circle, #0ea5e9, transparent 70%)' }} />
@@ -54,9 +45,6 @@ export default function RecursosPage() {
                 placeholder="Buscar en la base de datos técnica..."
                 className="bg-transparent border-none outline-none w-full text-sm font-medium placeholder:text-gray-600 text-white"
               />
-              {searchQuery && (
-                <button onClick={() => setSearchQuery('')} className="text-xs text-gray-500 hover:text-white transition-colors">Limpiar</button>
-              )}
             </div>
           </div>
         </div>
@@ -66,6 +54,7 @@ export default function RecursosPage() {
       <section className="py-12 px-6 md:px-20">
         <div className="max-w-7xl mx-auto">
           
+          {/* CATEGORÍAS */}
           <div className="flex flex-wrap justify-center gap-3 mb-16">
             {categories.map(c => (
               <button 
@@ -82,63 +71,54 @@ export default function RecursosPage() {
             ))}
           </div>
 
-          {/* GRID DE CARDS (SITIOS WEB) */}
+          {/* GRID DE CARDS SIN EMPAQUETADO */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredResources.length > 0 ? (
               filteredResources.map((r, i) => (
                 <a 
-                  key={r.title} 
+                  key={r.id || i}  
                   href={r.url || r.link} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="reveal group relative block h-full"
+                  className="reveal group block h-full"
                 >
-                  <div className="relative h-full bg-[#030712] border border-white/5 rounded-3xl overflow-hidden transition-all duration-500 hover:border-sky-500/50 hover:-translate-y-2 flex flex-col">
+                  <div className="relative h-full bg-[#030712] border border-white/5 rounded-3xl p-8 transition-all duration-500 hover:border-sky-500/50 hover:bg-[#050a18] hover:-translate-y-2 flex flex-col">
                     
-                    {/* Visual Header */}
-                    <div className="h-28 relative overflow-hidden bg-[#0a1120]">
-                      <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity" 
-                           style={{ backgroundImage: 'linear-gradient(45deg, #1e293b 25%, transparent 25%, transparent 50%, #1e293b 50%, #1e293b 75%, transparent 75%, transparent)' , backgroundSize: '40px 40px' }} />
-                      
-                      <div className="absolute top-6 left-8 p-3 rounded-2xl bg-sky-500/10 border border-sky-500/20 text-sky-400 group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
-                        <Globe className="w-5 h-5" />
-                      </div>
-                      
-                      <div className="absolute top-8 right-8 flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                        <span className="text-[10px] font-bold text-gray-500 uppercase">Live Site</span>
+                    {/* Header: Categoría y Estado */}
+                    <div className="flex items-center justify-between mb-6">
+                      <span className="text-[10px] font-black text-sky-500 uppercase tracking-[0.2em]">
+                        {r.category}
+                      </span>
+                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/10 border border-green-500/20">
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                        <span className="text-[9px] font-bold text-green-500 uppercase tracking-tighter">Live</span>
                       </div>
                     </div>
 
                     {/* Content */}
-                    <div className="p-8 pt-4 flex-1 flex flex-col">
-                      <div className="mb-2">
-                        <span className="text-[10px] font-black text-sky-500 uppercase tracking-[0.2em]">
-                          {r.category}
+                    <h3 className="text-xl font-bold mb-3 text-white group-hover:text-sky-400 transition-colors">
+                      {r.title}
+                    </h3>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-8 flex-1">
+                      {r.excerpt || r.description || "Recurso técnico especializado del capítulo IEEE CS UNI."}
+                    </p>
+
+                    {/* Footer Simple */}
+                    <div className="flex items-center justify-between pt-6 border-t border-white/5 mt-auto">
+                      <div className="flex items-center gap-2 text-gray-600 group-hover:text-sky-500 transition-colors">
+                        <Compass className="w-4 h-4" />
+                        <span className="text-[10px] font-bold tracking-widest uppercase">
+                          {r.buttonText || "Explorar recurso"}
                         </span>
                       </div>
-                      <h3 className="text-xl font-bold mb-3 text-white group-hover:text-sky-400 transition-colors">
-                        {r.title}
-                      </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-1">
-                        {r.description || "Haz clic para explorar este portal de recursos externos seleccionado por el capítulo."}
-                      </p>
-
-                      {/* Footer Info */}
-                      <div className="flex items-center justify-between pt-6 border-t border-white/5 mt-auto">
-                        <div className="flex items-center gap-2 text-gray-600 group-hover:text-gray-400 transition-colors">
-                          <Compass className="w-4 h-4" />
-                          <span className="text-[11px] font-bold tracking-wide">EXPLORAR PORTAL</span>
-                        </div>
-                        <ArrowUpRight className="w-5 h-5 text-gray-700 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-                      </div>
+                      <ArrowUpRight className="w-5 h-5 text-gray-700 group-hover:text-white transition-all transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </div>
                   </div>
                 </a>
               ))
             ) : (
-              <div className="col-span-full py-20 text-center">
-                <p className="text-gray-500 italic">No se encontraron recursos con esos criterios.</p>
+              <div className="col-span-full py-20 text-center border border-dashed border-white/10 rounded-3xl">
+                <p className="text-gray-500 italic">No se encontraron resultados para tu búsqueda.</p>
               </div>
             )}
           </div>
@@ -149,9 +129,9 @@ export default function RecursosPage() {
       <section className="py-24 px-6 text-center">
         <div className="max-w-xl mx-auto p-12 rounded-[2.5rem] bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5">
           <Zap className="w-8 h-8 text-yellow-500 mx-auto mb-4" />
-          <h3 className="text-2xl font-bold mb-4">¿Necesitas ayuda con la biblioteca?</h3>
-          <p className="text-gray-500 text-sm mb-8">Nuestros tutores del IEEE CS pueden guiarte en el uso de herramientas de investigación.</p>
-          <Link to="/contacto" className="btn-primary px-8 py-3 rounded-xl bg-sky-600 hover:bg-sky-500 font-bold transition-all inline-block">
+          <h3 className="text-2xl font-bold mb-4 italic">¿Buscas algo específico?</h3>
+          <p className="text-gray-500 text-sm mb-8">Nuestros miembros senior pueden ayudarte a encontrar la documentación que necesitas.</p>
+          <Link to="/contacto" className="inline-block px-10 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold transition-all shadow-lg shadow-sky-900/20 active:scale-95">
             Contactar mentor
           </Link>
         </div>

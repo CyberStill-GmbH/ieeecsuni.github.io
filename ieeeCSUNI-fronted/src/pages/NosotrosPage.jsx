@@ -2,7 +2,8 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { timeline } from '../data'
 import { HeroTag, Orb } from '../components/ui/HeroElements'
 import { SectionLabel, SectionTitle } from '../components/ui/SectionHeader'
-import mascotaImg from '../../public/mascotaWhos.png';
+import mascotaImg from '../../public/mascotaWhos.png'
+import FebreroTime from '../../public/febrero2026.jpg'
 
 import { 
   Target, 
@@ -160,9 +161,8 @@ export default function NosotrosPage() {
                     <div className="text-sm leading-relaxed opacity-70 mb-4" style={{ color: 'var(--fg2)' }}>{item.desc}</div>
                   </div>
                   
-                  
                   <div className="h-32 rounded-2xl border border-white/5 bg-white/[0.02] flex items-center justify-center group overflow-hidden">
-                    <img src={item.image} className="w-full h-full object-cover" />
+                    <img src={FebreroTime} className="w-full h-full object-cover" />
                     <ImageIcon className="text-white/10 group-hover:text-sky-500/40 transition-colors" />
                   </div>
                 </div>

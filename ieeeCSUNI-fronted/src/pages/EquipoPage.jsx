@@ -4,14 +4,13 @@ import { team } from '../data'
 import { HeroTag, Orb } from '../components/ui/HeroElements'
 import { SectionLabel, SectionTitle } from '../components/ui/SectionHeader'
 import { MemberCard } from '../components/ui/MemberCard'
+import mascotaImg from '../../public/mascotaFormal.png'
 import { 
-  Users, 
   UserPlus, 
   Lightbulb, 
   ShieldCheck, 
   Award, 
   Trophy,
-  ChevronRight,
   Mail
 } from 'lucide-react'
 
@@ -20,21 +19,42 @@ export default function EquipoPage() {
 
   return (
     <main className="pt-16 bg-[#020617] text-white min-h-screen">
-      {/* ── HERO: THE CORE ── */}
-      <section className="relative flex flex-col justify-center px-6 md:px-20 overflow-hidden min-h-[60vh] py-20">
+      {/* ── HERO: CORE CON MASCOTA POSICIONADA ── */}
+      <section
+        className="relative flex items-center px-10 md:px-20 overflow-hidden"
+        style={{ minHeight: '80vh', paddingTop: 80, paddingBottom: 60 }}
+      >
         <Orb className="top-[-100px] left-[-100px] w-[700px] h-[700px] opacity-20"
              style={{ background: 'radial-gradient(circle, #0ea5e9, transparent 70%)' }} />
         
-        <div className="relative z-10 max-w-5xl">
-          <HeroTag>Human Capital</HeroTag>
-          <h1 className="font-black leading-[0.85] tracking-tighter mb-8 text-[clamp(50px,8vw,100px)]">
-            <span className="text-white">Las mentes</span><br />
-            <span className="text-sky-500">detrás del bit.</span>
-          </h1>
-          <p className="max-w-2xl text-xl text-gray-400 leading-relaxed">
-            Somos una fuerza colectiva de estudiantes de la UNI dedicados a 
-            democratizar el acceso a la tecnología de vanguardia y la ciberseguridad.
-          </p>
+        <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          
+          {/* LADO IZQUIERDO: TEXTO */}
+          <div className="reveal">
+            <HeroTag>Human Capital</HeroTag>
+            <h1 className="font-black leading-[0.85] tracking-tighter mb-8 text-[clamp(45px,7vw,90px)]">
+              <span className="text-white">Las mentes</span><br />
+              <span className="text-sky-500">detrás del bit.</span>
+            </h1>
+            <p className="max-w-xl text-xl text-gray-400 leading-relaxed">
+              Somos una fuerza colectiva de estudiantes de la UNI dedicados a 
+              democratizar el acceso a la tecnología de vanguardia y la ciberseguridad.
+            </p>
+          </div>
+
+          {/* LADO DERECHO: MASCOTA FORMAL */}
+          <div className="flex justify-center lg:justify-end items-center reveal">
+            <div className="relative w-full max-w-[450px] aspect-square flex justify-center items-center">
+              {/* Resplandor de fondo para dar profundidad */}
+              <div className="absolute w-72 h-72 bg-sky-600/20 blur-[120px] rounded-full animate-pulse" />
+              
+              <img 
+                src={mascotaImg} 
+                alt="Mascota IEEE CS UNI Formal" 
+                className="fenix-formal relative z-10 w-full h-full object-contain select-none"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -63,7 +83,7 @@ export default function EquipoPage() {
         </div>
       </section>
 
-      {/* ── SECCIÓN: BÚSQUEDA DE ASESORES (MEJORADO) ── */}
+      {/* ── SECCIÓN: BÚSQUEDA DE ASESORES ── */}
       <section className="py-32 px-6 md:px-20 relative overflow-hidden bg-white/[0.01]">
         <div className="absolute inset-0 bg-sky-500/[0.02] pointer-events-none" />
         
@@ -99,7 +119,6 @@ export default function EquipoPage() {
               </div>
             </div>
 
-            {/* Visual para Asesores (Placeholder Pro) */}
             <div className="relative reveal">
               <div className="absolute inset-0 bg-sky-500 blur-[100px] opacity-10 animate-pulse" />
               <div className="relative grid grid-cols-2 gap-4">
@@ -148,18 +167,6 @@ export default function EquipoPage() {
             <Link to="/proyectos" className="px-10 py-4 border border-white/10 rounded-2xl font-bold hover:bg-white/5 transition-all">
               Ver beneficios
             </Link>
-          </div>
-
-          <div className="mt-16 flex items-center justify-center gap-8 text-gray-600">
-            <div className="text-center">
-              <div className="text-white font-bold">DIC 2026</div>
-              <div className="text-[10px] uppercase tracking-widest font-black">Próximas Elecciones</div>
-            </div>
-            <div className="w-px h-10 bg-white/10" />
-            <div className="text-center">
-              <div className="text-white font-bold">12+ PLAZAS</div>
-              <div className="text-[10px] uppercase tracking-widest font-black">Cupos Directiva</div>
-            </div>
           </div>
         </div>
       </section>
