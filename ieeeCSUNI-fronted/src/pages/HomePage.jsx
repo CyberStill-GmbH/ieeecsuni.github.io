@@ -6,6 +6,7 @@ import { HeroTag, StatBar, ScrollHint, Orb } from '../components/ui/HeroElements
 import { SectionLabel, SectionTitle } from '../components/ui/SectionHeader'
 import { EventCard } from '../components/ui/EventCard'
 import MascotaImg from '../../public/mascotaWhere.png'
+import JuntaDirectiva from '../../public/JuntaDirectiva.jpg'
 import { 
   Terminal, 
   Code2, 
@@ -19,9 +20,9 @@ import {
 } from 'lucide-react'
 
 const heroStats = [
-  { number: '150', suffix: '+', label: 'Miembros activos' },
-  { number: '40',  suffix: '+', label: 'Eventos realizados' },
-  { number: '8',   suffix: '°', label: 'Años de historia' },
+  { number: '9', suffix: '+', label: 'Miembros activos' },
+  { number: '1',  suffix: '+', label: 'Eventos realizados' },
+  { number: '1',   suffix: '°', label: 'Años de historia' },
   { number: '12',  suffix: 'k', label: 'Comunidad IEEE' },
 ]
 
@@ -67,7 +68,7 @@ export default function HomePage() {
               
               {/* Foto (Aquí pones la ruta de la foto de ustedes) */}
               <img 
-                src="/foto-capitulo.jpg" 
+                src={JuntaDirectiva} 
                 alt="Equipo IEEE CS UNI" 
                 className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
               />
