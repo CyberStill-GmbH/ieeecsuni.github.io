@@ -41,7 +41,7 @@ export default function HomePage() {
           {/* Columna Izquierda: Texto */}
           <div className="reveal">
             <HeroTag>Universidad Nacional de Ingeniería · Lima, Perú</HeroTag>
-            <h1 className="font-black leading-[0.85] tracking-tighter mb-8 text-[clamp(45px,8vw,95px)]">
+            <h1 className="font-black leading-[0.85] tracking-tighter mb-8 text-[clamp(66px,8vw,95px)]">
               <span className="text-white">Computer</span><br />
               <span className="text-sky-500">Society</span> <span className="text-white/20 italic">UNI</span>
             </h1>
@@ -49,10 +49,18 @@ export default function HomePage() {
               Impulsamos el estándar de la ingeniería en computación. No solo estudiamos tecnología, la construimos desde la base.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link to="/contacto" className="btn-primary px-10 py-4 rounded-xl font-bold bg-sky-600 hover:bg-sky-500 transition-all shadow-[0_0_20px_rgba(14,165,233,0.3)]">
+              <Link 
+                to="/contacto"
+                onClick={() => window.scrollTo(0, 0)} 
+                className="btn-primary px-10 py-4 rounded-xl font-bold bg-sky-600 hover:bg-sky-500 transition-all shadow-[0_0_20px_rgba(14,165,233,0.3)]"
+              >
                 Unirse ahora
               </Link>
-              <Link to="/proyectos" className="px-10 py-4 border border-white/10 hover:bg-white/5 rounded-xl font-bold transition-all backdrop-blur-sm">
+              <Link 
+                to="/proyectos"
+                onClick={() => window.scrollTo(0, 0)}  
+                className="px-10 py-4 border border-white/10 hover:bg-white/5 rounded-xl font-bold transition-all backdrop-blur-sm"
+              >
                 Proyectos
               </Link>
             </div>
@@ -60,7 +68,7 @@ export default function HomePage() {
 
           {/* Columna Derecha: Foto del Capítulo con efecto Tech */}
           <div className="relative reveal reveal-delay-2 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[500px] aspect-[4/3] rounded-2xl overflow-hidden group">
+            <div className="relative w-full max-w-[600px] aspect-[4/3] rounded-2xl overflow-hidden group">
               {/* Bordes decorativos animados */}
               <div className="absolute inset-0 border-2 border-sky-500/30 rounded-2xl z-20 pointer-events-none group-hover:border-sky-500 transition-colors" />
               <div className="absolute -top-2 -right-2 w-20 h-20 border-t-2 border-r-2 border-sky-400 z-30 opacity-50" />
@@ -106,7 +114,7 @@ export default function HomePage() {
                   key={i}
                   className="spark bg-orange-500 shadow-[0_0_8px_#ff4500]"
                   style={{
-                    left: `${20 + Math.random() * 60}%`, // Posición aleatoria horizontal
+                    left: `${20 + Math.random() * 60}%`, 
                     bottom: '20%',
                     animationDelay: `${Math.random() * 2}s`, // Delay para que fluyan
                     animationDuration: `${1.5 + Math.random()}s`
@@ -118,7 +126,7 @@ export default function HomePage() {
               <img 
                 src={MascotaImg} 
                 alt="Mascota CS" 
-                className="relative z-10 w-64 h-auto object-contain"
+                className="relative z-10 w-500 h-auto object-contain"
                 style={{ animation: 'soft-glow 3s infinite ease-in-out' }}
               />
 
@@ -190,7 +198,11 @@ export default function HomePage() {
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <div className="relative inline-block mb-12">
             <div className="absolute inset-0 bg-orange-500 blur-[60px] opacity-20 animate-pulse" />
-            <img src="./codenixLogo.png" alt="CODENIX" className="w-32 h-32 relative z-10 drop-shadow-[0_0_20px_#e55d17]" />
+            <img 
+              src="./codenixLogo.png" 
+              alt="CODENIX" 
+              className="w-50 h-36 relative z-10 drop-shadow-[0_0_20px_#e55d17]" 
+            />
           </div>
           
           <h2 className="text-7xl md:text-9xl font-black tracking-tighter mb-6 bg-gradient-to-b from-white to-gray-600 bg-clip-text text-transparent">

@@ -66,7 +66,7 @@ export default function NosotrosPage() {
               alt="Mascota del capítulo codeando para revivirlo jajajaj"
               className="relative w-full h-full object-contain p-6 z-10 drop-shadow-[0_0_8px_rgba(0,180,255,0.7)]"
             />
-            <div className="absolute -z-10 w-64 h-64 bg-sky-500/10 blur-[100px] rounded-full" />
+            <div className="absolute -z-10 w-64 h-64 bg-sky-500/10 blur-[500px] rounded-full" />
             <img 
               src={mascotaImg} 
               alt="" 
