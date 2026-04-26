@@ -247,7 +247,7 @@ export default function ProyectosPage() {
             </div>
 
             {/* Right: Mascot */}
-            <div className="relative flex items-center justify-center w-60 h-60 md:w-[380px] md:h-[380px] order-1 md:order-2 flex-shrink-0">
+            <div className="relative flex items-center justify-center w-60 h-60 md:w-[900px] md:h-[380px] order-1 md:order-2 flex-shrink-0">
               {/* Ring decorations */}
               <div className="absolute inset-0 rounded-full border border-sky-500/[0.12] animate-spin" style={{ animationDuration: '20s' }} />
               <div className="absolute inset-4 rounded-full border border-sky-500/[0.07] animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }} />

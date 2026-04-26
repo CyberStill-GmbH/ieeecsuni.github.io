@@ -131,7 +131,10 @@ export default function RecursosPage() {
           <Zap className="w-8 h-8 text-yellow-500 mx-auto mb-4" />
           <h3 className="text-2xl font-bold mb-4 italic">¿Buscas algo específico?</h3>
           <p className="text-gray-500 text-sm mb-8">Nuestros miembros senior pueden ayudarte a encontrar la documentación que necesitas.</p>
-          <Link to="/contacto" className="inline-block px-10 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold transition-all shadow-lg shadow-sky-900/20 active:scale-95">
+          <Link 
+            to="/Equipo" 
+            onClick={() => window.scrollTo(0, 0)}
+            className="inline-block px-10 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold transition-all shadow-lg shadow-sky-900/20 active:scale-95">
             Contactar mentor
           </Link>
         </div>
