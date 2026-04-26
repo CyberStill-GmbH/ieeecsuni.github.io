@@ -49,7 +49,7 @@ export const projects = [
       'Plataforma web oficial del capítulo estudiantil IEEE Computer Society UNI. Sistema de roles (user / member / admin), gestión de eventos, proyectos y membresías.',
     tags: ['React', 'Vite', 'Tailwind', 'Laravel'],
     github: 'https://github.com/ieeecsuni-droid/ieeecsuni.github.io',
-    link: 'https://ieeecs-uni.com',
+    link: 'https://ieeecsuni-droid.github.io/ieeecsuni.github.io/',
     image: ieeeWeb,
     members: ['Cesar Adrian Guevara Salcedo'],
   },
