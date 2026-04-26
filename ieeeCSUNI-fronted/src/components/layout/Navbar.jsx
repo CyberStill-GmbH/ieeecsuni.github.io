@@ -40,7 +40,11 @@ export function Navbar() {
         }}
       >
         {/* Brand */}
-        <Link to="/" className="flex items-center gap-3 no-underline group">
+        <Link 
+          to="/" 
+          className="flex items-center gap-3 no-underline group"
+          onClick={() => window.scrollTo(0, 0)}
+          >
           <IEEECSLogo size={36} />
           <div>
             <div className="text-[13px] font-bold" style={{ color: 'var(--fg)', lineHeight: 1.2 }}>
@@ -61,6 +65,7 @@ export function Navbar() {
             <li key={to}>
               <Link
                 to={to}
+                onClick={() => window.scrollTo(0, 0)}
                 className="px-3.5 py-1.5 rounded-lg text-[13px] font-medium tracking-wide transition-all duration-200 no-underline"
                 style={{
                   color: location.pathname === to ? 'var(--c1)' : 'var(--fg2)',
@@ -72,51 +77,6 @@ export function Navbar() {
               </Link>
             </li>
           ))}
-
-          {user ? (
-            <>
-              <li>
-                <Link
-                  to="/dashboard"
-                  className="px-3.5 py-1.5 rounded-lg text-[13px] font-medium tracking-wide transition-all duration-200 no-underline"
-                  style={{ color: 'var(--fg2)', border: '1px solid transparent' }}
-                >
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <div className="flex items-center gap-2 ml-2">
-                  <div
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white"
-                    style={{ background: 'linear-gradient(135deg, var(--c3), var(--c2))' }}
-                  >
-                    {user.name?.[0]?.toUpperCase()}
-                  </div>
-                  <button
-                    onClick={handleLogout}
-                    className="px-4 py-1.5 rounded-lg text-[12px] font-semibold transition-all duration-200 cursor-pointer"
-                    style={{
-                      background: 'rgba(255,80,80,0.1)',
-                      border: '1px solid rgba(255,80,80,0.25)',
-                      color: '#ff9999',
-                    }}
-                  >
-                    Salir
-                  </button>
-                </div>
-              </li>
-            </>
-          ) : (
-            <li>
-              <Link
-                to="/login"
-                className="ml-2 px-5 py-2 rounded-lg text-[13px] font-bold tracking-wide text-white transition-all duration-200 no-underline inline-flex items-center gap-1.5"
-                style={{ background: 'linear-gradient(135deg, var(--c3), var(--c2))' }}
-              >
-                Únete →
-              </Link>
-            </li>
-          )}
         </ul>
 
         {/* Mobile hamburger */}
@@ -172,16 +132,6 @@ export function Navbar() {
               {label}
             </Link>
           ))}
-          {user ? (
-            <>
-              <Link to="/dashboard" className="py-3 px-4 rounded-lg text-sm font-medium no-underline" style={{ color: 'var(--fg2)' }}>Dashboard</Link>
-              <button onClick={handleLogout} className="py-3 px-4 rounded-lg text-sm font-semibold text-left cursor-pointer border-none bg-transparent" style={{ color: '#ff9999' }}>Cerrar sesión</button>
-            </>
-          ) : (
-            <Link to="/login" className="mt-2 py-3 px-4 rounded-lg text-sm font-bold text-white text-center no-underline" style={{ background: 'linear-gradient(135deg, var(--c3), var(--c2))' }}>
-              Únete →
-            </Link>
-          )}
         </div>
       )}
     </>
