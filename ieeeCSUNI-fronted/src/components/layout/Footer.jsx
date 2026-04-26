@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom'
 import { IEEECSLogo } from '../../assets/IEEECSLogo'
 import { footerLinks } from '../../data'
-import { FaLinkedin, FaInstagram, FaDiscord, FaEnvelope } from 'react-icons/fa' 
+import { 
+  FaLinkedin, 
+  FaInstagram, 
+  FaWhatsapp, 
+  FaEnvelope,
+  FaYoutube,
+  FaTiktok,
+  FaFacebook,
+} from 'react-icons/fa' 
 
 
 export function Footer() {
@@ -28,9 +36,11 @@ export function Footer() {
             {/* Social icons */}
             <div className="flex gap-3 mt-5">
               {[
-                { Icon: FaLinkedin, href: '#', title: 'LinkedIn' },
-                { Icon: FaInstagram, href: '#', title: 'Instagram' },
-                { Icon: FaDiscord, href: '#', title: 'Discord' },
+                { Icon: FaLinkedin, href: 'https://www.linkedin.com/company/ieee-cs-uni-sb/', title: 'LinkedIn' },
+                { Icon: FaInstagram, href: 'https://www.instagram.com/ieee.cs.uni/', title: 'Instagram' },
+                { Icon: FaYoutube, href: 'https://www.youtube.com/@IEEE-CS-UNI', title: 'Youtube' },
+                { Icon: FaTiktok, href: 'https://www.tiktok.com/@ieee.cs.uni?lang=es-419', title: 'Tiktok' },
+                { Icon: FaWhatsapp, href: 'https://www.whatsapp.com/channel/0029Vb7ULtl9MF99Felbfi1c', title: 'Whatsapp' },
                 { Icon: FaEnvelope, href: 'mailto:ieeecs@uni.edu.pe', title: 'Email' },
               ].map((social, index) => (
                 <a
@@ -42,7 +52,7 @@ export function Footer() {
                   className="p-2 border rounded-full text-gray-700 hover:text-blue-600 hover:border-blue-600 transition-colors"
                   
                 >
-                  <social.Icon className="w-5 h-5" /> {/* Aquí se renderiza el icono con tamaño */}  
+                  <social.Icon className="w-5 h-5" />   
                 </a>
               ))}
             </div>
@@ -57,6 +67,7 @@ export function Footer() {
                   <li key={label}>
                     <Link
                       to={to}
+                      onClick={() => window.scrollTo(0, 0)}
                       className="text-sm no-underline transition-colors duration-200"
                       style={{ color: 'var(--fg2)' }}
                       onMouseEnter={e => { e.currentTarget.style.color = 'var(--c1)' }}
