@@ -44,7 +44,29 @@ export const resources = [
     excerpt: "Una recopilación de más de 100 libros de programación, desde bases hasta frameorks modernos y arquitectura de sistemas.",
     link: "https://librosgratis.dev/", 
     date: "Abril 2026"
+  },
+  {
+    title: "USACO: Recursos de programación competitiva",
+    category: "Programación Competitiva",
+    excerpt: "Guía con problemas para iniciar en la programación competitiva con C++",
+    link: "https://usaco.guide/",
+    date: "Abril 2026",
+  },
+  {
+    title: "The Odin Project",
+    category: "Desarrollo web",
+    excerpt: "Curso completo de desarrollo web fullstack (HTML, CSS, JS, React, NodeJS, Ruby)",
+    link: "https://www.theodinproject.com/",
+    date: "Abril 2026",
+  },
+  {
+    title: "Repositorio de teoría de programación competitiva",
+    category: "Programación Competitiva",
+    link: "https://cp-algorithms.com/",
+    excerpt: "Programación Competitiva",
+    date: "Abril 2026",
   }
+
 ]
 // ── Achievements ──────────────────────────────────────────
 export const achievements = [

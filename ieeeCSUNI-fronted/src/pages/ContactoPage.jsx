@@ -63,7 +63,7 @@ export default function ContactoPage() {
           </div>
 
           <div className="flex justify-center lg:justify-end reveal">
-            <img src={mascotaUniImg} alt="Mascota UNI" className="fenix-uni w-full max-w-[380px] object-contain select-none" />
+            <img src={mascotaUniImg} alt="Mascota UNI" className="fenix-uni w-full max-w-[900px] object-contain select-none" />
           </div>
         </div>
       </section>
@@ -124,8 +124,12 @@ export default function ContactoPage() {
                       <select name="carrera" className="bg-[#020617] border border-white/10 p-4 rounded-xl outline-none" required value={form.carrera} onChange={handleChange}>
                         <option value="">Selecciona carrera</option>
                         <option>Ingeniería de Ciberseguridad</option>
+                        <option>Ingeniería Eléctrica</option>
+                        <option>Ingeniería Electrónica</option>
+                        <option>Ingeniería de Telecomunicaciones</option>
                         <option>Ingeniería de Sistemas</option>
                         <option>Ingeniería de Software</option>
+                        <option>Otro</option>
                       </select>
                     </div>
                     <div className="flex flex-col gap-2">
@@ -143,6 +147,7 @@ export default function ContactoPage() {
                     <div className="flex flex-col gap-2">
                       <label className="text-[11px] font-bold uppercase tracking-widest text-gray-500">Tipo de Evento</label>
                       <select name="tipoEvento" className="bg-[#020617] border border-white/10 p-4 rounded-xl outline-none" value={form.tipoEvento} onChange={handleChange}>
+                        <option value="">Selecciona tipo de evento</option>
                         <option>Workshop Técnico</option>
                         <option>Charla / Webinar</option>
                         <option>CTF / Competencia</option>
@@ -183,7 +188,7 @@ export default function ContactoPage() {
               </h4>
               <div className="space-y-6">
                 {[
-                  { icon: <Mail />, label: 'Email', val: 'ieeecs@uni.edu.pe' },
+                  { icon: <Mail />, label: 'Email', val: 'ieeecs.uni@gmail.com' },
                   { icon: <MapPin />, label: 'Ubicación', val: 'FIEE - UNI, Pabellón Q' },
                   { icon: <Clock />, label: 'Horario', val: 'Lun – Vie, 17:00 – 20:00' },
                 ].map((item, i) => (
@@ -200,9 +205,9 @@ export default function ContactoPage() {
 
             {/* RRSS */}
             <div className="grid grid-cols-3 gap-3">
-              {[<Linkedin />, <Instagram />, <Github />].map((icon, i) => (
-                <a key={i} href="#" className="bg-white/5 border border-white/10 flex items-center justify-center p-4 rounded-2xl hover:border-sky-500/50 transition-all text-gray-400 hover:text-sky-400">
-                  <div className="w-5 h-5">{icon}</div>
+              {[{Icon:<Linkedin />, link: "https://www.linkedin.com/company/ieee-cs-uni-sb/"}, {Icon: <Instagram />, link: "https://www.instagram.com/ieee.cs.uni/"}, {Icon: <Github />, link: "https://github.com/ieeecsuni-droid"}].map((info, i) => (
+                <a key={i} href={info.link} className="bg-white/5 border border-white/10 flex items-center justify-center p-4 rounded-2xl hover:border-sky-500/50 transition-all text-gray-400 hover:text-sky-400">
+                  <div className="w-5 h-5">{info.Icon}</div>
                 </a>
               ))}
             </div>

@@ -123,6 +123,7 @@ export function Navbar() {
             <Link
               key={to}
               to={to}
+              onClick={() => window.scrollTo(0, 0)}
               className="py-3 px-4 rounded-lg text-sm font-medium no-underline transition-all duration-200"
               style={{
                 color: location.pathname === to ? 'var(--c1)' : 'var(--fg2)',

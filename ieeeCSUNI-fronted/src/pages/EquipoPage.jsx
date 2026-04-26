@@ -161,10 +161,18 @@ export default function EquipoPage() {
           </p>
           
           <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/contacto" className="px-10 py-4 bg-sky-600 rounded-2xl font-bold hover:bg-sky-500 transition-all shadow-xl shadow-sky-900/20">
+            <Link 
+              to="/contacto"
+              onClick={() => window.scrollTo(0, 0)} 
+              className="px-10 py-4 bg-sky-600 rounded-2xl font-bold hover:bg-sky-500 transition-all shadow-xl shadow-sky-900/20"
+            >
               Postular como SuperVoluntario
             </Link>
-            <Link to="/proyectos" className="px-10 py-4 border border-white/10 rounded-2xl font-bold hover:bg-white/5 transition-all">
+            <Link 
+              to="/proyectos"
+              onClick={() => window.scrollTo(0, 0)} 
+              className="px-10 py-4 border border-white/10 rounded-2xl font-bold hover:bg-white/5 transition-all"
+            >
               Ver beneficios
             </Link>
           </div>
