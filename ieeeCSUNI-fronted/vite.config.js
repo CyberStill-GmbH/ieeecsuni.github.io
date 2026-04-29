@@ -10,37 +10,17 @@ export default defineConfig({
     },
   },
 
-  base: '/ieeecsuni.github.io/',
+  base: '/',
 
   server: {
     port: 5173,
     strictPort: true,
 
     proxy: {
-      '/ieeecsuni.github.io/sanctum': {
+      '/api': {
         target: 'http://localhost:8000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/ieeecsuni.github.io/, '') // Quita el prefijo para Laravel
-      },
-      '/ieeecsuni.github.io/login': {
-        target: 'http://localhost:8000',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/ieeecsuni.github.io/, '')
-      },
-      '/ieeecsuni.github.io/register': {
-        target: 'http://localhost:8000',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/ieeecsuni.github.io/, '')
-      },
-      '/ieeecsuni.github.io/logout': {
-        target: 'http://localhost:8000',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/ieeecsuni.github.io/, '')
-      },
-      '/ieeecsuni.github.io/api': {
-        target: 'http://localhost:8000',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/ieeecsuni.github.io/, '')
+        rewrite: (path) => path.replace(/^\/api/, '')
       },
     },
   },
