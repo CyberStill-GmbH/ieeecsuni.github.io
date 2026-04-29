@@ -1,14 +1,94 @@
+/**
+ * EventosPage v2 — IEEE CS UNI
+ *
+ * Cambios vs v1:
+ * ─ Eliminado: Orb, HeroTag, SectionLabel, SectionTitle (inconsistentes)
+ * ─ Eliminado: scanline overlay en video (ruido innecesario)
+ * ─ Eliminado: Play icon sobre video con autoplay (contradictorio)
+ * ─ Eliminado: `rounded-[3rem]`, `rounded-[2.5rem]` (valores arbitrarios)
+ * ─ Eliminado: PlusCircle size={200} como decoración de fondo
+ * ─ Añadido: dot grid background (consistente con HomePage/NosotrosPage)
+ * ─ Añadido: sección de proof/impact (credibilidad ejecutada)
+ * ─ Añadido: empty state institucional
+ * ─ Mejorado: copy — menos informal, más aspiracional técnico
+ * ─ Mejorado: sistema de filtros — pills limpias sin contenedor innecesario
+ * ─ Mejorado: sección "Proponer evento" — sin PlusCircle decorativo
+ * ─ Mejorado: ritmo visual entre secciones con border-t consistente
+ */
+
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { events } from '../data'
-import { HeroTag, Orb } from '../components/ui/HeroElements'
-import { SectionLabel, SectionTitle } from '../components/ui/SectionHeader'
 import { EventCard } from '../components/ui/EventCard'
-import { Calendar, Sparkles, PlusCircle, Play, Monitor } from 'lucide-react'
+import { Calendar, ArrowUpRight, ArrowRight } from 'lucide-react'
 import tuVideo from '../../public/videoplayback.mp4'
 
+// ─── Datos ────────────────────────────────────────────────────
+
 const FILTERS = ['Todos', 'Taller', 'Competencia', 'Charla', 'Hackathon', 'Conferencia']
+
+const impactStats = [
+  { value: '6+', label: 'Eventos realizados' },
+  { value: '200+', label: 'Asistentes totales' },
+  { value: '4', label: 'Categorías técnicas' },
+  { value: '100%', label: 'Entrada libre' },
+]
+
+// ─── Componentes locales ───────────────────────────────────────
+
+function Badge({ children }) {
+  return (
+    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 text-[11px] font-mono font-medium tracking-widest text-gray-500 uppercase">
+      {children}
+    </span>
+  )
+}
+
+function SectionMeta({ tag, title, className = '' }) {
+  return (
+    <div className={className}>
+      <span className="font-mono text-[10px] tracking-[0.3em] text-sky-500/60 uppercase">{tag}</span>
+      <h2 className="mt-2 font-black tracking-tight leading-[0.88] text-white text-5xl md:text-6xl">
+        {title}
+      </h2>
+    </div>
+  )
+}
+
+function FilterChip({ label, isActive, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`px-4 py-2 rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest
+                  transition-all duration-200 ${
+        isActive
+          ? 'bg-sky-500 text-white shadow-[0_0_12px_rgba(14,165,233,0.3)]'
+          : 'border border-white/[0.06] text-gray-500 hover:text-gray-300 hover:border-white/[0.12]'
+      }`}
+    >
+      {label}
+    </button>
+  )
+}
+
+function EmptyState({ filter }) {
+  return (
+    <div className="py-32 flex flex-col items-center justify-center border border-dashed border-white/[0.06] rounded-2xl text-center">
+      <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center mx-auto mb-6">
+        <Calendar className="w-6 h-6 text-gray-700" />
+      </div>
+      <h3 className="font-bold text-base text-gray-400 mb-2">
+        Sin eventos en <span className="text-white">{filter}</span>
+      </h3>
+      <p className="text-gray-600 text-sm max-w-xs leading-relaxed">
+        Estamos preparando nuevas actividades. Explora otras categorías o vuelve pronto.
+      </p>
+    </div>
+  )
+}
+
+// ─── Página principal ──────────────────────────────────────────
 
 export default function EventosPage() {
   useScrollReveal()
@@ -20,150 +100,231 @@ export default function EventosPage() {
 
   return (
     <main className="pt-16 bg-[#020617] text-white min-h-screen">
-      
-      {/* ── HERO SECTION WITH VIDEO/ANIMATION SLOT ── */}
-      <section className="relative px-6 md:px-20 pt-20 pb-12 overflow-hidden">
-        <Orb className="top-[-100px] right-[-50px] w-[800px] h-[800px] opacity-20"
-             style={{ background: 'radial-gradient(circle, #0ea5e9, transparent 70%)' }} />
-        
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="relative z-10">
-            <HeroTag>IEEE CS UNI Live</HeroTag>
-            <h1 className="font-black leading-[0.85] tracking-tighter mb-8 text-[clamp(45px,7vw,90px)] uppercase">
-              <span className="text-white">Conecta,</span><br />
-              <span className="text-sky-500 italic">Crea &</span><br />
-              <span className="text-white">Compite.</span>
+
+      {/* ══ HERO ══════════════════════════════════════════════
+          Dot grid + dos columnas: copy institucional + video.
+          Sin scanlines, sin Play icon sobre video en autoplay.
+      ═════════════════════════════════════════════════════ */}
+      <section className="relative px-6 md:px-20 pt-20 pb-0 overflow-hidden">
+
+        {/* Dot grid — sistema compartido con HomePage/NosotrosPage */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)`,
+            backgroundSize: '40px 40px',
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/80 via-transparent to-[#020617] pointer-events-none" />
+
+        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-20">
+
+          {/* Copy */}
+          <div className="reveal">
+            <Badge>IEEE CS UNI Live</Badge>
+
+            <h1 className="mt-6 font-black tracking-tighter leading-[0.85] text-[clamp(48px,7vw,88px)]">
+              <span className="text-white">Conecta,</span>
+              <br />
+              <span className="text-sky-500 italic">crea</span>
+              <span className="text-white"> &amp;</span>
+              <br />
+              <span className="text-white">compite.</span>
             </h1>
-            <p className="max-w-xl text-lg text-gray-400 leading-relaxed mb-8">
-              Desde hackathons épicas hasta workshops de ciberseguridad. 
-              Tu próximo gran salto profesional empieza en uno de nuestros eventos.
+
+            <div className="mt-8 mb-6 flex items-center gap-4">
+              <div className="w-8 h-px bg-sky-500" />
+              <span className="font-mono text-[10px] tracking-[0.3em] text-gray-600 uppercase">
+                Workshops · Hackathons · Conferencias
+              </span>
+            </div>
+
+            <p className="max-w-md text-base text-gray-400 leading-relaxed mb-8">
+              Cada evento es una oportunidad real de crecimiento técnico. Desde
+              ciberseguridad hasta programación competitiva — aquí construyes
+              tu perfil profesional desde la universidad.
             </p>
-            <div className="flex gap-4">
-               <div className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-300">Próximo evento en 3 días</span>
-               </div>
+
+            {/* Live indicator */}
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-xl
+                            border border-white/[0.06] bg-white/[0.02]">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              <span className="font-mono text-[10px] tracking-widest text-gray-400 uppercase">
+                Próximo evento en 3 días
+              </span>
             </div>
           </div>
 
-          {/* ── CREATIVE MEDIA SLOT ── */}
-          <div className="relative group reveal">
-            {/* Decoración de Frame Tecnológico */}
-            <div className="absolute -inset-4 border border-white/5 rounded-[2.5rem] pointer-events-none group-hover:border-sky-500/20 transition-colors duration-700" />
-            <div className="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-sky-500 rounded-tl-xl" />
-            <div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-sky-500 rounded-br-xl" />
-            
-            {/* Contenedor de Video/Animación */}
-            <div className="relative aspect-video bg-[#0b1120] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl shadow-sky-500/10">
-               {/* ESPACIO PARA TU VIDEO/ANIMACIÓN */}
-               <video src={tuVideo} autoPlay loop muted className="w-full h-full object-cover" />
-               <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-sky-900/40 to-transparent">
-                  <Play className="w-16 h-16 text-white/20 group-hover:text-sky-400 group-hover:scale-110 transition-all duration-500" />
-                  <span className="mt-4 text-[10px] font-mono tracking-[0.3em] text-white/30 uppercase group-hover:text-sky-400/50">
-                    [ Media_Stream_Active ]
-                  </span>
-               </div>
-               
-               {/* Overlay de Scanline */}
-               <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,118,0.03))] bg-[length:100%_2px,3px_100%]" />
+          {/* Video — limpio, sin efectos que compitan */}
+          <div className="reveal reveal-delay-2 relative group">
+            <div
+              className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100
+                          bg-gradient-to-br from-sky-500/15 to-transparent
+                          blur-md transition-opacity duration-700 pointer-events-none"
+            />
+            <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl">
+              <video
+                src={tuVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              />
+              {/* Gradient overlay — solo en la parte inferior para legibilidad */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/40 to-transparent pointer-events-none" />
             </div>
           </div>
+
         </div>
       </section>
 
-      <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      {/* ══ PROOF STRIP ═══════════════════════════════════════
+          Sección nueva — credibilidad ejecutada.
+          Mismo sistema de grid que HomePage y NosotrosPage.
+      ═════════════════════════════════════════════════════ */}
+      <div className="border-y border-white/[0.05] bg-white/[0.01]">
+        <div className="max-w-7xl mx-auto px-6 md:px-20">
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {impactStats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`py-8 px-8 flex flex-col gap-1.5
+                  ${i < impactStats.length - 1 ? 'border-r border-white/[0.05]' : ''}
+                  ${i < 2 ? 'border-b md:border-b-0 border-white/[0.05]' : ''}
+                `}
+              >
+                <div className="font-black text-3xl md:text-4xl tracking-tight text-white leading-none">
+                  {stat.value}
+                </div>
+                <p className="text-[10px] text-gray-600 font-medium uppercase tracking-wider">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-      {/* ── EXPLORADOR DE EVENTOS ── */}
-      <section className="py-24 px-6 md:px-20">
+      {/* ══ EXPLORADOR DE EVENTOS ═════════════════════════════
+          Header editorial + filtros limpios + grid.
+      ═════════════════════════════════════════════════════ */}
+      <section className="py-28 px-6 md:px-20">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-            <div className="reveal">
-              <SectionLabel>Timeline</SectionLabel>
-              <SectionTitle>Próximas Actividades</SectionTitle>
-            </div>
 
-            {/* Chips de Filtro Mejorados */}
-            <div className="flex flex-wrap gap-2 p-1.5 bg-white/[0.03] border border-white/5 rounded-2xl backdrop-blur-md">
+          {/* Header */}
+          <div className="reveal flex flex-col md:flex-row md:items-end justify-between gap-10 mb-14">
+            <SectionMeta
+              tag="Timeline"
+              title={<>Próximas<br />actividades.</>}
+            />
+
+            {/* Filtros */}
+            <div className="flex flex-wrap gap-2">
               {FILTERS.map(f => (
-                <button
+                <FilterChip
                   key={f}
+                  label={f}
+                  isActive={activeFilter === f}
                   onClick={() => setActiveFilter(f)}
-                  className={`px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${
-                    activeFilter === f 
-                    ? 'bg-sky-600 text-white shadow-[0_0_15px_rgba(14,165,233,0.4)]' 
-                    : 'text-gray-500 hover:text-gray-300'
-                  }`}
-                >
-                  {f}
-                </button>
+                />
               ))}
             </div>
           </div>
 
-          {/* Grid Principal */}
+          {/* Grid de eventos */}
           {filtered.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="reveal grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {filtered.map(ev => (
-                <div key={ev.id} className="reveal">
-                  <EventCard event={ev} />
-                </div>
+                <EventCard key={ev.id} event={ev} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-32 bg-white/[0.02] border border-dashed border-white/10 rounded-[3rem] reveal">
-              <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
-                 <Calendar className="w-8 h-8 text-gray-600" />
-              </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-300">Nada programado en "{activeFilter}"</h3>
-              <p className="text-gray-500 text-sm">Explora otras categorías para encontrar tu próxima aventura.</p>
+            <div className="reveal">
+              <EmptyState filter={activeFilter} />
             </div>
           )}
 
-          {/* CTA Registro */}
-          <div className="mt-20 p-1 bg-gradient-to-r from-transparent via-sky-500/20 to-transparent rounded-full">
-            <div className="text-center py-8">
-              <p className="text-sm text-gray-400 mb-6 flex items-center justify-center gap-2">
-                <Sparkles size={16} className="text-sky-500" />
-                No te pierdas de nada. Únete a la comunidad oficial.
+          {/* CTA de comunidad */}
+          <div className="reveal mt-20 pt-12 border-t border-white/[0.05] flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div>
+              <p className="text-white font-bold text-lg mb-1">
+                ¿No quieres perderte ningún evento?
               </p>
-              <Link to="/login" className="px-10 py-4 bg-white text-black rounded-2xl font-bold hover:bg-sky-500 hover:text-white transition-all">
-                Crear cuenta gratis →
-              </Link>
+              <p className="text-gray-500 text-sm">
+                Únete a la comunidad y recibe notificaciones directas.
+              </p>
             </div>
+            <Link
+              to="/contacto"
+              onClick={() => window.scrollTo(0, 0)}
+              className="flex-shrink-0 inline-flex items-center gap-2 px-7 py-3.5 rounded-xl
+                         bg-sky-500 hover:bg-sky-400 text-white font-bold text-sm
+                         transition-all duration-200 hover:shadow-[0_0_24px_rgba(14,165,233,0.35)]"
+            >
+              Unirme a la comunidad
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ── PROPOSE EVENT (BENTO STYLE) ── */}
-      <section className="py-24 px-6 md:px-20 relative">
-        <div className="max-w-5xl mx-auto">
-          <div className="bg-gradient-to-br from-[#0b1120] to-transparent border border-white/5 rounded-[3rem] p-10 md:p-20 relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-10 opacity-5">
-               <PlusCircle size={200} />
+      {/* ══ PROPONER EVENTO ═══════════════════════════════════
+          Simplificado — sin PlusCircle giant, sin rounded-[3rem].
+          Dos columnas: copy izquierda, CTA derecha.
+          Mismo estilo que el CTA final de NosotrosPage.
+      ═════════════════════════════════════════════════════ */}
+      <div className="border-t border-white/[0.05]" />
+      <section className="py-28 px-6 md:px-20 bg-white/[0.01]">
+        <div className="max-w-7xl mx-auto reveal">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-12">
+
+            <div className="max-w-lg">
+              <span className="font-mono text-[10px] tracking-[0.3em] text-sky-500/50 uppercase block mb-4">
+                Collaborate
+              </span>
+              <h2 className="font-black text-4xl md:text-5xl tracking-tight leading-[0.9] text-white mb-5">
+                ¿Quieres compartir<br />
+                <span className="text-sky-500">tus conocimientos?</span>
+              </h2>
+              <p className="text-gray-500 text-sm leading-relaxed">
+                Si tienes un tema que dominas o quieres liderar un taller técnico,
+                te damos la plataforma, la audiencia y el soporte logístico completo.
+              </p>
             </div>
-            
-            <div className="relative z-10 text-center lg:text-left flex flex-col lg:flex-row items-center gap-12">
-               <div className="flex-1">
-                  <SectionLabel>Collaborate</SectionLabel>
-                  <SectionTitle className="text-3xl md:text-5xl mb-6">¿Quieres compartir <br />tus conocimientos?</SectionTitle>
-                  <p className="text-gray-400 text-lg leading-relaxed">
-                    Si tienes un tema que te apasiona o quieres dirigir un taller técnico, 
-                    estamos listos para darte la plataforma y el apoyo logístico.
-                  </p>
-               </div>
-               <div className="flex-shrink-0">
-                  <Link 
-                    to="/contacto"
-                    onClick={() => window.scrollTo(0, 0)} 
-                    className="inline-flex items-center gap-3 px-8 py-4 border border-sky-500/50 text-sky-400 rounded-2xl font-bold hover:bg-sky-500 hover:text-white transition-all group"
-                    >
-                    Enviar propuesta <Monitor className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                  </Link>
-               </div>
+
+            <div className="flex flex-col gap-4 flex-shrink-0">
+              {/* Highlights del programa */}
+              <div className="space-y-2.5 mb-2">
+                {[
+                  'Audiencia técnica de la UNI',
+                  'Soporte logístico completo',
+                  'Visibilidad en la comunidad IEEE',
+                ].map(item => (
+                  <div key={item} className="flex items-center gap-2.5 text-sm text-gray-500">
+                    <div className="w-1 h-1 rounded-full bg-sky-500/60 flex-shrink-0" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                to="/contacto"
+                onClick={() => window.scrollTo(0, 0)}
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl
+                           border border-sky-500/30 text-sky-400 font-bold text-sm
+                           hover:bg-sky-500 hover:text-white hover:border-sky-500
+                           transition-all duration-200"
+              >
+                Enviar propuesta
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
             </div>
+
           </div>
         </div>
       </section>
+
     </main>
   )
 }

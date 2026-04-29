@@ -10,8 +10,6 @@ import {
   UserPlus, Calendar, GraduationCap, Sparkles
 } from 'lucide-react'
 
-const VITE_API_URL = 'landing.ieeecsuni.com'
-
 export default function ContactoPage() {
   useScrollReveal()
   const { showToast } = useToast()
@@ -35,7 +33,7 @@ export default function ContactoPage() {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await fetch(`${import.meta.VITE_API_URL}/api/contact`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application-json' },
         body: JSON.stringify({

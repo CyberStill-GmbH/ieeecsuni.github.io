@@ -16,7 +16,10 @@ import {
   Target, 
   Eye, 
   Cpu,
-  Globe
+  Globe,
+  ArrowRight,
+  Zap,
+  Network,
 } from 'lucide-react'
 
 const heroStats = [
@@ -26,312 +29,597 @@ const heroStats = [
   { number: '12',  suffix: 'k', label: 'Comunidad IEEE' },
 ]
 
-export default function HomePage() {
-  const canvasRef = useRef(null)
-  useScrollReveal()
+const specializations = [
+  {
+    icon: Code2,
+    tag: 'SWE',
+    title: 'Software Engineering',
+    desc: 'Arquitectura de sistemas, Backend avanzado y frameworks de producción.',
+    accent: 'sky',
+  },
+  {
+    icon: Cpu,
+    tag: 'HW',
+    title: 'Hardware & Embedded',
+    desc: 'IoT, Robótica de bajo nivel y sistemas en tiempo real.',
+    accent: 'skt',
+  },
+  {
+    icon: Terminal,
+    tag: 'CP',
+    title: 'Competitive Programming',
+    desc: 'Algoritmos Avanzados, ICPC e IEEE Xtreme.',
+    accent: 'sky',
+  },
+  {
+    icon: Network,
+    tag: 'NET',
+    title: 'Networking',
+    desc: 'Protocolos, Enrutamiento, Cisco CCNA y Seguridad de Redes.',
+    accent: 'sky',
+  },
+]
 
+//  ─── Sub-componentes locales ───────────────────────────────────
+
+/** Badege pequeño tipo pill - solo borde, sin color de fondo */
+function Badge({ children }){
+  return (
+    <span 
+    className='inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 text-[11px] font-mono font-medium tracking-widest text-gray-400 uppercase'>
+      {children}
+    </span>
+  )
+}
+
+/** Separador de sección con label opcional */
+function Divider( { label}) {
+  return (
+    <div className='flex items-center gap-4 mb-6'>
+      <div className='h-px flex-1 bg-white/5' />
+      {label && (
+        <span 
+          className='text-[10px] font-mono tracking-[0.25em] text-gray-600 uppercase'
+        >{label}  </span>
+      )}
+      <div className='h-px flex-1 bg-white/5' />
+    </div>
+  )
+}
+
+/** Card de especialización — horizontal pill con icono y texto */
+function SpecCard({ icon: Icon, tag, title, desc, index }) {
+  return (
+    <div
+      className="group flex gap-6 p-6 rounded-2xl border border-white/[0.06] bg-white/[0.015]
+                 hover:border-sky-500/25 hover:bg-sky-500/[0.03] transition-all duration-300"
+    >
+      {/* Número de índice — funciona como ancla visual */}
+      <div className="flex-shrink-0 font-mono text-[10px] text-gray-700 pt-1 w-5 text-right select-none">
+        {String(index + 1).padStart(2, '0')}
+      </div>
+ 
+      {/* Icono */}
+      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/10
+                      flex items-center justify-center text-sky-400
+                      group-hover:bg-sky-500/15 group-hover:border-sky-500/30 transition-all">
+        <Icon className="w-4 h-4" />
+      </div>
+ 
+      {/* Texto */}
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2 mb-1.5">
+          <span className="font-mono text-[9px] text-sky-500/60 uppercase tracking-widest">{tag}</span>
+        </div>
+        <h4 className="font-bold text-sm text-white mb-1 leading-snug">{title}</h4>
+        <p className="text-gray-500 text-xs leading-relaxed">{desc}</p>
+      </div>
+    </div>
+  )
+}
+
+// ─── Componente principal ──────────────────────────────────────
+
+export default function HomePage() {
+  useScrollReveal()
+ 
   return (
     <main className="pt-16 bg-[#020617] text-white">
-      {/* ── HERO CON FOTO DEL EQUIPO ── */}
-      <section className="relative min-h-[90vh] flex items-center px-6 md:px-20 overflow-hidden">
-        <Orb className="top-[-100px] right-[-100px] w-[800px] h-[800px] opacity-20"
-             style={{ background: 'radial-gradient(circle, #0ea5e9, transparent 70%)' }} />
-        
-        <div className="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
-          {/* Columna Izquierda: Texto */}
+      <section className="relative min-h-[92vh] flex items-center px-6 md:px-20 overflow-hidden">
+ 
+        {/* Dot grid — mucho más refinado que un orb genérico */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)`,
+            backgroundSize: '40px 40px',
+          }}
+        />
+        {/* Vignette para que el grid se desvanezca en los bordes */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/80 via-transparent to-[#020617] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/60 via-transparent to-[#020617]/80 pointer-events-none" />
+ 
+        <div className="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_520px] gap-16 items-center py-24">
+ 
+          {/* ── Columna izquierda: copy ── */}
           <div className="reveal">
-            <HeroTag>Universidad Nacional de Ingeniería · Lima, Perú</HeroTag>
-            <h1 className="font-black leading-[0.85] tracking-tighter mb-8 text-[clamp(66px,8vw,95px)]">
-              <span className="text-white">Computer</span><br />
-              <span className="text-sky-500">Society</span> <span className="text-white/20 italic">UNI</span>
+            <Badge>Universidad Nacional de Ingeniería · Lima, Perú</Badge>
+ 
+            {/* 
+              El headline ahora tiene tres niveles claros:
+              - "Computer Society" = marca principal, mayor impacto
+              - "IEEE CS UNI" = subtexto técnico / institucional
+              El tamaño es ligeramente más contenido para no pelear
+              con el peso del layout.
+            */}
+            <h1 className="mt-6 font-black tracking-tighter leading-[0.85] text-[clamp(56px,7.5vw,88px)]">
+              <span className="text-white">Computer</span>
+              <br />
+              <span
+                className="text-sky-500"
+                style={{ WebkitTextStroke: '0px' }}
+              >
+                Society
+              </span>
+              <span className="text-white/[0.12] italic font-black ml-4 text-[0.6em] align-baseline">
+                IEEE · UNI
+              </span>
             </h1>
-            <p className="max-w-lg text-lg text-gray-400 mb-10 leading-relaxed">
-              Impulsamos el estándar de la ingeniería en computación. No solo estudiamos tecnología, la construimos desde la base.
+ 
+            {/* Línea decorativa — respira antes del cuerpo */}
+            <div className="mt-8 mb-6 flex items-center gap-4">
+              <div className="w-8 h-px bg-sky-500" />
+              <span className="font-mono text-[10px] tracking-[0.3em] text-gray-600 uppercase">
+                Est. 2025 · Lima, Perú
+              </span>
+            </div>
+ 
+            <p className="max-w-md text-base text-gray-400 leading-relaxed mb-10">
+              Impulsamos el estándar de la ingeniería en computación. No solo
+              estudiamos tecnología —&nbsp;<span className="text-white">la construimos desde la base.</span>
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Link 
+ 
+            {/* CTAs: primario sólido, secundario ghost limpio */}
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
                 to="/contacto"
-                onClick={() => window.scrollTo(0, 0)} 
-                className="btn-primary px-10 py-4 rounded-xl font-bold bg-sky-600 hover:bg-sky-500 transition-all shadow-[0_0_20px_rgba(14,165,233,0.3)]"
+                onClick={() => window.scrollTo(0, 0)}
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm
+                           bg-sky-500 hover:bg-sky-400 text-white
+                           transition-all duration-200
+                           shadow-[0_0_0_0_rgba(14,165,233,0.4)]
+                           hover:shadow-[0_0_24px_rgba(14,165,233,0.35)]"
               >
-                Unirse ahora
+                Únete ahora
+                <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link 
+              <Link
                 to="/proyectos"
-                onClick={() => window.scrollTo(0, 0)}  
-                className="px-10 py-4 border border-white/10 hover:bg-white/5 rounded-xl font-bold transition-all backdrop-blur-sm"
+                onClick={() => window.scrollTo(0, 0)}
+                className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/10
+                           hover:border-white/20 hover:bg-white/[0.04]
+                           rounded-xl font-bold text-sm transition-all duration-200"
               >
-                Proyectos
+                Ver proyectos
               </Link>
             </div>
           </div>
-
-          {/* Columna Derecha: Foto del Capítulo con efecto Tech */}
-          <div className="relative reveal reveal-delay-2 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[600px] aspect-[4/3] rounded-2xl overflow-hidden group">
-              {/* Bordes decorativos animados */}
-              <div className="absolute inset-0 border-2 border-sky-500/30 rounded-2xl z-20 pointer-events-none group-hover:border-sky-500 transition-colors" />
-              <div className="absolute -top-2 -right-2 w-20 h-20 border-t-2 border-r-2 border-sky-400 z-30 opacity-50" />
-              <div className="absolute -bottom-2 -left-2 w-20 h-20 border-b-2 border-l-2 border-sky-400 z-30 opacity-50" />
-              
-              {/* Foto (Aquí pones la ruta de la foto de ustedes) */}
-              <img 
-                src={JuntaDirectiva} 
-                alt="Equipo IEEE CS UNI" 
-                className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+ 
+          {/* ── Columna derecha: foto ── */}
+          <div className="reveal reveal-delay-2 relative">
+            {/*
+              Simplificamos los bordes decorativos.
+              Antes había 4 capas de efectos peleando;
+              ahora tenemos UN borde sutil + UN corner accent.
+              El hover effect se vuelve el protagonista.
+            */}
+            <div className="relative rounded-2xl overflow-hidden group aspect-[4/3]">
+ 
+              {/* Borde exterior único, limpio */}
+              <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10
+                              group-hover:ring-sky-500/40 transition-all duration-500 z-20 pointer-events-none" />
+ 
+              {/* Corner accent — solo superior derecha */}
+              <div className="absolute top-0 right-0 w-16 h-16 z-30 pointer-events-none">
+                <div className="absolute top-0 right-0 w-full h-px bg-sky-400/50" />
+                <div className="absolute top-0 right-0 h-full w-px bg-sky-400/50" />
+              </div>
+ 
+              <img
+                src={JuntaDirectiva}
+                alt="Equipo IEEE CS UNI"
+                className="w-full h-full object-cover
+                           grayscale group-hover:grayscale-0
+                           scale-100 group-hover:scale-[1.03]
+                           transition-all duration-700 ease-out"
               />
-              
-              {/* Overlay de color */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-60 z-10" />
-              
-              {/* Badge de "Active Team" */}
-              <div className="absolute bottom-6 left-6 z-20 flex items-center gap-2 bg-sky-600/90 backdrop-blur-md px-4 py-2 rounded-lg">
-                <Users className="w-4 h-4 text-white" />
-                <span className="text-xs font-bold uppercase tracking-widest">Active Core 2026</span>
+ 
+              {/* Overlay gradient bottom */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/70 via-transparent to-transparent z-10" />
+ 
+              {/* Badge limpio — sin fondo opaco */}
+              <div className="absolute bottom-5 left-5 z-20 flex items-center gap-2
+                              bg-black/50 backdrop-blur-md border border-white/10
+                              px-3.5 py-2 rounded-lg">
+                <div className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+                <span className="text-[11px] font-mono font-medium tracking-widest text-white/70 uppercase">
+                  Active Core 2026
+                </span>
               </div>
             </div>
           </div>
+ 
         </div>
       </section>
-
-      {/* ── STATS BAR (SEPARADOR) ── */}
-      <div className="px-6 md:px-20 pb-20">
-        <div className="max-w-7xl mx-auto">
-          <StatBar stats={heroStats} />
-        </div>
-      </div>
-
-      {/* ── SECCIÓN: MASCOTA Y FILOSOFÍA ── */}
-      <section className="py-32 px-6 md:px-20 bg-white/[0.01] border-y border-white/5">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-20 items-center">
-          {/* Mascota con efecto continuo (Lado izquierdo ahora) */}
-          <div className="relative flex justify-center group order-2 lg:order-1">
-            <div className="relative w-72 h-72 md:w-80 md:h-80 flex items-center justify-center">
-              
-              {/* Chispas Naranja/Rojo (Sutiles) */}
-              {[...Array(6)].map((_, i) => (
-                <div
-                  key={i}
-                  className="spark bg-orange-500 shadow-[0_0_8px_#ff4500]"
-                  style={{
-                    left: `${20 + Math.random() * 60}%`, 
-                    bottom: '20%',
-                    animationDelay: `${Math.random() * 2}s`, // Delay para que fluyan
-                    animationDuration: `${1.5 + Math.random()}s`
-                  }}
-                />
-              ))}
-
-              {/* La Mascota con un brillo suave de energía */}
-              <img 
-                src={MascotaImg} 
-                alt="Mascota CS" 
-                className="relative z-10 w-64 md:w-80 h-auto object-contain"
-                style={{ filter: 'drop-shadow(0 0 20px rgba(234, 88, 12, 0.2))' }}
-              />
-
-              {/* Resplandor base muy tenue */}
-              <div className="absolute w-40 h-40 bg-orange-600/5 blur-[60px] rounded-full" />
-              
-            </div>
-          </div>
-
-          {/* Misión y Visión */}
-          <div className="reveal order-1 lg:order-2">
-            <SectionLabel>Sobre el capítulo</SectionLabel>
-            <SectionTitle className="mb-12 text-5xl">Elevando el ADN<br/>tecnológico de la UNI.</SectionTitle>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="p-8 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-sky-500/30 transition-all">
-                <Target className="w-10 h-10 text-sky-500 mb-6" />
-                <h4 className="text-xl font-bold mb-4">Nuestra Misión</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  Fomentar la excelencia técnica y el liderazgo profesional a través de la investigación aplicada y el desarrollo de proyectos disruptivos.
-                </p>
-              </div>
-              <div className="p-8 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-sky-500/30 transition-all">
-                <Eye className="w-10 h-10 text-sky-500 mb-6" />
-                <h4 className="text-xl font-bold mb-4">Nuestra Visión</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  Ser el referente tecnológico estudiantil líder en el Perú, conectando el talento de la UNI con la industria global.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── QUÉ HACEMOS (EXTENDIDO) ── */}
-      <section className="py-32 px-6 md:px-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <SectionLabel className="mx-auto">Ecosistema</SectionLabel>
-            <SectionTitle>Áreas de Especialización</SectionTitle>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: <Code2 />, title: "Software Eng", desc: "Arquitectura, Backend y Frameworks modernos." },
-              { icon: <Cpu />, title: "Hard & Embedded", desc: "IoT, Robótica y sistemas de bajo nivel." },
-              { icon: <Globe />, title: "Net & Security", desc: "Ciberseguridad, Redes y Cloud Computing." },
-              { icon: <Terminal />, title: "Comp. Prog.", desc: "Algoritmos avanzados y preparación Xtreme." }
-            ].map((item, i) => (
-              <div key={i} className="group p-8 rounded-3xl border border-white/5 bg-white/[0.01] hover:bg-sky-500/[0.05] transition-all text-center">
-                <div className="inline-flex p-4 rounded-2xl bg-sky-500/10 text-sky-400 mb-6 group-hover:scale-110 transition-transform">
-                  {item.icon}
+ 
+      {/* ══════════════════════════════════════════════
+          STATS BAR
+          Rediseñado como strip horizontal editorial.
+          Grandes numerales con separadores finos —
+          mucho más Vercel que "university dashboard".
+      ══════════════════════════════════════════════ */}
+      <div className="border-y border-white/[0.06] bg-white/[0.015] backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-6 md:px-20">
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {heroStats.map((stat, i) => (
+              <div
+                key={i}
+                className={`py-10 px-8 flex flex-col gap-2
+                  ${i < heroStats.length - 1 ? 'border-r border-white/[0.06]' : ''}
+                  ${i < 2 ? 'border-b md:border-b-0 border-white/[0.06]' : ''}
+                `}
+              >
+                {/* Numeral grande — este es el protagonista */}
+                <div className="font-black text-4xl md:text-5xl tracking-tight text-white leading-none">
+                  {stat.number}
+                  <span className="text-sky-500 text-3xl">{stat.suffix}</span>
                 </div>
-                <h4 className="font-bold text-lg mb-3">{item.title}</h4>
-                <p className="text-gray-500 text-sm">{item.desc}</p>
+                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider leading-snug">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>
         </div>
-      </section>
-
-      {/* ── CODENIX (Próximamente) ── */}
-      <section className="relative py-40 px-6 md:px-20 bg-[#020617] overflow-hidden">
-        {/* Fondo: Código Binario / Marquee Animado */}
-        <div className="absolute inset-0 overflow-hidden opacity-10 pointer-events-none select-none">
-          {[...Array(12)].map((_, i) => (
-            <div 
-              key={i}
-              className="whitespace-nowrap font-mono text-[10px] text-orange-500 animate-marquee mb-2"
-              style={{ animationDuration: `${30 + i * 2}s`, animationDirection: i % 2 === 0 ? 'normal' : 'reverse' }}
-            >
-              {"01000011 01001111 01000100 01000101 01001110 01001001 01011000 ".repeat(20)}
-            </div>
-          ))}
-        </div>
-
-        <div className="relative z-10 max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            
-            {/* LADO IZQUIERDO: TEXTO Y HYPE */}
-            <div className="text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-500 text-xs font-bold uppercase tracking-[0.2em] mb-6">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+      </div>
+ 
+      {/* ══════════════════════════════════════════════
+          MISIÓN & VISIÓN
+          Eliminé la mascota de aquí — distrae y baja
+          la percepción de profesionalismo.
+          Ahora es una sección 50/50 editorial limpia
+          con un accent vertical en el borde izquierdo.
+      ══════════════════════════════════════════════ */}
+      <section className="py-32 px-6 md:px-20">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+ 
+          {/* Columna izquierda: Intro copy */}
+          <div className="reveal">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-px h-16 bg-sky-500" />
+              <div>
+                <span className="font-mono text-[10px] tracking-[0.3em] text-sky-500/60 uppercase block">
+                  Sobre el capítulo
                 </span>
-                System Status: Initializing Phase 0
+                <span className="font-mono text-[10px] tracking-[0.3em] text-gray-700 uppercase">
+                  IEEE Computer Society · UNI
+                </span>
               </div>
-
-              <h2 className="text-6xl md:text-8xl font-black tracking-tighter mb-6 text-white">
-                CODE<span className="text-orange-500">NIX</span>
-              </h2>
-              
-              <p className="text-xl text-gray-400 mb-8 max-w-lg leading-relaxed">
-                Nuestra propia forja de código. Una iniciativa de <span className="text-white font-bold italic">IEEE CS UNI</span> para centralizar el entrenamiento en algoritmos y elevar el nivel competitivo del capítulo desde la base.
-              </p>
-
-              <div className="flex flex-col gap-4 mb-12">
-                <div className="flex items-center gap-3 text-gray-500 text-sm">
-                  <div className="h-[1px] w-8 bg-orange-500/50"></div>
-                  <span>Exclusivo para estudiantes UNI</span>
+            </div>
+ 
+            <SectionTitle className="text-5xl md:text-6xl mb-8">
+              Elevando el ADN<br />
+              tecnológico<br />
+              <span className="text-white/20 italic">de la UNI.</span>
+            </SectionTitle>
+ 
+            <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
+              Somos el capítulo estudiantil de IEEE Computer Society en la
+              Universidad Nacional de Ingeniería. Conectamos el rigor
+              académico con la práctica real de la ingeniería de software.
+            </p>
+          </div>
+ 
+          {/* Columna derecha: Misión + Visión como pares de info */}
+          <div className="reveal reveal-delay-1 space-y-6 pt-2 lg:pt-24">
+            {/* Misión */}
+            <div className="group p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02]
+                            hover:border-sky-500/20 hover:bg-sky-500/[0.02] transition-all duration-300">
+              <div className="flex items-start gap-5">
+                <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/10
+                                flex items-center justify-center flex-shrink-0
+                                group-hover:bg-sky-500/15 group-hover:border-sky-500/30 transition-all">
+                  <Target className="w-4 h-4 text-sky-400" />
                 </div>
-                <div className="flex flex-wrap gap-3">
-                  {['Dynamic Programming', 'Graph Theory', 'Bitmask'].map((tag) => (
-                    <span key={tag} className="text-[10px] font-mono text-orange-500/60 border border-orange-500/20 px-2 py-1 rounded">
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              
-            
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="flex-1 h-2 bg-orange-500/10 rounded-full overflow-hidden border border-orange-500/20">
-                    <div 
-                      className="h-full bg-orange-500 shadow-[0_0_15px_#ea580c] animate-load-progress"
-                      style={{ width: '1%' }} // El progreso real del equipo jaja
-                    />
-                  </div>
-                  <span className="font-mono text-orange-500 text-sm animate-pulse">1% LOADED</span>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-2 text-red-500/60 font-mono text-xs uppercase tracking-tighter">
-                    <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-                    Access: RESTRICTED_TO_CORE_ONLY
-                  </div>
-                  <p className="text-gray-500 text-xs font-mono italic">
-                    // Los algoritmos están siendo optimizados. <br />
-                    // No intentes forzar el acceso al kernel.
+                <div>
+                  <h4 className="font-bold text-sm text-white mb-2 tracking-tight">Nuestra Misión</h4>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    Fomentar la excelencia técnica y el liderazgo profesional a través
+                    de la investigación aplicada y el desarrollo de proyectos disruptivos.
                   </p>
                 </div>
-
-                <div className="pt-4">
-                  <span className="text-[10px] text-gray-700 uppercase tracking-[0.3em] block mb-2">Internal Protocol</span>
-                  <div className="h-[1px] w-full bg-gradient-to-r from-orange-500/50 to-transparent"></div>
+              </div>
+            </div>
+ 
+            {/* Visión */}
+            <div className="group p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02]
+                            hover:border-sky-500/20 hover:bg-sky-500/[0.02] transition-all duration-300">
+              <div className="flex items-start gap-5">
+                <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/10
+                                flex items-center justify-center flex-shrink-0
+                                group-hover:bg-sky-500/15 group-hover:border-sky-500/30 transition-all">
+                  <Eye className="w-4 h-4 text-sky-400" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-sm text-white mb-2 tracking-tight">Nuestra Visión</h4>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    Ser el referente tecnológico estudiantil líder en el Perú, conectando
+                    el talento de la UNI con la industria global.
+                  </p>
                 </div>
               </div>
             </div>
-
-            {/* LADO DERECHO: SIMULADOR DE TERMINAL (Un día para hacer este diseño :( )) */}
-            <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-sky-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-              <div className="relative bg-[#0b1120] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
-                {/* Header de la Terminal */}
-                <div className="bg-white/5 px-4 py-3 flex items-center gap-2 border-b border-white/5">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
-                  </div>
-                  <div className="text-[10px] font-mono text-gray-500 ml-4">codenix_main_module.cpp</div>
-                </div>
-                
-                {/* Cuerpo del Código */}
-                <div className="p-6 font-mono text-sm sm:text-base text-left">
-                  <div className="flex gap-4">
-                    <span className="text-gray-600 select-none">01</span>
-                    <span className="text-pink-500">#include</span> <span className="text-orange-300">&lt;uni_talent.h&gt;</span>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-gray-600 select-none">02</span>
-                    <span><span className="text-blue-400">int</span> <span className="text-yellow-400">main</span>() {"{"} </span>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-gray-600 select-none">03</span>
-                    <span className="pl-4 text-blue-400">auto</span> students = <span className="text-yellow-400">getUNIElite</span>();
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-gray-600 select-none">04</span>
-                    <span><span className="pl-4 text-pink-500">while</span>(status == <span className="text-orange-400">"EVOLVING"</span>) {"{"} </span>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-gray-600 select-none">05</span>
-                    <span className="pl-8 text-green-400">codenix.push_limits(students);</span>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-gray-600 select-none">06</span>
-                    <span className="pl-4">{"}"}</span>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-gray-600 select-none">07</span>
-                    <span className="pl-4 text-pink-500">return</span> <span className="text-sky-400">0</span>;
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-gray-600 select-none">08</span>
-                    <span>{"}"}</span>
-                  </div>
-                  
-                  {/* Cursor parpadeante */}
-                  <div className="mt-4 flex gap-2 items-center">
-                    <span className="text-orange-500">$</span>
-                    <span className="text-gray-300 animate-pulse">_ initializing waitlist...</span>
-                  </div>
-                </div>
-
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1120] via-transparent opacity-40"></div>
-              </div>
-            </div>
-
+          </div>
+ 
+        </div>
+      </section>
+ 
+      {/* ══════════════════════════════════════════════
+          MASCOTA — Sección propia, contenida y playful
+          La sacamos de "misión" para que no choque
+          con el tono serio. Aquí tiene contexto:
+          es un momento de "personalidad del equipo".
+      ══════════════════════════════════════════════ */}
+      <section className="py-16 px-6 md:px-20 border-y border-white/[0.04]">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-20">
+          <div className="relative flex-shrink-0">
+            <img
+              src={MascotaImg}
+              alt="Mascota CS"
+              className="w-32 h-32 md:w-40 md:h-40 object-contain"
+              style={{ filter: 'drop-shadow(0 0 16px rgba(234,88,12,0.25))' }}
+            />
+          </div>
+          <div className="text-center md:text-left">
+            <span className="font-mono text-[10px] tracking-[0.3em] text-orange-500/50 uppercase">
+              Mascota Oficial
+            </span>
+            <h3 className="font-bold text-xl text-white mt-1 mb-2">
+              El espíritu del capítulo
+            </h3>
+            <p className="text-gray-500 text-sm max-w-md leading-relaxed">
+              Detrás de cada commit, cada algoritmo y cada evento, hay un equipo que devolvió vida a este capítulo. Nuestro fénix representa ese renacer: la resiliencia de reconstruir, la pasión por innovar y la determinación de volver más fuertes que antes.
+            </p>
           </div>
         </div>
       </section>
+ 
+      <section className="py-32 px-6 md:px-20">
+        <div className="max-w-7xl mx-auto">
+ 
+          {/* Header de sección — alineado a la izquierda, más editorial */}
+          <div className="reveal mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div>
+              <Badge>Ecosistema</Badge>
+              <SectionTitle className="mt-4 text-5xl md:text-6xl">
+                Áreas de<br />Especialización
+              </SectionTitle>
+            </div>
+            <p className="text-gray-500 text-sm max-w-xs leading-relaxed md:text-right">
+              Cuatro ramas técnicas donde nuestros miembros
+              desarrollan expertise de nivel industria.
+            </p>
+          </div>
+ 
+          {/* Grid 2x2 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 reveal">
+            {specializations.map((item, i) => (
+              <SpecCard key={i} {...item} index={i} />
+            ))}
+          </div>
+ 
+        </div>
+      </section>
+
+      <section className="relative py-40 px-6 md:px-20 overflow-hidden">
+ 
+        {/* 
+          Fondo: grid ortogonal estático, muy sutil.
+          Mucho más sofisticado que el marquee binario.
+          Da sensación de "blueprint técnico" sin gritar
+          porque se veía pesada la versión anterior, creo que
+          la había hecho muy llena ah, próxima generación solo
+          intenten hacer modificaciones sin añadir muchos efectos
+          hover; algo liviano, simple y que proyecte identidad es mucho
+          mejor.
+        */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(14,165,233,0.5) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(14,165,233,0.5) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px',
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] pointer-events-none" />
+ 
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+ 
+            {/* ── Copy ── */}
+            <div className="reveal">
+              {/*
+                El pill de status antes tenía ping + texto
+                muy largo. Ahora: simple, legible, breath.
+              */}
+              <div className="inline-flex items-center gap-2 mb-8
+                              px-3 py-1.5 rounded-full
+                              border border-orange-500/20 bg-orange-500/5">
+                <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+                <span className="font-mono text-[10px] tracking-[0.2em] text-orange-500/70 uppercase">
+                  Initializing · Phase 0
+                </span>
+              </div>
+ 
+              <SectionTitle className="text-7xl md:text-8xl mb-6">
+                CODE<span className="text-orange-500">NIX</span>
+              </SectionTitle>
+ 
+              <p className="text-gray-400 text-base leading-relaxed mb-10 max-w-md">
+                Nuestra propia forja de código. Una plataforma de{' '}
+                <span className="text-white font-semibold">IEEE CS UNI</span> para
+                centralizar el entrenamiento en algoritmos y elevar el nivel
+                competitivo del capítulo desde la base.
+              </p>
+ 
+              {/* Tags de temas — más limpios, sin #prefix redundante */}
+              <div className="flex flex-wrap gap-2 mb-10">
+                {['Dynamic Programming', 'Graph Theory', 'Bitmask', 'Segment Trees'].map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[10px] font-mono text-orange-400/50 border border-orange-500/15
+                               bg-orange-500/[0.04] px-3 py-1.5 rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+ 
+              {/* Metadata del estado real */}
+              <div className="space-y-4">
+                {/* Barra de progreso — honesta, sin drama */}
+                <div>
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-mono text-[10px] text-gray-600 uppercase tracking-wider">
+                      Build progress
+                    </span>
+                    <span className="font-mono text-[10px] text-orange-500/60">1%</span>
+                  </div>
+                  <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-orange-600 to-orange-400 rounded-full shadow-[0_0_8px_rgba(234,88,12,0.5)]"
+                      style={{ width: '1%' }}
+                    />
+                  </div>
+                </div>
+ 
+                <div className="h-px w-full bg-white/[0.04]" />
+ 
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500/50" />
+                  <span className="font-mono text-[10px] text-gray-700 uppercase tracking-widest">
+                    Access: Core members only
+                  </span>
+                </div>
+              </div>
+            </div>
+ 
+            {/* ── Terminal ── */}
+            <div className="reveal reveal-delay-2 relative group">
+              {/*
+                El glow ahora es un elemento posicionado
+                de forma más precisa. Antes era -inset-1
+                demasiado agresivo. Ahora es sutil.
+              */}
+              <div className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100
+                              bg-gradient-to-br from-orange-500/20 to-sky-500/20
+                              blur-md transition-opacity duration-700 pointer-events-none" />
+ 
+              <div className="relative bg-[#080f1e] border border-white/[0.08] rounded-2xl
+                              overflow-hidden shadow-2xl">
+ 
+                {/* Header del terminal */}
+                <div className="flex items-center gap-3 px-5 py-4 border-b border-white/[0.06] bg-white/[0.02]">
+                  <div className="flex gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/40" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/40" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/40" />
+                  </div>
+                  <span className="font-mono text-[10px] text-gray-600 ml-2">
+                    codenix_core.cpp
+                  </span>
+                  {/* Status indicator a la derecha */}
+                  <div className="ml-auto flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+                    <span className="font-mono text-[9px] text-orange-500/50">BUILDING</span>
+                  </div>
+                </div>
+ 
+                {/* Código */}
+                <div className="p-6 font-mono text-sm space-y-1">
+                  <CodeLine num="01" tokens={[
+                    { t: '#include', c: 'text-pink-400' },
+                    { t: ' <uni_talent.h>', c: 'text-orange-300' },
+                  ]} />
+                  <CodeLine num="02" tokens={[{ t: '', c: '' }]} />
+                  <CodeLine num="03" tokens={[
+                    { t: 'int', c: 'text-blue-400' },
+                    { t: ' main', c: 'text-yellow-400' },
+                    { t: '() {', c: 'text-white/60' },
+                  ]} />
+                  <CodeLine num="04" tokens={[
+                    { t: '  auto ', c: 'text-blue-400' },
+                    { t: 'students', c: 'text-white' },
+                    { t: ' = ', c: 'text-white/40' },
+                    { t: 'getUNIElite', c: 'text-yellow-400' },
+                    { t: '();', c: 'text-white/40' },
+                  ]} />
+                  <CodeLine num="05" tokens={[{ t: '', c: '' }]} />
+                  <CodeLine num="06" tokens={[
+                    { t: '  while', c: 'text-pink-400' },
+                    { t: '(status == ', c: 'text-white/60' },
+                    { t: '"EVOLVING"', c: 'text-orange-300' },
+                    { t: ') {', c: 'text-white/60' },
+                  ]} />
+                  <CodeLine num="07" tokens={[
+                    { t: '    codenix', c: 'text-green-400' },
+                    { t: '.push_limits(', c: 'text-white/60' },
+                    { t: 'students', c: 'text-white' },
+                    { t: ');', c: 'text-white/60' },
+                  ]} />
+                  <CodeLine num="08" tokens={[{ t: '  }', c: 'text-white/60' }]} />
+                  <CodeLine num="09" tokens={[
+                    { t: '  return ', c: 'text-pink-400' },
+                    { t: '0', c: 'text-sky-400' },
+                    { t: ';', c: 'text-white/60' },
+                  ]} />
+                  <CodeLine num="10" tokens={[{ t: '}', c: 'text-white/60' }]} />
+ 
+                  {/* Prompt */}
+                  <div className="mt-5 flex items-center gap-2 pt-4 border-t border-white/[0.04]">
+                    <span className="text-orange-500 font-bold">$</span>
+                    <span className="text-gray-500 text-xs">initializing waitlist</span>
+                    <span className="w-1.5 h-4 bg-gray-500 animate-pulse rounded-sm" />
+                  </div>
+                </div>
+              </div>
+            </div>
+ 
+          </div>
+        </div>
+      </section>
+ 
     </main>
+  )
+}
+ 
+// ─── Helper: línea de código ───────────────────────────────────
+ 
+/**
+ * Renderiza una línea del terminal con número y tokens coloreados.
+ * Extraer esto como componente local evita repetir el flex layout.
+ */
+function CodeLine({ num, tokens }) {
+  return (
+    <div className="flex gap-4">
+      <span className="text-gray-700 select-none w-4 text-right flex-shrink-0">{num}</span>
+      <span>
+        {tokens.map((token, i) => (
+          <span key={i} className={token.c}>{token.t}</span>
+        ))}
+      </span>
+    </div>
   )
 }

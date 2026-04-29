@@ -6,10 +6,14 @@ export function SectionLabel({ children }) {
   )
 }
 
+/** Título con jerarquía clara */
 export function SectionTitle({ children, className = '' }) {
   return (
-    <h2 className={`sec-title ${className}`}>
+    <h2
+      className={`font-black tracking-tight leading-[0.9] text-white ${className}`}
+    >
       {children}
     </h2>
   )
 }
+

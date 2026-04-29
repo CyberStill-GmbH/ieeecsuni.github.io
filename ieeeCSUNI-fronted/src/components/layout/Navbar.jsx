@@ -22,12 +22,9 @@ export function Navbar() {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 right-0 z-[200] h-16 flex items-center justify-between px-10 transition-all duration-300"
-        style={{
-          background: scrolled ? 'rgba(10,15,28,0.98)' : 'rgba(10,15,28,0.85)',
-          backdropFilter: 'blur(16px)',
-          borderBottom: '1px solid var(--border)',
-        }}
+        className={`fixed top-0 left-0 right-0 z-[200] h-16 flex items-center justify-between px-10 transition-all duration-300
+          ${scrolled ? "bg-[#0a0f1c]/95 border-b border-white/10 backdrop-blur-md" : "bg-[#0a0f1c]/80 border-white/5 backdrop-blur-md"}`}
+        
       >
         {/* Brand */}
         <Link 
@@ -37,12 +34,13 @@ export function Navbar() {
           >
           <IEEECSLogo size={36} />
           <div>
-            <div className="text-[13px] font-bold" style={{ color: 'var(--fg)', lineHeight: 1.2 }}>
+            <div 
+              className="text-[13px] font-semibold text-white" 
+            >
               IEEE Computer Society
             </div>
             <div
-              className="font-mono text-[10px] tracking-[.12em] uppercase"
-              style={{ color: 'var(--fg3)' }}
+              className="text-[10px] tracking-[0.15em] uppercase text-gray-400"
             >
               UNI Student Chapter
             </div>
@@ -56,7 +54,7 @@ export function Navbar() {
               <Link
                 to={to}
                 onClick={() => window.scrollTo(0, 0)}
-                className="px-3.5 py-1.5 rounded-lg text-[13px] font-medium tracking-wide transition-all duration-200 no-underline"
+                className="px-3.5 py-1.5 rounded-lg text-[13px] font-medium tracking-wide transition-all duration-200 hover:bg-white/5 hover:scale-[1.03]"
                 style={{
                   color: location.pathname === to ? 'var(--c1)' : 'var(--fg2)',
                   background: location.pathname === to ? 'rgba(0,170,255,0.08)' : 'transparent',
@@ -76,11 +74,8 @@ export function Navbar() {
           aria-label="Menú"
         >
           <span
-            className="block w-5 h-0.5 transition-all duration-200"
-            style={{
-              background: 'var(--fg2)',
-              transform: menuOpen ? 'rotate(45deg) translate(4px, 4px)' : 'none',
-            }}
+            className={`fixed top-16 left-0 right-0 z-[199] md:hidden py-4 px-6 flex flex-col gap-1 transition-all duration-300 origin-top
+              ${menuOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0 pointer-events-none"}`}
           />
           <span
             className="block w-5 h-0.5 transition-all duration-200"

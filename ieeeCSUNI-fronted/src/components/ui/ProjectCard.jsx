@@ -3,38 +3,6 @@ import { Github, ArrowUpRight, ChevronLeft, ChevronRight, Users, ImageOff } from
 
 /**
  * ProjectCard — IEEE CS UNI Design System
- *
- * Estructura esperada en `data.js`:
- * ─────────────────────────────────────
- * {
- *   id:          'codenix',
- *   title:       'Codenix',
- *   description: 'Plataforma de práctica...',
- *   category:    'Platform',          // opcional
- *   tags:        ['React', 'Laravel'],
- *   github:      'https://...',
- *   link:        'https://...',
- *
- *   // IMÁGENES — pon un array con tus capturas/screenshots:
- *   images: [
- *     '/projects/codenix/preview-1.png',   // pantalla principal
- *     '/projects/codenix/preview-2.png',   // otra vista
- *     '/projects/codenix/preview-3.png',   // detalle feature
- *   ],
- *   // Fallback si no hay `images`:
- *   image: '/projects/codenix/cover.png',
- *
- *   members: ['Adrian', 'Luis', 'María'],
- * }
- *
- * Dónde poner las imágenes en el proyecto:
- * ─────────────────────────────────────────
- *  Vite → carpeta `public/projects/<slug>/preview-N.png`
- *         y referéncialas como '/projects/<slug>/preview-N.png'
- *  O impórtalas estáticamente en data.js:
- *         import codenixP1 from '../assets/projects/codenix/p1.png'
- */
-
 /* ── Fallback placeholder ── */
 const PLACEHOLDER = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800'
 
@@ -52,10 +20,7 @@ const Avatar = ({ name, index }) => {
     </div>
   )
 }
-
-/* ══════════════════════════
-   PROJECT CARD
-══════════════════════════ */
+/* Project Card */
 export default function ProjectCard({ project, onClick, index = 0 }) {
   const { title, description, tags, github, link, image, images, members, category } = project
 

@@ -9,9 +9,12 @@ export const events = [
     location: 'Virtual-GoogleMeet',
     description: 'Aprende las bases de la programación estructurada con el lenguaje C.',
     tag: 'Programación',
-    gradient: 'linear-gradient(135deg, #004f77, #00263d)',
     spots: 30,
     spotsLeft: 30,
+    modality: 'Virtual',
+    level: 'Básico',
+    featured: true,
+    link: 'google.com'
   },
 
 ]
