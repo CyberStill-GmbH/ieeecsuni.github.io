@@ -19,15 +19,15 @@ export const events = [
 
 // ── Team ──────────────────────────────────────────────────
 export const team = [
-  { initials: 'AE', name: 'Angel Escudero',       role: 'Presidente',         bio: 'Estudiante de ingeniería de telecomunicaciones.',              gradient: 'linear-gradient(135deg,#006699,#003050)' },
-  { initials: 'KP', name: 'Kenneth Pecho',  role: 'Vicepresidente',     bio: 'Estudiante de ingeniería electrónica.',     gradient: 'linear-gradient(135deg,#004d80,#002040)' },
-  { initials: 'DF', name: 'Denilson Flores',  role: 'Tesorero',           bio: 'Estudiante de ingeniería de telecomunicaciones',                  gradient: 'linear-gradient(135deg,#660033,#330019)' },
-  { initials: 'JA', name: 'Juan Aguilar',  role: 'Eventos y Logística',       bio: 'Estudiante de ingeniería de telecomunicaciones.',                       gradient: 'linear-gradient(135deg,#662200,#331100)' },
-  { initials: 'AG', name: 'Adrian Guevara', role: 'Webmaster y Secretario General',          bio: 'Estudiante de ingeniería de ciberseguridad.',              gradient: 'linear-gradient(135deg,#440066,#220033)' },
-  { initials: 'IB', name: 'Isaac Becerra',   role: 'Relaciones Públicas', bio: 'estudiante de Ingeniería de Ciberseguridad.',            gradient: 'linear-gradient(135deg,#006666,#003333)' },
-  { initials: 'JP', name: 'Jesús Pajar',    role: 'Marketing y Publicidad',     bio: 'Estudiante de ingeniería de ciberseguridad.',        gradient: 'linear-gradient(135deg,#336600,#193300)' },
-  { initials: 'RV', name: 'Rafael Villavicencio',    role: 'Capacitación',     bio: 'Estudiante de ingeniería electrónica.',        gradient: 'linear-gradient(135deg,#336600,#193500)' },
-  { initials: 'JA', name: 'José Ataurima',    role: 'Proyectos de Investigación',     bio: 'Estudiante de ingeniería de sistemas.',        gradient: 'linear-gradient(135deg,#336600,#193200)' },
+  { initials: 'AE', name: 'Angel Escudero',       role: 'Presidente',         bio: 'Estudiante de ingeniería de telecomunicaciones.',              gradient: 'linear-gradient(135deg,#006699,#003050)', email: 'angel.escudero.s@uni.pe'},
+  { initials: 'KP', name: 'Kenneth Pecho',  role: 'Vicepresidente',     bio: 'Estudiante de ingeniería electrónica.',     gradient: 'linear-gradient(135deg,#004d80,#002040)', email:'kenneth.pecho.r@uni.pe' }, 
+  { initials: 'DF', name: 'Denilson Flores',  role: 'Tesorero',           bio: 'Estudiante de ingeniería de telecomunicaciones',                  gradient: 'linear-gradient(135deg,#660033,#330019)', email:'denilson.flores.s@uni.pe'},
+  { initials: 'JA', name: 'Juan Aguilar',  role: 'Eventos y Logística',       bio: 'Estudiante de ingeniería de telecomunicaciones.',                       gradient: 'linear-gradient(135deg,#662200,#331100)', email:'juan.aguilar.f@uni.pe'},
+  { initials: 'AG', name: 'Adrian Guevara', role: 'Webmaster y Secretario General',          bio: 'Estudiante de ingeniería de ciberseguridad.',              gradient: 'linear-gradient(135deg,#440066,#220033)', email:'cesar.guevara.s@uni.pe' },
+  { initials: 'IB', name: 'Isaac Becerra',   role: 'Relaciones Públicas', bio: 'estudiante de Ingeniería de Ciberseguridad.',            gradient: 'linear-gradient(135deg,#006666,#003333)', email:'isaac.becerra.c@uni.pe' },
+  { initials: 'JP', name: 'Jesús Pajar',    role: 'Marketing y Publicidad',     bio: 'Estudiante de ingeniería de ciberseguridad.',        gradient: 'linear-gradient(135deg,#336600,#193300)', email:'juan.pajar.l@uni.pe' },
+  { initials: 'RV', name: 'Rafael Villavicencio',    role: 'Capacitación',     bio: 'Estudiante de ingeniería electrónica.',        gradient: 'linear-gradient(135deg,#336600,#193500)', email:'rafael.villavicencio.v@uni.pe' },
+  { initials: 'JA', name: 'José Ataurima',    role: 'Proyectos de Investigación',     bio: 'Estudiante de ingeniería de sistemas.',        gradient: 'linear-gradient(135deg,#336600,#193200)', email:'jose.ataurima.q@uni.pe' },
 ]
 // ── Resources ─────────────────────────────────────────────
 export const resources = [
