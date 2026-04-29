@@ -35,6 +35,7 @@ class ContactController extends Controller
             ]),
             default => [],
         };
+
         $contact = Contact::create([
             ...$base,
             'carrera' => $request->carrera,
@@ -44,9 +45,9 @@ class ContactController extends Controller
             'area_experticia' => $request->areaExperticia,
         ]);
 
-        Mail::to('ieeecs.uni@gmail.com')->send(new ContactoNotification($contact));
+        Mail::to('ieeecs.uni@gmail.com')->send(new ContactNotification($contact));
         Mail::to($contact->email)->send(new AutoReplyMail($contact));
-
+        
         return response()->json(['success' => true, 'message' => 'Solicitud enviada'], 201);
     }
 }
