@@ -126,8 +126,8 @@ export default function HomePage() {
               <img 
                 src={MascotaImg} 
                 alt="Mascota CS" 
-                className="relative z-10 w-500 h-auto object-contain"
-                style={{ animation: 'soft-glow 3s infinite ease-in-out' }}
+                className="relative z-10 w-64 md:w-80 h-auto object-contain"
+                style={{ filter: 'drop-shadow(0 0 20px rgba(234, 88, 12, 0.2))' }}
               />
 
               {/* Resplandor base muy tenue */}
@@ -188,39 +188,148 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CODENIX (LA JOYA REFINADA) ── */}
-      <section className="relative py-40 px-6 md:px-20 bg-[#050914] overflow-hidden">
-        {/* Animated Background Code Snippets (Efecto sutil) */}
-        <div className="absolute inset-0 font-mono text-[10px] text-sky-500/5 select-none overflow-hidden opacity-40 leading-tight">
-          {Array(20).fill("const codenix = (u) => u.evolve(); if(user.isUni()) join(); ").map((t, i) => <div key={i} className="whitespace-nowrap">{t.repeat(10)}</div>)}
+      {/* ── CODENIX (Próximamente) ── */}
+      <section className="relative py-40 px-6 md:px-20 bg-[#020617] overflow-hidden">
+        {/* Fondo: Código Binario / Marquee Animado */}
+        <div className="absolute inset-0 overflow-hidden opacity-10 pointer-events-none select-none">
+          {[...Array(12)].map((_, i) => (
+            <div 
+              key={i}
+              className="whitespace-nowrap font-mono text-[10px] text-orange-500 animate-marquee mb-2"
+              style={{ animationDuration: `${30 + i * 2}s`, animationDirection: i % 2 === 0 ? 'normal' : 'reverse' }}
+            >
+              {"01000011 01001111 01000100 01000101 01001110 01001001 01011000 ".repeat(20)}
+            </div>
+          ))}
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <div className="relative inline-block mb-12">
-            <div className="absolute inset-0 bg-orange-500 blur-[60px] opacity-20 animate-pulse" />
-            <img 
-              src="./codenixLogo.png" 
-              alt="CODENIX" 
-              className="w-50 h-36 relative z-10 drop-shadow-[0_0_20px_#e55d17]" 
-            />
-          </div>
-          
-          <h2 className="text-7xl md:text-9xl font-black tracking-tighter mb-6 bg-gradient-to-b from-white to-gray-600 bg-clip-text text-transparent">
-            CODENIX
-          </h2>
-          <p className="text-xl text-gray-400 mb-12 font-medium tracking-wide">
-            LA PLATAFORMA DE ENTRENAMIENTO <span className="text-orange-500">EXCLUSIVA UNI</span>
-          </p>
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            {/* LADO IZQUIERDO: TEXTO Y HYPE */}
+            <div className="text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-500 text-xs font-bold uppercase tracking-[0.2em] mb-6">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                </span>
+                System Status: Initializing Phase 0
+              </div>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-16">
-            <span className="px-4 py-2 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-widest">Competitive Coding</span>
-            <span className="px-4 py-2 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest">Cyber Labs</span>
-            <span className="px-4 py-2 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-bold uppercase tracking-widest">Ranking UNI</span>
-          </div>
+              <h2 className="text-6xl md:text-8xl font-black tracking-tighter mb-6 text-white">
+                CODE<span className="text-orange-500">NIX</span>
+              </h2>
+              
+              <p className="text-xl text-gray-400 mb-8 max-w-lg leading-relaxed">
+                Nuestra propia forja de código. Una iniciativa de <span className="text-white font-bold italic">IEEE CS UNI</span> para centralizar el entrenamiento en algoritmos y elevar el nivel competitivo del capítulo desde la base.
+              </p>
 
-          <button className="px-12 py-5 bg-gradient-to-r from-orange-600 to-orange-400 rounded-2xl font-black text-xl hover:scale-105 transition-all shadow-[0_10px_40px_rgba(229,93,23,0.3)]">
-            ACCESO BETA →
-          </button>
+              <div className="flex flex-col gap-4 mb-12">
+                <div className="flex items-center gap-3 text-gray-500 text-sm">
+                  <div className="h-[1px] w-8 bg-orange-500/50"></div>
+                  <span>Exclusivo para estudiantes UNI</span>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {['Dynamic Programming', 'Graph Theory', 'Bitmask'].map((tag) => (
+                    <span key={tag} className="text-[10px] font-mono text-orange-500/60 border border-orange-500/20 px-2 py-1 rounded">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              
+            
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="flex-1 h-2 bg-orange-500/10 rounded-full overflow-hidden border border-orange-500/20">
+                    <div 
+                      className="h-full bg-orange-500 shadow-[0_0_15px_#ea580c] animate-load-progress"
+                      style={{ width: '1%' }} // El progreso real del equipo jaja
+                    />
+                  </div>
+                  <span className="font-mono text-orange-500 text-sm animate-pulse">1% LOADED</span>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2 text-red-500/60 font-mono text-xs uppercase tracking-tighter">
+                    <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+                    Access: RESTRICTED_TO_CORE_ONLY
+                  </div>
+                  <p className="text-gray-500 text-xs font-mono italic">
+                    // Los algoritmos están siendo optimizados. <br />
+                    // No intentes forzar el acceso al kernel.
+                  </p>
+                </div>
+
+                <div className="pt-4">
+                  <span className="text-[10px] text-gray-700 uppercase tracking-[0.3em] block mb-2">Internal Protocol</span>
+                  <div className="h-[1px] w-full bg-gradient-to-r from-orange-500/50 to-transparent"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* LADO DERECHO: SIMULADOR DE TERMINAL (Un día para hacer este diseño :( )) */}
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-sky-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+              <div className="relative bg-[#0b1120] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+                {/* Header de la Terminal */}
+                <div className="bg-white/5 px-4 py-3 flex items-center gap-2 border-b border-white/5">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
+                  </div>
+                  <div className="text-[10px] font-mono text-gray-500 ml-4">codenix_main_module.cpp</div>
+                </div>
+                
+                {/* Cuerpo del Código */}
+                <div className="p-6 font-mono text-sm sm:text-base text-left">
+                  <div className="flex gap-4">
+                    <span className="text-gray-600 select-none">01</span>
+                    <span className="text-pink-500">#include</span> <span className="text-orange-300">&lt;uni_talent.h&gt;</span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-gray-600 select-none">02</span>
+                    <span><span className="text-blue-400">int</span> <span className="text-yellow-400">main</span>() {"{"} </span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-gray-600 select-none">03</span>
+                    <span className="pl-4 text-blue-400">auto</span> students = <span className="text-yellow-400">getUNIElite</span>();
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-gray-600 select-none">04</span>
+                    <span><span className="pl-4 text-pink-500">while</span>(status == <span className="text-orange-400">"EVOLVING"</span>) {"{"} </span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-gray-600 select-none">05</span>
+                    <span className="pl-8 text-green-400">codenix.push_limits(students);</span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-gray-600 select-none">06</span>
+                    <span className="pl-4">{"}"}</span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-gray-600 select-none">07</span>
+                    <span className="pl-4 text-pink-500">return</span> <span className="text-sky-400">0</span>;
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-gray-600 select-none">08</span>
+                    <span>{"}"}</span>
+                  </div>
+                  
+                  {/* Cursor parpadeante */}
+                  <div className="mt-4 flex gap-2 items-center">
+                    <span className="text-orange-500">$</span>
+                    <span className="text-gray-300 animate-pulse">_ initializing waitlist...</span>
+                  </div>
+                </div>
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1120] via-transparent opacity-40"></div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
     </main>
