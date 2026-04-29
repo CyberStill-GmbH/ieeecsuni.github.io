@@ -28,13 +28,31 @@ export default function ContactoPage() {
     setForm(prev => ({ ...prev, [name]: value }))
   }
 
+  // Consumimos la API de laravel para realizar el envío del contact form
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500)) 
-      showToast(`✓ Solicitud enviada correctamente.`)
-      setForm({ nombre: '', email: '', carrera: '', ciclo: '', tipoEvento: '', fechaProbable: '', areaExperticia: '', mensaje: '' })
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application-json' },
+        body: JSON.stringify({
+          tipo: activeTab,
+          nombre:         form.nombre,
+          email:          form.email,
+          mensaje:        form.mensaje,
+          // Opciones condicionales (llegan vacíos si no aplican)
+          carrera:        form.carrera,
+          ciclo:          form.ciclo,
+          tipoEvento:     form.tipoEvento,
+          fechaProbable:  form.fechaProbable,
+          areaExperticia: form.areaExperticia,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.mensaje || 'Eror')
+        showToast('✓ Solicitud enviada correctamente.')
+      setForm({ nombre: '', email: '', carrera: '', ciclo: '', tipoEvento: '', fechaProbable: '', areaExperticia: '' })
     } catch (error) {
       showToast('× Error al procesar la solicitud.')
     } finally {

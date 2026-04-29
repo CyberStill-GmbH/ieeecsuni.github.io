@@ -55,28 +55,23 @@ export default function NosotrosPage() {
 
           {/* ESPACIO PARA LA MASCOTA */}
           <div className="relative flex justify-center items-center aspect-square w-full max-w-[380px] select-none">
-            {/* 
-            <div className="w-full max-w-[400px] aspect-square rounded-3xl border-2 border-dashed border-sky-500/20 bg-sky-500/5 flex flex-col items-center justify-center group hover:border-sky-500/40 transition-colors">
-              <ImageIcon className="w-12 h-12 text-sky-500/20 group-hover:scale-110 transition-transform" />
-              <span className="mt-4 text-[10px] font-mono tracking-widest text-sky-500/40 uppercase">Mascota del Capítulo</span>
-            </div>
-            */}
+
             <img 
               src={mascotaImg} 
               alt="Mascota del capítulo codeando para revivirlo jajajaj"
-              className="relative w-full h-full object-contain p-6 z-10 drop-shadow-[0_0_8px_rgba(0,180,255,0.7)]"
+              className="relative max-w-[480x] h-full object-contain p-6 z-10 drop-shadow-[0_0_8px_rgba(0,180,255,0.7)]"
             />
-            <div className="absolute -z-10 w-64 h-64 bg-sky-500/10 blur-[500px] rounded-full" />
+            <div className="absolute -z-10 w-64 h-64 bg-sky-500/10 blur-[480px] rounded-full" />
             <img 
               src={mascotaImg} 
               alt="" 
-              className="absolute w-full h-full object-contain p-6 text-cyan-500 mix-blend-screen opacity-70 animate-glitch-agresivo z-0"
+              className="absolute max-w-[480px] h-full object-contain p-6 text-cyan-500 mix-blend-screen opacity-70 animate-glitch-agresivo z-0"
               style={{ filter: 'drop-shadow(0 0 5px currentColor)', translate: '-2px 1px', '--delay': '0.2s' }}
             />
             <img 
               src={mascotaImg} 
               alt="" 
-              className="absolute w-full h-full object-contain p-6 text-magenta-500 mix-blend-screen opacity-70 animate-glitch-agresivo z-0"
+              className="absolute max-w-[480px] h-full object-contain p-6 text-magenta-500 mix-blend-screen opacity-70 animate-glitch-agresivo z-0"
               style={{ filter: 'drop-shadow(0 0 5px currentColor)', translate: '2px -1px', '--delay': '0.4s' }}
             />
             <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-sky-400 to-transparent opacity-80 animate-scan-agresivo z-20 pointer-events-none" />
@@ -161,9 +156,16 @@ export default function NosotrosPage() {
                     <div className="text-sm leading-relaxed opacity-70 mb-4" style={{ color: 'var(--fg2)' }}>{item.desc}</div>
                   </div>
                   
-                  <div className="h-32 rounded-2xl border border-white/5 bg-white/[0.02] flex items-center justify-center group overflow-hidden">
-                    <img src={FebreroTime} className="w-full h-full object-cover" />
-                    <ImageIcon className="text-white/10 group-hover:text-sky-500/40 transition-colors" />
+                  <div className="relative w-44 h-28 shrink-0 rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden group">
+                    <img 
+                      src={FebreroTime} 
+                      alt="Trayectoria IEEE CS UNI"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    
+                    {/* Overlay sutil solo para dar contraste al texto de al lado */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent pointer-events-none" />
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { team } from '../data'
+import { team } from '../data/index'
 import { HeroTag, Orb } from '../components/ui/HeroElements'
 import { SectionLabel, SectionTitle } from '../components/ui/SectionHeader'
 import { MemberCard } from '../components/ui/MemberCard'

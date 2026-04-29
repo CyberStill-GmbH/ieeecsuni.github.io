@@ -152,7 +152,11 @@ export default function EventosPage() {
                   </p>
                </div>
                <div className="flex-shrink-0">
-                  <Link to="/contacto" className="inline-flex items-center gap-3 px-8 py-4 border border-sky-500/50 text-sky-400 rounded-2xl font-bold hover:bg-sky-500 hover:text-white transition-all group">
+                  <Link 
+                    to="/contacto"
+                    onClick={() => window.scrollTo(0, 0)} 
+                    className="inline-flex items-center gap-3 px-8 py-4 border border-sky-500/50 text-sky-400 rounded-2xl font-bold hover:bg-sky-500 hover:text-white transition-all group"
+                    >
                     Enviar propuesta <Monitor className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                   </Link>
                </div>
