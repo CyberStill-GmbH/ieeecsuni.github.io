@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { IEEECSLogo } from '../../assets/IEEECSLogo'
-import { useAuth } from '../../context/AuthContext'
 import { navLinks } from '../../data'
 
 export function Navbar() {
-  const { user, logout } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
   const [scrolled, setScrolled] = useState(false)
@@ -19,15 +17,7 @@ export function Navbar() {
 
   useEffect(() => { setMenuOpen(false) }, [location.pathname])
 
-  const handleLogout = () => {
-    logout()
-    navigate('/')
-  }
-  //-----Eliminar navbar al entrar al login-form------
   
-  if (location.pathname === '/login') {
-    return null;
-  }
 
   return (
     <>
