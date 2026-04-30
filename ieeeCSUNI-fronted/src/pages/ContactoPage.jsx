@@ -224,7 +224,7 @@ export default function ContactoPage() {
             {/* RRSS */}
             <div className="grid grid-cols-3 gap-3">
               {[{Icon:<Linkedin />, link: "https://www.linkedin.com/company/ieee-cs-uni-sb/"}, {Icon: <Instagram />, link: "https://www.instagram.com/ieee.cs.uni/"}, {Icon: <Github />, link: "https://github.com/ieeecsuni-droid"}].map((info, i) => (
-                <a key={i} href={info.link} className="bg-white/5 border border-white/10 flex items-center justify-center p-4 rounded-2xl hover:border-sky-500/50 transition-all text-gray-400 hover:text-sky-400">
+                <a key={i} href={info.link} target='_blank' rel='noopener noreferrer' className="bg-white/5 border border-white/10 flex items-center justify-center p-4 rounded-2xl hover:border-sky-500/50 transition-all text-gray-400 hover:text-sky-400">
                   <div className="w-5 h-5">{info.Icon}</div>
                 </a>
               ))}

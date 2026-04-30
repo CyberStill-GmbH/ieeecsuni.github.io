@@ -255,16 +255,17 @@ export default function EventosPage() {
                 Únete a la comunidad y recibe notificaciones directas.
               </p>
             </div>
-            <Link
-              to="/contacto"
-              onClick={() => window.scrollTo(0, 0)}
+            <a
+              href='https://www.whatsapp.com/channel/0029Vb7ULtl9MF99Felbfi1c'
+              target='_blank'
+              rel="noopener noreferrer"
               className="flex-shrink-0 inline-flex items-center gap-2 px-7 py-3.5 rounded-xl
                          bg-sky-500 hover:bg-sky-400 text-white font-bold text-sm
                          transition-all duration-200 hover:shadow-[0_0_24px_rgba(14,165,233,0.35)]"
             >
               Unirme a la comunidad
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </a>
           </div>
         </div>
       </section>
