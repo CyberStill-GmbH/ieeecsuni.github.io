@@ -6,18 +6,18 @@
 
 /* ── Design tokens ── */
 :root {
-  --b:     #0a0f1c;
+  --b:     #020617;
   --b2:    #0e1627;
   --b3:    #131d35;
-  --c1:    #00d4ff;
-  --c2:    #0099dd;
-  --c3:    #006699;
+  --c1:    #0ea5e9;
+  --c2:    #0284c7;
+  --c3:    #0369a1;
   --gold:  #f5a800;
-  --fg:    #e8f4ff;
-  --fg2:   #8db4cc;
-  --fg3:   #3d6080;
-  --border:  rgba(0, 170, 255, 0.12);
-  --border2: rgba(0, 170, 255, 0.25);
+  --fg:    #f1f5f9;
+  --fg2:   #94a3b8;
+  --fg3:   #334155;
+  --border:  rgba(14, 165, 233, 0.10);
+  --border2: rgba(14, 165, 233, 0.22);
 }
 
 /* ── Base ── */
@@ -31,115 +31,157 @@ body {
   line-height: 1.6;
 }
 
-/* Grid background */
-body::before {
+/* ── Fondo ambiental animado ─────────────────────────────────────
+   Tres blobs de color que se mueven muy lentamente — ciclo de 30s+.
+   Imperceptibles en movimiento pero eliminan el vacío del fondo puro.
+   Técnica usada por Linear, Clerk y Vercel.
+   z-index: -1 garantiza que nunca interfiere con el contenido.
+─────────────────────────────────────────────────────────────── */
+body::before,
+body::after {
   content: '';
   position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(120px);
+  opacity: 0.5;
+}
+
+/* Blob 1 — azul, superior derecha */
+body::before {
+  width: 700px;
+  height: 700px;
+  top: -200px;
+  right: -150px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.12), transparent 70%);
+  animation: blob-drift-1 35s ease-in-out infinite alternate;
+}
+
+/* Blob 2 — índigo, inferior izquierda */
+body::after {
+  width: 600px;
+  height: 600px;
+  bottom: -100px;
+  left: -100px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08), transparent 70%);
+  animation: blob-drift-2 45s ease-in-out infinite alternate;
+}
+
+@keyframes blob-drift-1 {
+  0%   { transform: translate(0, 0) scale(1);    }
+  33%  { transform: translate(-80px, 60px) scale(1.1);  }
+  66%  { transform: translate(40px, 100px) scale(0.95); }
+  100% { transform: translate(-40px, 30px) scale(1.05); }
+}
+
+@keyframes blob-drift-2 {
+  0%   { transform: translate(0, 0) scale(1);     }
+  33%  { transform: translate(60px, -80px) scale(1.08); }
+  66%  { transform: translate(-50px, 40px) scale(0.92); }
+  100% { transform: translate(30px, -30px) scale(1.03); }
+}
+
+/* ── Dot grid estático — encima de los blobs, debajo del contenido ──
+   Subimos la opacidad vs antes (0.04 → 0.06) porque ahora los
+   blobs dan profundidad y el grid puede ser más visible sin pesar.
+────────────────────────────────────────────────────────────── */
+.bg-grid {
+  position: fixed;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(0, 150, 200, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 150, 200, 0.04) 1px, transparent 1px);
-  background-size: 60px 60px;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+  background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar       { width: 5px; }
-::-webkit-scrollbar-track { background: var(--b2); }
-::-webkit-scrollbar-thumb { background: var(--c3); border-radius: 3px; }
+/* Tercer blob — pequeño, cyan, sigue el scroll via JS opcional.
+   Si no usas JS, se queda fijo en el centro como accent sutil. */
+.ambient-blob-center {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.05), transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+  animation: blob-center-breathe 20s ease-in-out infinite;
+}
 
-/* ── Reusable utility classes (complement Tailwind) ── */
+@keyframes blob-center-breathe {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1);    }
+  50%       { opacity: 0.7; transform: translateX(-50%) scale(1.15); }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(14, 165, 233, 0.4); }
+
+/* ── Utility classes ─────────────────────────────────────────── */
 @layer components {
 
-  /* Buttons */
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-8 py-3.5 rounded-lg text-sm font-bold tracking-widest uppercase text-white border-none cursor-pointer transition-all duration-200 no-underline;
-    background: linear-gradient(135deg, var(--c3), var(--c2));
+    @apply inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-bold
+           text-white cursor-pointer transition-all duration-200 no-underline;
+    background: var(--c1);
   }
   .btn-primary:hover {
-    background: linear-gradient(135deg, var(--c2), var(--c1));
-    @apply -translate-y-0.5;
-    box-shadow: 0 8px 28px rgba(0, 170, 255, 0.25);
+    background: #38bdf8;
+    box-shadow: 0 0 24px rgba(14, 165, 233, 0.35);
   }
 
   .btn-outline {
-    @apply inline-flex items-center gap-2 px-8 py-3.5 rounded-lg text-sm font-bold tracking-widest uppercase cursor-pointer transition-all duration-200 no-underline;
-    border: 1.5px solid var(--border2);
-    color: var(--c1);
+    @apply inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-bold
+           cursor-pointer transition-all duration-200 no-underline;
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--fg2);
     background: transparent;
   }
   .btn-outline:hover {
-    border-color: var(--c1);
-    background: rgba(0, 212, 255, 0.06);
-    @apply -translate-y-0.5;
-  }
-
-  /* Section label */
-  .sec-label {
-    @apply flex items-center gap-3 mb-4;
-  }
-  .sec-label::before {
-    content: '';
-    @apply block w-6 h-0.5;
-    background: var(--c1);
-  }
-  .sec-label span {
-    @apply font-mono text-xs tracking-widest uppercase;
-    color: var(--c1);
-  }
-
-  .sec-title {
-    @apply text-4xl md:text-5xl font-extrabold tracking-tight leading-tight;
+    border-color: rgba(14, 165, 233, 0.3);
+    background: rgba(14, 165, 233, 0.04);
+    color: white;
   }
 
   /* Cards */
   .card-base {
-    @apply rounded-xl border transition-all duration-200;
-    background: var(--b2);
-    border-color: var(--border);
+    @apply rounded-2xl border transition-all duration-300;
+    background: rgba(255,255,255,0.015);
+    border-color: rgba(255,255,255,0.06);
   }
   .card-base:hover {
-    border-color: var(--border2);
-    @apply -translate-y-1;
+    border-color: rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
   }
 
   /* Form fields */
   .field-label {
-    @apply font-mono text-xs tracking-widest uppercase mb-1;
-    color: var(--fg2);
+    @apply font-mono text-[10px] tracking-[0.25em] uppercase mb-1.5 text-gray-500;
   }
   .field-input {
-    @apply w-full rounded-lg px-4 py-3 text-sm outline-none transition-all duration-200;
-    background: rgba(0, 80, 130, 0.1);
-    border: 1px solid var(--border2);
-    color: var(--fg);
+    @apply w-full rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200
+           bg-white/[0.03] border border-white/[0.08] text-white;
     font-family: 'Outfit', sans-serif;
   }
-  .field-input::placeholder { color: var(--fg3); }
+  .field-input::placeholder { @apply text-gray-700; }
   .field-input:focus {
-    border-color: var(--c1);
-    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
+    @apply border-sky-500/40;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.06);
   }
-  .field-input option { background: var(--b3); }
 
-  /* Chip / tag */
+  /* Chip */
   .chip {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono;
-    background: rgba(0, 150, 220, 0.1);
-    border: 1px solid var(--border);
-    color: var(--fg2);
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono
+           bg-sky-500/10 border border-sky-500/20 text-sky-400/80;
   }
 
-  /* Page hero wrapper */
-  .page-hero {
-    @apply relative flex flex-col justify-center px-12 md:px-20 overflow-hidden;
-    padding-top: 80px;
-    padding-bottom: 60px;
-    min-height: calc(100vh - 64px);
-  }
-
-  /* Orb glows */
+  /* Orb legacy — mantenido por compatibilidad pero deprecado */
   .orb {
     @apply absolute rounded-full pointer-events-none;
     filter: blur(80px);
@@ -149,117 +191,59 @@ body::before {
 /* ── Scroll reveal ── */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
 
-/* Edgy/glitch estilo de animación */
-@keyframes glitch-horizontal {
-  0% { transform: translate(0); }
-  15% { transform: translate(-3px, 1px) skewX(2deg); }
-  25% { transform: translate(2px, -1px) skewX(-1deg); }
-  35% { transform: translate(0); }
-  45% { transform: translate(-4px, 2px); }
-  55% { transform: translate(3px, -2px); }
-  65% { transform: translate(0); }
-  100% { transform: translate(0); }
-}
-
-@keyframes scan-agresivo {
-  0% { transform: translateY(-120%); opacity: 0; }
-  20% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { transform: translateY(120%); opacity: 0; }
-}
-/* Clases de utilidad para la mascota */
-.animate-glitch-agresivo {
-  animation: glitch-horizontal 0.5s ease-in-out infinite;
-  animation-delay: calc(var(--delay, 0s) * -1);
-}
-
-.animate-scan-agresivo {
-  animation: scan-agresivo 2s linear infinite;
-}
-
-/* Efecto de aura de fuego */
+/* ── Animaciones de mascota (mantenidas) ── */
 @keyframes spark-float {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(-100px) scale(0.5);
-    opacity: 0;
-  }
-}
-
-/* Brillo sutil para la mascota */
-@keyframes soft-glow {
-  0%, 100% { filter: drop-shadow(0 0 5px rgba(255, 69, 0, 0.2)); }
-  50% { filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.4)); }
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  50%  { opacity: 0.8; }
+  100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
 }
 
 .spark {
   position: absolute;
   width: 4px;
   height: 4px;
-  border-radius: full;
+  border-radius: 50%;
   animation: spark-float 2s infinite ease-out;
 }
 
-/* --- Efecto para el Fénix Formal (Elegante/Tecnológico) --- */
 @keyframes formal-glow {
-  0%, 100% {
-    filter: drop-shadow(0 0 5px rgba(0, 102, 204, 0.4));
-    transform: translateY(0);
-  }
-  50% {
-    filter: drop-shadow(0 0 20px rgba(0, 102, 204, 0.8));
-    transform: translateY(-5px);
-  }
+  0%, 100% { filter: drop-shadow(0 0 5px rgba(14, 165, 233, 0.4)); transform: translateY(0); }
+  50%       { filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.8)); transform: translateY(-5px); }
 }
+.fenix-formal { animation: formal-glow 4s ease-in-out infinite; }
+.fenix-formal:hover { transform: scale(1.05); }
 
-.fenix-formal {
-  animation: formal-glow 4s ease-in-out infinite;
-  transition: transform 0.3s ease;
-}
-
-.fenix-formal:hover {
-  transform: scale(1.05); 
-}
-
-/* --- Efecto para el Fénix UNI (Relajado/Programador) --- */
 @keyframes uni-float {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-8px) rotate(1deg);
-  }
-  75% {
-    transform: translateY(8px) rotate(-1deg);
-  }
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
+  0%   { transform: translateY(0px) rotate(0deg); }
+  25%  { transform: translateY(-8px) rotate(1deg); }
+  75%  { transform: translateY(8px) rotate(-1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
 }
+.fenix-uni { animation: uni-float 6s ease-in-out infinite; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3)); }
+.fenix-uni:active { filter: brightness(1.2); }
 
-.fenix-uni {
-  animation: uni-float 6s ease-in-out infinite;
-  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+/* ── Marquee (CODENIX legacy) ── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
+.animate-marquee { animation: marquee linear infinite; }
 
-.fenix-uni:active {
-  filter: brightness(1.2);
+/* ── Progress bar (CODENIX) ── */
+@keyframes load-progress {
+  from { width: 0%; }
+  to   { width: 1%; }
 }
+.animate-load-progress { animation: load-progress 2s ease-out forwards; }
