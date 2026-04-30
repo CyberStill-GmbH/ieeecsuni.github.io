@@ -28,7 +28,7 @@ class ContactController extends Controller
             ]),
             'evento' => $request->validate([
                 'tipoEvento' => 'nullable|string',
-                'fechaprobable' => ' nullable|date',
+                'fechaProbable' => 'nullable|date',
             ]),
             'mentor' => $request->validate([
                 'areaExperticia' => 'nullable|string',
