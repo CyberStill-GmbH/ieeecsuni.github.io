@@ -1,5 +1,0 @@
-[phases.install]
-cmds = ["composer install --no-dev --optimize-autoloader --no-interaction"]
-
-[start]
-cmd = "vendor/bin/heroku-php-apache2 public/"
