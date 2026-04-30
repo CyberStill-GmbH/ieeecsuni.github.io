@@ -49,8 +49,8 @@ const DEFAULT_CTA = {
 export function ResourceCard({ resource, featured = false }) {
   const {
     title,
-    description,
-    url,
+    excerpt,
+    link,
     category,
     type,
     level,
@@ -64,7 +64,7 @@ export function ResourceCard({ resource, featured = false }) {
 
   return (
     <a
-      href={url}
+      href={link}
       target="_blank"
       rel="noopener noreferrer"
       className={`
@@ -123,7 +123,7 @@ export function ResourceCard({ resource, featured = false }) {
       {/* Cuerpo */}
       <div className="p-6 pt-4 flex-1 flex flex-col justify-between gap-5">
         <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">
-          {description ?? 'Recurso técnico del ecosistema IEEE CS UNI.'}
+          {excerpt ?? 'Recurso técnico del ecosistema IEEE CS UNI.'}
         </p>
 
         {/* CTA */}

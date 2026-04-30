@@ -39,14 +39,24 @@ export const resources = [
     category: "IEEE Xplore",
     description: "Acceso a millones de documentos técnicos de alta calidad en ingeniería y computación.", 
     url: "https://ieeexplore.ieee.org/", 
-    date: "2026"
+    date: "2026",
+    featured: true,
+    type: "paper",
+    level: "intermediate",
+    area: "research",
+    cta: 'Leer paper',
   },
   {
     title: "Recopilación de libros gratuitos de programación",
     category: "Programación",
     excerpt: "Una recopilación de más de 100 libros de programación, desde bases hasta frameorks modernos y arquitectura de sistemas.",
     link: "https://librosgratis.dev/", 
-    date: "Abril 2026"
+    date: "Abril 2026",
+    featured: true,
+    type: "reference",
+    level: "beginner",
+    area: "software",
+    cta: 'Leer libros',
   },
   {
     title: "USACO: Recursos de programación competitiva",
@@ -54,6 +64,11 @@ export const resources = [
     excerpt: "Guía con problemas para iniciar en la programación competitiva con C++",
     link: "https://usaco.guide/",
     date: "Abril 2026",
+    featured: true,
+    type: "reference",
+    level: "intermediate",
+    area: "competitive",
+    cta: 'Resolver problemas',
   },
   {
     title: "The Odin Project",
@@ -61,6 +76,10 @@ export const resources = [
     excerpt: "Curso completo de desarrollo web fullstack (HTML, CSS, JS, React, NodeJS, Ruby)",
     link: "https://www.theodinproject.com/",
     date: "Abril 2026",
+    featured: false,
+    type: "course",
+    level: "beginner",
+    area: "software",
   },
   {
     title: "Repositorio de teoría de programación competitiva",
@@ -68,6 +87,11 @@ export const resources = [
     link: "https://cp-algorithms.com/",
     excerpt: "Programación Competitiva",
     date: "Abril 2026",
+    featured: false,
+    type: "paper",
+    level: "intermediate",
+    area: "competitive",
+    cta: 'guía de teoría',
   }
 
 ]
