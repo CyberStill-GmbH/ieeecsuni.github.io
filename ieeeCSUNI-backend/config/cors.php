@@ -4,7 +4,7 @@ return [
     'paths'           => ['api/*'],
     'allowed_origins' => [
         'http://localhost:5173',
-        'https://tu-web.vercel.app',  
+        'https://ieeecsuni.vercel.app/',  
     ],
     'allowed_methods' => ['*'],
     'allowed_headers' => ['*'],
