@@ -35,7 +35,7 @@ export default function ContactoPage() {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application-json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           tipo: activeTab,
           nombre:         form.nombre,
