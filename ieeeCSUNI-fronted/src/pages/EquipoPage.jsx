@@ -113,9 +113,13 @@ export default function EquipoPage() {
               </div>
 
               <div className="mt-12">
-                <a href="mailto:tu-correo@uni.edu.pe" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-2xl font-bold hover:bg-sky-500 hover:text-white transition-all group">
+                <Link 
+                to="/contacto"
+                  onClick={() => window.scrollTo(0, 0)}  
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-2xl font-bold hover:bg-sky-500 hover:text-white transition-all group"
+                >
                   Postular como asesor <Mail className="w-4 h-4 group-hover:scale-110" />
-                </a>
+                </Link>
               </div>
             </div>
 

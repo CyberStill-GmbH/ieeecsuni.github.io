@@ -105,7 +105,7 @@ export default function EventosPage() {
           Dot grid + dos columnas: copy institucional + video.
           Sin scanlines, sin Play icon sobre video en autoplay.
       ═════════════════════════════════════════════════════ */}
-      <section className="relative px-6 md:px-20 pt-20 pb-0 overflow-hidden">
+      <section className="relative px-6 md:px-20 pt-6 pb-0 overflow-hidden">
 
         {/* Dot grid — sistema compartido con HomePage/NosotrosPage */}
         <div

@@ -200,7 +200,7 @@ export default function NosotrosPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/80 via-transparent to-[#020617] pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/50 via-transparent to-[#020617]/70 pointer-events-none" />
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-16 items-center py-24">
+        <div className="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-16 items-center py-16">
 
           {/* Copy */}
           <div className="reveal">
@@ -249,7 +249,7 @@ export default function NosotrosPage() {
           El tipo editorial más poderoso que cualquier card.
       ═════════════════════════════════════════════════════ */}
       <div className="border-t border-white/[0.05]" />
-      <section className="py-28 px-6 md:px-20">
+      <section className="py-20 px-6 md:px-20">
         <div className="max-w-7xl mx-auto reveal">
           <span className="font-mono text-[10px] tracking-[0.3em] text-sky-500/50 uppercase block mb-8">
             Misión
@@ -268,7 +268,7 @@ export default function NosotrosPage() {
           Color único: sky. Sin desviaciones cromáticas.
       ═════════════════════════════════════════════════════ */}
       <div className="border-t border-white/[0.05]" />
-      <section className="py-28 px-6 md:px-20">
+      <section className="py-20 px-6 md:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
             <SectionMeta tag="Fundamentos" title={<>Lo que nos<br />define.</>} />
@@ -290,7 +290,7 @@ export default function NosotrosPage() {
           Sin gradientes de fondo inline.
       ═════════════════════════════════════════════════════ */}
       <div className="border-t border-white/[0.05]" />
-      <section className="py-28 px-6 md:px-20 bg-white/[0.01]">
+      <section className="py-14 px-6 md:px-20 bg-white/[0.01]">
         <div className="max-w-7xl mx-auto">
           <div className="reveal mb-14">
             <SectionMeta tag="Valores" title={<>Código que<br />nos guía.</>} />
@@ -309,7 +309,7 @@ export default function NosotrosPage() {
           item — honesto, no repetitivo.
       ═════════════════════════════════════════════════════ */}
       <div className="border-t border-white/[0.05]" />
-      <section className="py-28 px-6 md:px-20">
+      <section className="py-20 px-6 md:px-20">
         <div className="max-w-4xl mx-auto">
           <div className="reveal mb-16">
             <SectionMeta tag="Historia" title={<>Nuestra<br />trayectoria.</>} />
@@ -338,7 +338,7 @@ export default function NosotrosPage() {
           El equivalente al "As seen in" de startups serias.
       ═════════════════════════════════════════════════════ */}
       <div className="border-t border-white/[0.05]" />
-      <section className="py-20 px-6 md:px-20 bg-white/[0.015]">
+      <section className="py-14 px-6 md:px-20 bg-white/[0.015]">
         <div className="max-w-7xl mx-auto">
           <div className="reveal mb-12 text-center">
             <span className="font-mono text-[10px] tracking-[0.3em] text-gray-600 uppercase">
@@ -374,7 +374,7 @@ export default function NosotrosPage() {
           Cierre limpio. Invita a la acción sin forzarla.
       ═════════════════════════════════════════════════════ */}
       <div className="border-t border-white/[0.05]" />
-      <section className="py-28 px-6 md:px-20">
+      <section className="py-20 px-6 md:px-20">
         <div className="max-w-7xl mx-auto reveal flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
           <div>
             <h3 className="font-black text-4xl md:text-5xl tracking-tight leading-[0.9] text-white mb-4">
