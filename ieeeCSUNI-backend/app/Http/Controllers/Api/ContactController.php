@@ -45,8 +45,8 @@ class ContactController extends Controller
             'area_experticia' => $request->areaExperticia,
         ]);
 
-        //Mail::to('contacto@landing.ieeecsuni.com')->send(new ContactNotification($contact));
-        //Mail::to($contact->email)->send(new AutoReplyMail($contact));
+        Mail::to('contacto@landing.ieeecsuni.com')->send(new ContactNotification($contact));
+        Mail::to($contact->email)->send(new AutoReplyMail($contact));
         
         return response()->json(['success' => true, 'message' => 'Solicitud enviada'], 201);
     }
