@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('tipo_evento')->nullable();
             $table->date('fecha_probable')->nullable();
             // Mentor
-            $table->string('area_experiencia')->nullable();
+            $table->string('area_experticia')->nullable();
             $table->timestamps();
         });
     }
