@@ -1,71 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
-/* ── TOKENS ── */
+/* ─────────────────────────────────────────────
+   TOKENS DEL DESIGN SYSTEM
+   Los tokens de marca (--ieee-blue, etc.) viven aquí.
+   Los tokens de layout (--b, --c1, etc.) viven en index.css.
+   No duplicar — importar según necesidad.
+───────────────────────────────────────────── */
 :root {
-  /* Paleta base (ajusta aquí si cambias el branding) */
-  --ieee-blue:       #3b82f6;
-  --ieee-blue-dim:   rgba(59,130,246,0.15);
-  --ieee-blue-ring:  rgba(59,130,246,0.35);
-  --ieee-green:      #4ade80;
-  --ieee-green-dim:  rgba(74,222,128,0.12);
-  --ieee-amber:      #fbbf24;
-  --ieee-amber-dim:  rgba(251,191,36,0.12);
-  --ieee-red:        #f87171;
-  --ieee-red-dim:    rgba(248,113,113,0.12);
+  /* Marca IEEE */
+  --ieee-blue:          #3b82f6;
+  --ieee-blue-dim:      rgba(59, 130, 246, 0.15);
+  --ieee-blue-ring:     rgba(59, 130, 246, 0.35);
+  --ieee-green:         #4ade80;
+  --ieee-green-dim:     rgba(74, 222, 128, 0.12);
+  --ieee-amber:         #fbbf24;
+  --ieee-amber-dim:     rgba(251, 191, 36, 0.12);
+  --ieee-red:           #f87171;
+  --ieee-red-dim:       rgba(248, 113, 113, 0.12);
 
-  /* Glassmorphism surfaces */
-  --glass-bg:        rgba(255,255,255,0.04);
-  --glass-bg-hover:  rgba(255,255,255,0.07);
-  --glass-border:    rgba(255,255,255,0.08);
-  --glass-border-hover: rgba(255,255,255,0.15);
+  /* Superficies glassmorphism */
+  --glass-bg:           rgba(255, 255, 255, 0.04);
+  --glass-bg-hover:     rgba(255, 255, 255, 0.07);
+  --glass-border:       rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.15);
 
   /* Texto */
-  --text-primary:    #e8edf5;
-  --text-secondary:  rgba(232,237,245,0.55);
-  --text-muted:      rgba(232,237,245,0.3);
-
-  /* Fondos de página */
-  --bg-page:         #07080f;
-  --bg-sidebar:      rgba(7,8,15,0.85);
+  --text-primary:   #e8edf5;
+  --text-secondary: rgba(232, 237, 245, 0.55);
+  --text-muted:     rgba(232, 237, 245, 0.3);
 
   /* Tipografía */
-  --font-sans:       'Outfit', sans-serif;
-  --font-mono:       'JetBrains Mono', monospace;
+  --font-sans: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 
   /* Radios */
-  --radius-sm:  6px;
-  --radius-md:  10px;
-  --radius-lg:  14px;
-  --radius-xl:  20px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
 }
 
-/* ── BASE ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ─────────────────────────────────────────────
+   BASE
+   Solo propiedades que index.css no cubre.
+   body::before / body::after los gestiona index.css
+   para evitar conflicto de pseudo-elementos.
+───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-sans);
-  background: var(--bg-page);
-  color: var(--text-primary);
-  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
-/* Fondo con gradiente radial sutil (atmósfera) */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 70% -10%, rgba(59,130,246,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at -10% 80%, rgba(74,222,128,0.05) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ── GLASSMORPHISM UTILITIES ──
-   Úsalas directamente en className o como base de tus componentes */
+/* ─────────────────────────────────────────────
+   GLASSMORPHISM UTILITIES
+───────────────────────────────────────────── */
 .glass {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
@@ -81,20 +78,11 @@ body::before {
   border-color: var(--glass-border-hover);
 }
 
-/* ── SCROLLBAR CUSTOM ── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
-
-/* ── STATUS BADGES ─
-   Úsalos como: <span className="badge-pending">Pendiente</span> */
-.badge-pending  { background: var(--ieee-amber-dim); color: var(--ieee-amber); border: 1px solid rgba(251,191,36,0.25); }
-.badge-progress { background: var(--ieee-blue-dim);  color: var(--ieee-blue);  border: 1px solid var(--ieee-blue-ring); }
-.badge-done     { background: var(--ieee-green-dim); color: var(--ieee-green); border: 1px solid rgba(74,222,128,0.25); }
-.badge-rejected { background: var(--ieee-red-dim);  color: var(--ieee-red);   border: 1px solid rgba(248,113,113,0.25); }
-
-.badge-pending, .badge-progress, .badge-done, .badge-rejected {
+/* ─────────────────────────────────────────────
+   STATUS BADGES
+   Uso: <span className="badge badge-pending">Pendiente</span>
+───────────────────────────────────────────── */
+.badge {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -107,16 +95,33 @@ body::before {
   white-space: nowrap;
 }
 
-/* ── ANIMACIONES ── */
+.badge-pending  { background: var(--ieee-amber-dim); color: var(--ieee-amber); border: 1px solid rgba(251, 191, 36,  0.25); }
+.badge-progress { background: var(--ieee-blue-dim);  color: var(--ieee-blue);  border: 1px solid var(--ieee-blue-ring);   }
+.badge-done     { background: var(--ieee-green-dim); color: var(--ieee-green); border: 1px solid rgba(74,  222, 128, 0.25); }
+.badge-rejected { background: var(--ieee-red-dim);   color: var(--ieee-red);   border: 1px solid rgba(248, 113, 113, 0.25); }
+
+/* ─────────────────────────────────────────────
+   SCROLLBAR
+   Definido una sola vez aquí. Eliminado de index.css
+   para evitar duplicado.
+───────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.18); }
+
+/* ─────────────────────────────────────────────
+   ANIMACIONES GLOBALES
+───────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse-ring {
-  0%   { box-shadow: 0 0 0 0 var(--ieee-blue-ring); }
+  0%   { box-shadow: 0 0 0 0   var(--ieee-blue-ring); }
   70%  { box-shadow: 0 0 0 8px transparent; }
-  100% { box-shadow: 0 0 0 0 transparent; }
+  100% { box-shadow: 0 0 0 0   transparent; }
 }
 
 .animate-fade-up { animation: fadeUp 0.4s ease both; }
